@@ -15,5 +15,5 @@ import HelloWorld from "./components/HelloWorld.vue";
 </template>
 
 <style lang="scss">
-@use "/src/scss/general.scss" as *;
+@use "/src/styles/general.scss" as *;
 </style>
