@@ -1,11 +1,9 @@
 <script>
 </script>
 <template>
-    <h1>Main</h1>
-    
+    <h1>ricerca</h1>
 
 </template>
-
 <style scoped>
 
 </style>
