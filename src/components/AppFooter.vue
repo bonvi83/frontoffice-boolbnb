@@ -1,6 +1,5 @@
-<script></script>
-
-
+<script>
+</script>
 
 <template>
   <footer class="text-white">
@@ -25,12 +24,12 @@
 </template>
 
 <style lang="scss" scoped>
-footer {
-  background-color: rgb(0, 27, 54);
-}
+  footer {
+    background-color: rgb(0, 27, 54);
+  }
 
-.container {
-  align-items: baseline;
-}
+  .container {
+    align-items: baseline;
+  }
 
 </style>
