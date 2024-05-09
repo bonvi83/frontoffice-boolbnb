@@ -71,14 +71,11 @@ export default {
                             
                         </ul>
                     </div>
-                <!-- </div> -->
-                
-            </div>
 
+       
+                </div>
         </div>
-      </div>
-    </div>
-  </nav>
+    </nav>
 </template>
 <style lang="scss" scoped>
 

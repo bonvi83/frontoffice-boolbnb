@@ -19,23 +19,22 @@ export default {
 <template>
   <div id="app">
 
-      <div class="page-container">
-        <AppHeader/>
-        
-        
-        <div class="main-container">
+        <div class="page-container">
+          <AppHeader/>
+          
+          
+          <div class="main-container">
 
-         <router-view />
- 
-        
+          <router-view />
+  
+          
+          </div>
+
+          <AppFooter/>
+
         </div>
 
-        <AppFooter/>
-
-      </div>
-
-      <AppFooter />
-    </div>
+    
   </div>
 </template>
 
