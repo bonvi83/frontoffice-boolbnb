@@ -9,9 +9,12 @@ export default {
 
       lat: "",
       lon: "",
-      radius: 20000,
+      radius: 500,
 
       suggestions: [],
+      apartments: [],
+      pagLinks: [],
+      paginationBaseURL: "",
     };
   },
   components: {},
@@ -37,7 +40,7 @@ export default {
         });
     },
 
-    salavCoordinate(lat, lon) {
+    saveCoordinates(lat, lon) {
       this.lat = lat;
       this.lon = lon;
     },
@@ -48,7 +51,30 @@ export default {
           `http://127.0.0.1:8000/api/research/${latitude}&${longitude}&${radius}`
         )
         .then((response) => {
-          console.log(response);
+          console.log(response.config.url);
+          console.log(response.data);
+          console.log(response.data.links);
+          this.apartments = response.data.data;
+          this.pagLinks = response.data.links;
+          this.paginationBaseURL = response.config.url;
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+
+    paginationNav(url) {
+      axios
+        .get(url)
+        .then((response) => {
+          console.log(response.config.url);
+          console.log(response.data);
+          console.log(response.data.links);
+          this.apartments = response.data.data;
+          this.pagLinks = response.data.links;
+        })
+        .catch((e) => {
+          console.log(e.message);
         });
     },
   },
@@ -56,27 +82,96 @@ export default {
 </script>
 
 <template>
-  <h1>ricerca</h1>
+  <div class="container mt-3">
+    <!-- search bar -->
+    <div class="d-flex w-100 align-items-center">
+      <label for="" class="flex-grow-1">
+        <div>Dove</div>
+        <input
+          type="text"
+          class="border-0 w-50 search-app-input"
+          v-model="searchInput"
+          @input="fecthAddresses(searchInput)"
+          @keyup.enter="fetchApartments(lat, lon, radius)"
+          placeholder="Cerca destinazione"
+        />
+      </label>
 
-  <input
-    type="text"
-    v-model="searchInput"
-    @input="fecthAddresses(searchInput)"
-  />
+      <label for="" class="flex-grow-1">
+        <div>Raggio di ricerca (mt)</div>
+        <input
+          type="number"
+          min="500"
+          step="500"
+          class="border-0 w-50 search-app-input"
+          v-model="radius"
+          placeholder="Cerca destinazione"
+        />
+      </label>
 
-  <ul v-if="suggestions">
-    <li
-      v-for="suggestion in suggestions"
-      @click="salavCoordinate(suggestion.lat, suggestion.lon)"
-    >
-      {{ suggestion.address }}
-    </li>
-  </ul>
+      <button
+        class="search-address"
+        :disabled="!searchInput"
+        @click="fetchApartments(lat, lon, radius)"
+      >
+        invia
+      </button>
+    </div>
+    <!-- suggerimenti -->
+    <ul v-if="suggestions">
+      <li
+        v-for="suggestion in suggestions"
+        @click="saveCoordinates(suggestion.lat, suggestion.lon)"
+      >
+        {{ suggestion.address }}
+      </li>
+    </ul>
+  </div>
+  <!-- hr -->
+  <hr />
 
-  <h2>Lat: {{ lat }}</h2>
-  <h2>Lon: {{ lon }}</h2>
-
-  <button @click="fetchApartments(lat, lon, radius)">invia</button>
+  <!-- Apartment -->
+  <div class="container pb-3">
+    <div class="row g-3 mb-3">
+      <div v-for="apartment in apartments" class="col-3">
+        <div class="card">
+          <img :src="apartment.cover_img" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">{{ apartment.name }}</h5>
+            <p class="card-text">
+              {{ apartment.address }}
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- paginazione -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item" v-for="link in pagLinks">
+          <a
+            class="page-link"
+            :class="{
+              active: link.active,
+              disabled: !link.url,
+            }"
+            v-html="link.label"
+            href="javascript:void(0)"
+            @click="paginationNav(paginationBaseURL + link.url)"
+          ></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.search-address {
+  width: 100px;
+}
+
+.search-app-input {
+  outline: none;
+}
+</style>
