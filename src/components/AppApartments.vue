@@ -12,8 +12,10 @@ export default {
       radius: 500,
 
       suggestions: [],
+      suggestionVisibility: false,
       apartments: [],
       pagLinks: [],
+      totalPage: 0,
       paginationBaseURL: "",
     };
   },
@@ -21,6 +23,7 @@ export default {
   props: {},
   methods: {
     fecthAddresses(input) {
+      this.suggestionVisibility = true;
       this.suggestions = [];
       axios
         .get(
@@ -40,9 +43,11 @@ export default {
         });
     },
 
-    saveCoordinates(lat, lon) {
+    saveCoordinates(lat, lon, address) {
       this.lat = lat;
       this.lon = lon;
+      this.searchInput = address;
+      this.suggestionVisibility = false;
     },
 
     fetchApartments(latitude, longitude, radius) {
@@ -56,6 +61,7 @@ export default {
           console.log(response.data.links);
           this.apartments = response.data.data;
           this.pagLinks = response.data.links;
+          this.totalPage = response.data.last_page;
           this.paginationBaseURL = response.config.url;
         })
         .catch((e) => {
@@ -83,49 +89,61 @@ export default {
 
 <template>
   <div class="container mt-3">
-    <!-- search bar -->
-    <div class="d-flex w-100 align-items-center">
-      <label for="" class="flex-grow-1">
-        <div>Dove</div>
-        <input
-          type="text"
-          class="border-0 w-50 search-app-input"
-          v-model="searchInput"
-          @input="fecthAddresses(searchInput)"
-          @keyup.enter="fetchApartments(lat, lon, radius)"
-          placeholder="Cerca destinazione"
-        />
-      </label>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <!-- search bar -->
+        <div class="search-bar">
+          <label for="" class="flex-grow-1">
+            <div>Dove</div>
+            <input
+              type="text"
+              class="border-0 w-100 search-app-input pe-2"
+              v-model="searchInput"
+              @input="fecthAddresses(searchInput)"
+              @keyup.enter="fetchApartments(lat, lon, radius)"
+              placeholder="Cerca destinazione"
+            />
+          </label>
 
-      <label for="" class="flex-grow-1">
-        <div>Raggio di ricerca (mt)</div>
-        <input
-          type="number"
-          min="500"
-          step="500"
-          class="border-0 w-50 search-app-input"
-          v-model="radius"
-          placeholder="Cerca destinazione"
-        />
-      </label>
+          <!-- suggerimenti -->
+          <div id="suggestion" v-if="suggestionVisibility">
+            <div
+              class="suggested-address"
+              v-for="suggestion in suggestions"
+              @click="
+                saveCoordinates(
+                  suggestion.lat,
+                  suggestion.lon,
+                  suggestion.address
+                )
+              "
+            >
+              {{ suggestion.address }}
+            </div>
+          </div>
 
-      <button
-        class="search-address"
-        :disabled="!searchInput"
-        @click="fetchApartments(lat, lon, radius)"
-      >
-        invia
-      </button>
+          <label for="">
+            <div>Raggio di ricerca (mt)</div>
+            <input
+              type="number"
+              min="500"
+              step="500"
+              class="border-0 w-75 search-app-input"
+              v-model="radius"
+              placeholder="Cerca destinazione"
+            />
+          </label>
+
+          <button
+            class="search-address-btn"
+            :disabled="!searchInput"
+            @click="fetchApartments(lat, lon, radius)"
+          >
+            <font-awesome-icon icon="magnifying-glass" />
+          </button>
+        </div>
+      </div>
     </div>
-    <!-- suggerimenti -->
-    <ul v-if="suggestions">
-      <li
-        v-for="suggestion in suggestions"
-        @click="saveCoordinates(suggestion.lat, suggestion.lon)"
-      >
-        {{ suggestion.address }}
-      </li>
-    </ul>
   </div>
   <!-- hr -->
   <hr />
@@ -147,7 +165,7 @@ export default {
       </div>
     </div>
     <!-- paginazione -->
-    <nav aria-label="Page navigation example">
+    <nav v-if="totalPage > 1" aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" v-for="link in pagLinks">
           <a
@@ -167,11 +185,41 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.search-address {
-  width: 100px;
+.search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 0.8rem;
+}
+.search-address-btn {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+
+  border: none;
 }
 
 .search-app-input {
   outline: none;
+}
+
+#suggestion {
+  background-color: white;
+  width: 100%;
+  box-shadow: 0 15px 15px 0 grey;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  z-index: 1;
+
+  .suggested-address {
+    padding-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    cursor: pointer;
+  }
 }
 </style>
