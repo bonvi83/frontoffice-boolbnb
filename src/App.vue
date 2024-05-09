@@ -18,6 +18,7 @@ export default {
 
 <template>
   <div id="app">
+
       <div class="page-container">
         <AppHeader/>
         
@@ -30,13 +31,17 @@ export default {
         </div>
 
         <AppFooter/>
-      </div>
-</div>  
 
+      </div>
+
+      <AppFooter />
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
 @use "/src/styles/general.scss" as *;
+
 .page-container {
   display: flex;
   flex-direction: column;

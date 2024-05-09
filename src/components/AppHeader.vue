@@ -1,5 +1,4 @@
 <script>
-
 export default {
   data() {
     return {};
@@ -7,6 +6,7 @@ export default {
 };
 </script>
 <template>
+
     
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
          <!-- logo -->
@@ -74,10 +74,14 @@ export default {
                 <!-- </div> -->
                 
             </div>
+
         </div>
+      </div>
+    </div>
   </nav>
 </template>
 <style lang="scss" scoped>
+
     img{
         height: 90px;
     }

@@ -6,6 +6,7 @@
     <div class="container py-4 d-flex justify-content-between">
       <div class="team">
         <p class="h6">&copy; CLASS 117, TEAM 1</p>
+
         <p style="font-size: 10px" class="fw-lighter"></p>
       </div>
 
@@ -33,3 +34,4 @@
   }
 
 </style>
+
