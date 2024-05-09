@@ -48,7 +48,7 @@ export default {
 
 
 
-    <section class="container bg-body-secondary">
+    <section class="container">
 
         <div class="mb-2">
             <h2>Appartamenti in evidenza</h2>
