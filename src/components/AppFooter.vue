@@ -33,6 +33,4 @@ footer {
   align-items: baseline;
 }
 
-.team {
-}
 </style>
