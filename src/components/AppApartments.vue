@@ -1,4 +1,10 @@
 <script>
+import AppHeader from './components/AppHeader.vue'
+
+
+export default{
+    components
+}
 </script>
 <template>
     <h1>ricerca</h1>

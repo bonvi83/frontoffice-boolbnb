@@ -15,7 +15,7 @@ const router = createRouter({
     {
       path: "/apartments-view",
       name: "apartments.view",
-      component: AppAparments,
+      component: AppApartments,
     },
     
   ],
