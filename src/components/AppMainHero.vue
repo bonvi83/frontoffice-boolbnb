@@ -43,16 +43,16 @@
                         <br>
 
                         <span>
-                            in una delle nostre
+                            in uno dei nostri
                         </span>
 
                         <br>
 
-                        <span>mete </span>
+                        <span>alloggi </span>
 
                         <br>
 
-                        <span class="big-text">selezionate</span>
+                        <span class="big-text">selezionati</span>
                     </div>
 
                 </div>
@@ -70,7 +70,7 @@
 
     .hero {
         height: 60vh;
-        width: 100vw;
+        
         background-image: url('../assets/Houses_Villa_Design_Pools_537090_1920x1080.jpg');
         background-size: cover;
         background-position: center;
