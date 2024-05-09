@@ -9,7 +9,7 @@ export default {
 
       lat: "",
       lon: "",
-      radius: 0,
+      radius: 20000,
 
       suggestions: [],
     };
