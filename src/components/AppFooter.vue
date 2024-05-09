@@ -1,9 +1,12 @@
-<script></script>
+<script>
+</script>
+
 <template>
-  <footer class="bg-dark text-white">
+  <footer class="text-white">
     <div class="container py-4 d-flex justify-content-between">
-      <div>
-        <p class="h6">&copy; CLASS: 117, TEAM 5</p>
+      <div class="team">
+        <p class="h6">&copy; CLASS 117, TEAM 1</p>
+
         <p style="font-size: 10px" class="fw-lighter"></p>
       </div>
 
@@ -20,4 +23,15 @@
     </div>
   </footer>
 </template>
-<style lang="scss" scoped></style>
+
+<style lang="scss" scoped>
+  footer {
+    background-color: rgb(0, 27, 54);
+  }
+
+  .container {
+    align-items: baseline;
+  }
+
+</style>
+

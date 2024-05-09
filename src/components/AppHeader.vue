@@ -6,89 +6,112 @@ export default {
 };
 </script>
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <!-- logo -->
 
-    <div class="container">
-      <div>
-        <a href=""
-          ><router-link
-            :to="{ name: 'home' }"
-            class="nav-link active"
-            aria-current="page"
-            ><img src="../assets/logbnb.png" alt="Logo" height="50"
-          /></router-link>
-        </a>
-      </div>
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+         <!-- logo -->
+    
+        <div class="container">
+           
+                <div>
+                    <a href=""><router-link
+                    :to="{ name: 'home' }"
+                    class="nav-link active"
+                    aria-current="page"
+                    ><img src="../assets/logbnb.png" alt="Logo" height="50" /></router-link>
+                </a>
+                </div>
+            
+            <!-- navigazione -->
+            <div class="navbar-wrapper">
+                    <!-- Div per proteggere l'hamburger, momentaneamente commentato -->
+                    <!-- <div id="gorgonzola">  -->
+                        <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
 
-      <!-- navigazione -->
-      <div>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav align-items-center">
-            <li class="nav-item">
-              <router-link
-                :to="{ name: 'home' }"
-                class="nav-link active"
-                aria-current="page"
-                ><img src="../assets/house.svg" alt="Logo" /><span
-                  class="d-none d-lg-inline-block"
-                >
-                  Home
-                </span></router-link
-              >
-            </li>
-            <li class="nav-item align-self-center">
-              <router-link
-                :to="{ name: 'apartments.view' }"
-                class="nav-link active"
-                aria-current="page"
-                ><img src="../assets/search.svg" alt="Logo" />
-                <span class="d-none d-lg-inline-block">Cerca</span>
-              </router-link>
-            </li>
+                        <ul class="navbar-nav align-items-center">
+                            
+                            <li class="nav-item">
+                                <router-link
+                                :to="{ name: 'home' }"
+                                class="nav-link active"
+                                aria-current="page"
+                                ><img src="../assets/house.svg" alt="Logo"/><span class="d-none d-lg-inline-block">
+                                    Home
+                                </span></router-link>
+                            </li>
+                            <li class="nav-item align-self-center">
+                                <router-link
+                                :to="{ name: 'apartments.view' }"
+                                class="nav-link active"
+                                aria-current="page"
+                                ><img src="../assets/search.svg" alt="Logo" class="me-2" />
+                                <span class="d-none d-lg-inline-block">
+                                    <!-- <form role="search"> -->
+                                        <input class="form-control" placeholder="Cerca" type="search" aria-label="Search">
+                                    <!-- </form> -->
+                                </span>
+                                </router-link>
+                            </li>
+                        
+                            <li class="nav-item"><a class="nav-link active" href="http://127.0.0.1:8000/">
+                                <img src="../assets/person.svg" alt="Logo" />
+                                <span class="d-none d-lg-inline-block">Accedi</span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                <!-- </div> -->
+                
+            </div>
 
-            <li class="nav-item">
-              <a class="nav-link active" href="http://127.0.0.1:8000/">
-                <img src="../assets/person.svg" alt="Logo" />
-                <span class="d-none d-lg-inline-block">Accedi</span>
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
   </nav>
 </template>
 <style lang="scss" scoped>
-img {
-  height: 40px;
-}
-a {
-  text-decoration: none;
-}
-li.nav-item {
-  img {
-    height: 20px;
-    margin-right: 2px;
-    padding-bottom: 4px;
-  }
-}
-@media (max-width: 992px) {
-  li.nav-item {
-    img {
-      height: 33px;
+
+    img{
+        height: 90px;
     }
-  }
-}
+    a{
+        text-decoration: none;
+    }
+    li.nav-item{
+        img{
+            height: 20px;
+            margin-right: 2px;
+            padding-bottom: 4px;
+        }
+    }
+    @media (max-width: 992px) { 
+        li.nav-item{
+        img{
+            height: 33px; 
+        }
+    }
+    }
+
+    .navbar-wrapper{
+        /* 
+        width: 632px;
+        display: flex;
+        flex-grow: 1;*/ 
+        ul {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+    }
 </style>

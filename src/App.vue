@@ -5,20 +5,33 @@ import AppFooter from "./components/AppFooter.vue";
 
 export default {
   data() {
-    return {};
+    return {    };
   },
+
+  methods: { },
+  
   props: {},
-  methods: {},
+
   components: { AppHeader, AppMain, AppFooter },
 };
 </script>
 
 <template>
   <div id="app">
-    <div class="page-container">
-      <AppHeader />
-      <div class="container main-container">
-        <router-view />
+
+      <div class="page-container">
+        <AppHeader/>
+        
+        
+        <div class="main-container">
+
+         <router-view />
+ 
+        
+        </div>
+
+        <AppFooter/>
+
       </div>
 
       <AppFooter />
