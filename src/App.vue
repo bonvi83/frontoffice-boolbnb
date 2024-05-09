@@ -20,9 +20,12 @@ export default {
   <div id="app">
       <div class="page-container">
         <AppHeader/>
-        <div class="container main-container">
+        
+        
+        <div class="main-container">
 
-          <router-view />
+         <router-view />
+ 
         
         </div>
 

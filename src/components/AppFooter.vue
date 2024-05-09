@@ -1,4 +1,7 @@
 <script></script>
+
+
+
 <template>
   <footer class="bg-dark text-white">
     <div class="container py-4 d-flex justify-content-between">
@@ -20,4 +23,6 @@
     </div>
   </footer>
 </template>
+
+
 <style scoped></style>
