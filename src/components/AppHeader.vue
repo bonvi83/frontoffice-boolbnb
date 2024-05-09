@@ -25,7 +25,7 @@ export default {
             <!-- navigazione -->
             <div class="navbar-wrapper">
                     <!-- Div per proteggere l'hamburger, momentaneamente commentato -->
-                    <!-- <div id="gorgonzola">  -->
+                    
                         <button
                         class="navbar-toggler"
                         type="button"
@@ -56,9 +56,7 @@ export default {
                                 aria-current="page"
                                 ><img src="../assets/search.svg" alt="Logo" class="me-2" />
                                 <span class="d-none d-lg-inline-block">
-                                    <!-- <form role="search"> -->
-                                        <input class="form-control" placeholder="Cerca" type="search" aria-label="Search">
-                                    <!-- </form> -->
+                                    Cerca
                                 </span>
                                 </router-link>
                             </li>
