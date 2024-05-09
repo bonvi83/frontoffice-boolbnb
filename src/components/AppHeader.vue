@@ -25,7 +25,7 @@ export default {
             <!-- navigazione -->
             <div class="navbar-wrapper">
                     <!-- Div per proteggere l'hamburger, momentaneamente commentato -->
-                    <!-- <div> --> 
+                    <!-- <div id="gorgonzola">  -->
                         <button
                         class="navbar-toggler"
                         type="button"
@@ -54,8 +54,12 @@ export default {
                                 :to="{ name: 'apartments.view' }"
                                 class="nav-link active"
                                 aria-current="page"
-                                ><img src="../assets/search.svg" alt="Logo"/>
-                                <span class="d-none d-lg-inline-block">Cerca</span>
+                                ><img src="../assets/search.svg" alt="Logo" class="me-2" />
+                                <span class="d-none d-lg-inline-block">
+                                    <!-- <form role="search"> -->
+                                        <input class="form-control" placeholder="Cerca" type="search" aria-label="Search">
+                                    <!-- </form> -->
+                                </span>
                                 </router-link>
                             </li>
                         
@@ -96,9 +100,10 @@ export default {
     }
 
     .navbar-wrapper{
+        /* 
+        width: 632px;
         display: flex;
-        flex-grow: 1;
-        max-width: 632px;
+        flex-grow: 1;*/ 
         ul {
             width: 100%;
             display: flex;
