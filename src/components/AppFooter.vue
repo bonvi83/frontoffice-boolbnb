@@ -3,9 +3,9 @@
 
 
 <template>
-  <footer class="bg-dark text-white">
+  <footer class="text-white">
     <div class="container py-4 d-flex justify-content-between">
-      <div>
+      <div class="team">
         <p class="h6">&copy; CLASS 117, TEAM 1</p>
         <p style="font-size: 10px" class="fw-lighter"></p>
       </div>
@@ -24,5 +24,15 @@
   </footer>
 </template>
 
+<style lang="scss" scoped>
+footer {
+  background-color: rgb(0, 27, 54);
+}
 
-<style scoped></style>
+.container {
+  align-items: baseline;
+}
+
+.team {
+}
+</style>
