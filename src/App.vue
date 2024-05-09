@@ -15,20 +15,20 @@ export default {
 
 <template>
   <div id="app">
-      <div class="page-container">
-        <AppHeader/>
-        <div class="container main-container">
-          <router-view />
-        </div>
-        
-        <AppFooter/>
+    <div class="page-container">
+      <AppHeader />
+      <div class="container main-container">
+        <router-view />
       </div>
-</div>  
 
+      <AppFooter />
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
 @use "/src/styles/general.scss" as *;
+
 .page-container {
   display: flex;
   flex-direction: column;
