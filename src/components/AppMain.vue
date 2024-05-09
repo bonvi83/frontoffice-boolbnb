@@ -104,7 +104,7 @@ export default {
     <div class="mb-2">
       <h2 class="mt-5">Appartamenti senza sponsorizzazione</h2>
       <div class="row g-4 mt-3">
-        <div v-for="apartment in apartments" class="col-3">
+        <div v-for="apartment in apartments" class="col-12 col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100">
             <a href="#">
               <img :src="apartment.cover_img" class="card-img-top" alt="immagine mancante"/>
@@ -115,11 +115,7 @@ export default {
                   {{ apartment.name }}
                 </a>
               </h5>
-              <p>
-                <a href="#">
-                  {{ apartment.address }}
-                </a>
-              </p>
+              <p>{{ apartment.address }}</p>
               <!-- <a href="#">Vedi i dettagli
                 <i class="fa-solid fa-eye"></i>
               </a> -->
