@@ -23,8 +23,10 @@ export default {
                 </div>
             
             <!-- navigazione -->
-            <div>
-                    <button
+            <div class="navbar-wrapper">
+                    <!-- Div per proteggere l'hamburger, momentaneamente commentato -->
+                    <!-- <div> --> 
+                        <button
                         class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
@@ -32,8 +34,8 @@ export default {
                         aria-controls="navbarNav"
                         aria-expanded="false"
                         aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
 
                         <ul class="navbar-nav align-items-center">
@@ -65,13 +67,15 @@ export default {
                             
                         </ul>
                     </div>
+                <!-- </div> -->
+                
             </div>
         </div>
   </nav>
 </template>
-<style scoped>
+<style lang="scss" scoped>
     img{
-        height: 40px;
+        height: 90px;
     }
     a{
         text-decoration: none;
@@ -89,5 +93,16 @@ export default {
             height: 33px; 
         }
     }
+    }
+
+    .navbar-wrapper{
+        display: flex;
+        flex-grow: 1;
+        max-width: 632px;
+        ul {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
     }
 </style>
