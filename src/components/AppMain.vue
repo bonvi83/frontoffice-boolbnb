@@ -1,7 +1,7 @@
 <script></script>
 
 <template>
-  <section class="container">
+  <section class="container bg-body-secondary">
     <div class="mb-2">
       <h2>Appartamenti in evidenza</h2>
 
@@ -112,4 +112,6 @@
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
