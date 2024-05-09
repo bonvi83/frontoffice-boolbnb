@@ -6,7 +6,7 @@
       <h2>Appartamenti in evidenza</h2>
 
       <div class="d-flex">
-        <div class="card" style="width: 18rem">
+        <div class="card">
           <img
             src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
             class="card-img-top"
@@ -18,7 +18,7 @@
           </div>
         </div>
 
-        <div class="card" style="width: 18rem">
+        <div class="card">
           <img
             src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
             class="card-img-top"
@@ -30,7 +30,7 @@
           </div>
         </div>
 
-        <div class="card" style="width: 18rem">
+        <div class="card">
           <img
             src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
             class="card-img-top"
@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="card" style="width: 18rem">
+        <div class="card">
           <img
             src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
             class="card-img-top"
@@ -60,7 +60,7 @@
       <h2>Eventualmente altri bei appartamentini</h2>
 
       <div class="d-flex">
-        <div class="card" style="width: 18rem">
+        <div class="card">
           <img
             src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
             class="card-img-top"
@@ -72,7 +72,7 @@
           </div>
         </div>
 
-        <div class="card" style="width: 18rem">
+        <div class="card">
           <img
             src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
             class="card-img-top"
@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        <div class="card" style="width: 18rem">
+        <div class="card">
           <img
             src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
             class="card-img-top"
@@ -96,7 +96,7 @@
           </div>
         </div>
 
-        <div class="card" style="width: 18rem">
+        <div class="card">
           <img
             src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
             class="card-img-top"
