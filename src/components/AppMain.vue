@@ -103,7 +103,7 @@ export default {
 
     <div class="mb-2">
       <h2 class="mt-5">Appartamenti senza sponsorizzazione</h2>
-      <div class="row g-4 mt-3">
+      <div class="row g-4 my-3">
         <div v-for="apartment in apartments" class="col-12 col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100">
             <a href="#">
@@ -166,20 +166,27 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-  .card-title {
-    font-weight: bold;
-  }
 
-  .card-body {
-    
-    a {
-      text-decoration: none;
-      color: inherit;
+  .card{
+
+    img:hover {
+        opacity: 0.7;
     }
 
-    a:hover {
-      color: #0d6efd;
+    .card-body {
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      a:hover {
+        opacity: 0.6;
+      }
     }
 
+    .card-title {
+      font-weight: bold;
+    }
   }
+
 </style>
