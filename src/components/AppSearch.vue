@@ -19,11 +19,19 @@ export default {
       pagLinks: [],
       totalPage: 0,
       paginationBaseURL: "",
-      services:[],  
+      services:[],
+      selectedServices:[],
     };
 
   },
   components: {VueHorizontal},
+
+  computed: {
+    filterApartments() {
+      return filterApartments = [... this.apartments];
+    },
+  },
+
   created () {
   this.fetchServices();
  },
@@ -89,6 +97,20 @@ export default {
         .catch((e) => {
           console.log(e.message);
         });
+    },
+
+    setFilterServices(id){
+      if(!this.selectedServices.includes(id)){
+        this.selectedServices.push(id);
+       
+      }else{
+        this.selectedServices.splice(this.selectedServices.indexOf(id), 1);
+      } 
+      console.log(this.apartments);
+      console.log(this.filterApartments);
+      /* this.apartments.fi */
+
+
     },
 
     paginationNav(url) {
@@ -175,11 +197,11 @@ export default {
    <div class="d-flex">
         <!-- <button class="m-2 btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button> -->
         <div class="servis-container">
-            <div class="">
-                <vue-horizontal responsive>
-                    <section v-for="servis in services" :key="servis.id">
-                      <h4>{{ servis.name  }}</h4>
-                      <div class="servis-icon"><img :src="servis.icon" alt="" style="width: 30px;"></div> 
+            <div class="p-3">
+                <vue-horizontal responsive :button="true" class="horizontal">
+                    <section v-for="servis in services" :key="servis.id" class="text-center mx-3" @click="setFilterServices(servis.id)">
+                      <div class="servis-icon"><img :src="servis.icon" alt="" style="width: 45px;"></div> 
+                      <div class="text-service-name">{{ servis.name  }}</div>
                     </section>
                 </vue-horizontal>
             </div>
@@ -202,11 +224,16 @@ export default {
       <div v-for="apartment in apartments" class="col-3">
         <div class="card">
           <img :src="apartment.cover_img" class="card-img-top" alt="..." />
-          <div class="card-body">
+          <div class="card-body" >
             <h5 class="card-title">{{ apartment.name }}</h5>
             <p class="card-text">
               {{ apartment.address }}
             </p>
+            <div class="d-flex m-2">
+              <div v-for="service in apartment.services">
+              <img :src=" service.icon" alt="" style="width: 30px;">
+            </div>
+            </div>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
@@ -231,24 +258,85 @@ export default {
     </nav>
   </div>
 
+
+
+
+
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Ricerca Avanzata</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <!-- filtri appartamenti -->
+           <div class="input-group d-flex gap-3 align-items-center justify-content-around">
+                <!-- numero stanze -->
+                <div>
+                    <p class="m-0">Numero Stanze</p>
+                    <input type="number" class="form-control" placeholder="N° Stanze"
+                    v-model.number="n_room" aria-describedby="addon-wrapping" min="0">
+                </div>
+                <!-- numero bagno -->
+                <div>
+                    <p class="m-0">Numero Bagni</p>
+                    <input type="number" class="form-control" placeholder="N° Bagni"
+                    v-model.number="n_bathroom" aria-describedby="addon-wrapping" min="0">
+                </div>
+                <!-- m2 -->
+                <div>
+                    <p class="m-0">Metri Quadri</p>
+                    <input type="number" class="form-control" placeholder="Mq" v-model.number="squere_meters"
+                    aria-describedby="addon-wrapping" min="0" >
+                </div>
+
+                <!--n bed -->
+                <div>
+                    <p class="m-0">Letti</p>
+                    <input type="number" class="form-control" placeholder="Mq" v-model.number="n_bed"
+                    aria-describedby="addon-wrapping" min="0">
+                </div>
+                <!--n floor -->
+                <div>
+                    <p class="m-0">Piano</p>
+                    <input type="number" class="form-control" placeholder="Mq" v-model.number="floor"
+                    aria-describedby="addon-wrapping" min="0">
+                </div>
+                <!--radius -->
+                <div>
+                    <p class="m-0">Raggio di Ricerca</p>
+                    <input type="number" class="form-control" placeholder="Mq" v-model.number="radius"
+                    aria-describedby="addon-wrapping" min="0" >
+                </div>
+
+
+
+           </div>
+
+           <!-- filtri servizi -->
+           <div class="d-flex flex-wrap my-3">
+                <div v-for=" service in services" class="d-flex justify-content-center align-content-center">
+                    <input class="form-check-input mt-auto mb-auto" type="checkbox" :value="service.id" >
+                    <img :src="service.icon" alt="" style="width:50px;">
+                </div>
+           </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+            <button type="button" class="btn btn-primary" @click="fecthAddresses()">Cerca</button>
+        </div>
     </div>
   </div>
 </div>
+
+
 
 </template>
 
@@ -294,5 +382,9 @@ export default {
 
 .servis-container{
     width: 90vw;
+    .text-service-name{
+      font-size: 12px
+    }
 }
+
 </style>
