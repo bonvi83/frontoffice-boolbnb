@@ -1,12 +1,16 @@
 <script>
+
+// AXIOS
 import axios from "axios";
+// STORE
+// import { api, store } from "../store";
 
 
 export default {
   data() {
     return {
 
-      services: null,
+      services: '',
 
     };
   },
@@ -16,10 +20,20 @@ export default {
   },
 
   methods: {
+
+    // API CALL FOR SERVICES
     getServices() {
-      axios.get(`http://127.0.0.1:8000/api/services`).then((result) => {
-        this.services = result.data;
-        console.log(this.services);
+      axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
+
+        if (res.data.services) {
+          this.services = res.data.services;
+          console.log(this.services);
+        } else {
+          // redirect alla pagina 404
+          // this.$router.push({ name: 'not-found' })
+          console.log('not found')
+        }
+        
       });
     },
 
