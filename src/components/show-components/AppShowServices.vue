@@ -1,20 +1,35 @@
 <script>
+import axios from "axios";
+
+
 export default {
   data() {
-    return {};
+    return {
+
+      services: null,
+
+    };
   },
 
-  computed: {},
+  computed: {
 
-  method: {
-    fetchApartment(apartmentId) {
-      axios.get('http://127.0.0.1:8000/api/apartments/${id_appartmentId}').then((res)) => {
-        this.apartment = res.data;
-        console.log(this.apartment);
-      };
+  },
+
+  methods: {
+    getServices() {
+      axios.get(`http://127.0.0.1:8000/api/services`).then((result) => {
+        this.services = result.data;
+        console.log(this.services);
+      });
     },
+
   },
+
+  created() {
+    this.getServices()
+  }
 };
+
 </script>
 
 <template>
