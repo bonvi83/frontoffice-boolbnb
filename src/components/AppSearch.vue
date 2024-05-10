@@ -9,7 +9,7 @@ export default {
 
       lat: "",
       lon: "",
-      radius: 500,
+      radius: 5,
 
       suggestions: [],
       suggestionVisibility: false,
@@ -51,9 +51,10 @@ export default {
     },
 
     fetchApartments(latitude, longitude, radius) {
+      const radiusMt = radius * 1000;
       axios
         .get(
-          `http://127.0.0.1:8000/api/research/${latitude}&${longitude}&${radius}`
+          `http://127.0.0.1:8000/api/research/${latitude}&${longitude}&${radiusMt}`
         )
         .then((response) => {
           console.log(response.config.url);
@@ -123,11 +124,11 @@ export default {
           </div>
 
           <label for="">
-            <div>Raggio di ricerca (mt)</div>
+            <div>Raggio di ricerca (km)</div>
             <input
               type="number"
-              min="500"
-              step="500"
+              min="5"
+              step="5"
               class="border-0 w-75 search-app-input"
               v-model="radius"
               placeholder="Cerca destinazione"
