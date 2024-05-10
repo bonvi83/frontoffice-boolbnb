@@ -59,7 +59,7 @@ export default {
 
         <h1>CAROSELLO</h1>
 
-        <div class="carousel-container row">
+        <div class="carousel-container row my-5">
 
             <!-- COVER CONTAINER-->
             <div class="col-6 bordered">
