@@ -1,5 +1,7 @@
 <script>
 import axios from "axios";
+import VueHorizontal from 'vue-horizontal';
+
 
 export default {
   data() {
@@ -17,10 +19,15 @@ export default {
       pagLinks: [],
       totalPage: 0,
       paginationBaseURL: "",
+      services:[],  
     };
+
   },
-  components: {},
-  props: {},
+  components: {VueHorizontal},
+  created () {
+  this.fetchServices();
+ },
+ 
   methods: {
     fecthAddresses(input) {
       this.suggestionVisibility = true;
@@ -64,6 +71,20 @@ export default {
           this.pagLinks = response.data.links;
           this.totalPage = response.data.last_page;
           this.paginationBaseURL = response.config.url;
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+    fetchServices() {
+      axios
+        .get(
+          `http://127.0.0.1:8000/api/services`
+        )
+        .then((response) => {
+            this.services = response.data;
+            console.log(this.services);
+          
         })
         .catch((e) => {
           console.log(e.message);
@@ -148,7 +169,33 @@ export default {
   </div>
   <!-- hr -->
   <hr />
+  <!-- Button trigger modal -->
+<div class="d-flex justify-content-between align-items-center px-3">
 
+   <div class="d-flex">
+        <!-- <button class="m-2 btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button> -->
+        <div class="servis-container">
+            <div class="">
+                <vue-horizontal responsive>
+                    <section v-for="servis in services" :key="servis.id">
+                      <h4>{{ servis.name  }}</h4>
+                      <div class="servis-icon"><img :src="servis.icon" alt="" style="width: 30px;"></div> 
+                    </section>
+                </vue-horizontal>
+            </div>
+        </div>
+        <!-- <button class="m-2 btn btn-primary"><i class="fa-solid fa-arrow-right"></i></button> -->
+   </div>
+
+<!-- button -->
+    <div class="">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Filtri
+        </button>
+    </div>
+
+</div>
+<hr />
   <!-- Apartment -->
   <div class="container pb-3">
     <div class="row g-3 mb-3">
@@ -183,6 +230,26 @@ export default {
       </ul>
     </nav>
   </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </template>
 
 <style lang="scss" scoped>
@@ -222,5 +289,10 @@ export default {
 
     cursor: pointer;
   }
+
+}
+
+.servis-container{
+    width: 90vw;
 }
 </style>
