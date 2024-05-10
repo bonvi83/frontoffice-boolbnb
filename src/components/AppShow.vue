@@ -11,7 +11,7 @@ import AppShowServices from "./show-components/AppShowServices.vue";
 export default {
     data() {
         return {
-
+          apartment: null,
         };
     },
 
@@ -20,12 +20,16 @@ export default {
     },
 
     methods: {
-
-
+      fetchApartment(apartmentId) {
+      axios.get(`http://127.0.0.1:8000/api/apartments/${apartmentId}`).then((res) => {
+        this.apartment = res.data;
+        console.log(this.apartment);
+        });
+      },
     },
 
     created() {
-        
+      this.fetchApartment(10);
     },
 
     components: { AppShowCarousel, AppShowMessages, AppShowServices }
