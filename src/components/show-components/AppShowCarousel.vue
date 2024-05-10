@@ -3,12 +3,12 @@
 // AXIOS
 import axios from "axios";
 // STORE
-// import { api, store } from "../store";
+import { api, store } from "../../store";
 
 export default {
     data() {
         return {
-            // store, 
+            store, 
 
             coverImage: '',
 
@@ -17,11 +17,17 @@ export default {
         };
     },
 
+    computed: {
+        apiEndpoint() {
+            return api.baseUrl + `apartments/${this.$route.params.id}`;
+        },
+    },
+
     methods: {
 
         // API CALL FOR SERVICES
-        getImages() {
-            axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
+        fetchImages(endpoint = this.apiEndpoint) {
+            axios.get(endpoint).then((res) => {
 
                 if (res.data.cover_img && res.data.apartment_images ) {
                     this.coverImage = res.data.cover_img;
@@ -43,7 +49,7 @@ export default {
 
     created() {
 
-        this.getImages()
+        this.fetchImages()
 
     },
 };

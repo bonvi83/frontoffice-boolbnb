@@ -3,12 +3,14 @@
 // AXIOS
 import axios from "axios";
 // STORE
-// import { api, store } from "../store";
+import { api, store } from "../../store";
 
 
 export default {
   data() {
     return {
+
+      store,
 
       services: '',
 
@@ -16,14 +18,16 @@ export default {
   },
 
   computed: {
-
+    apiEndpoint() {
+      return api.baseUrl + `apartments/${this.$route.params.id}`;
+    },
   },
 
   methods: {
 
     // API CALL FOR SERVICES
-    getServices() {
-      axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
+    fetchServices(endpoint = this.apiEndpoint) {
+      axios.get(endpoint).then((res) => {
 
         if (res.data.services) {
           this.services = res.data.services;
@@ -40,7 +44,7 @@ export default {
   },
 
   created() {
-    this.getServices()
+    this.fetchServices()
   }
 };
 
