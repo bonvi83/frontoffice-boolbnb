@@ -20,7 +20,7 @@ const router = createRouter({
     },
 
     {
-      path: "/apartment-show",
+      path: "/apartment/:id",
       name: "apartment.show",
       component: AppShow,
     },

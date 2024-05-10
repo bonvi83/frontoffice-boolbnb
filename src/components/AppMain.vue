@@ -5,8 +5,7 @@ import AppMainHero from "./AppMainHero.vue";
 export default {
   data() {
     return {
-      apartments: [],
-      // apartment: null,
+      apartments: []
     };
   },
 
@@ -19,21 +18,10 @@ export default {
       });
     },
 
-    // fetchApartment(apartmentId){
-    //   axios.get(`http://127.0.0.1:8000/api/apartments/${apartmentId}`)
-    //   .then((res) => {
-    //     this.apartment = res.data.data;
-    //   })
-    //   .catch((err) =>{
-    //     console.error(err)
-    //   });
-    // }
-
   },
 
   created() {
     this.fetchApartments();
-    // this.fetchApartment();
   },
 
 
@@ -59,12 +47,12 @@ export default {
 
         <div v-for="apartment in apartments.slice(0, 4)" class="col-12 col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100">
-            <router-link :to="{ name: 'apartment.show' }">
+            <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }">
               <img :src="apartment.cover_img" alt="immagine-placeholder" class="card-img-top w-100 h-100" />
             </router-link>
             <div class="card-body">
               <!-- <h5 class="card-title">Titolo casa</h5> -->
-              <router-link :to="{ name: 'apartment.show' }">
+              <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }">
                 <h5 class="card-title">
                   {{ apartment.name }}
                 </h5>
