@@ -33,10 +33,20 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h1>SERVIZI</h1>
-    <div>card con tutte le iconcine dei servizi</div>
+
+  <h1>SERVIZI</h1>
+  <div>card con tutte le iconcine dei servizi</div>
+
+  <div v-for="(service, index) in services" :key="index">
+
+    <div>
+      {{ service.name }}
+    </div>
+
+    <img :src="service.icon" alt="">
+
   </div>
+
 </template>
 
 <style lang="scss"></style>
