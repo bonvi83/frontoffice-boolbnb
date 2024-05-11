@@ -1,26 +1,35 @@
 <script>
 import axios from "axios";
+import { store } from "../store/index";
 import VueHorizontal from 'vue-horizontal';
 
 
 export default {
   data() {
     return {
-      searchInput: "",
-      apiKey: "cXFRhnBAXKnWWIK6455uRtxFdwAGvyV2",
+        store,
+        searchInput: "",
+        apiKey: "cXFRhnBAXKnWWIK6455uRtxFdwAGvyV2",
 
-      lat: "",
-      lon: "",
-      radius: 5,
+        lat: "",
+        lon: "",
+        radius: 5,
 
-      suggestions: [],
-      suggestionVisibility: false,
-      apartments: [],
-      pagLinks: [],
-      totalPage: 0,
-      paginationBaseURL: "",
-      services:[],
-      selectedServices:[],
+        n_room: null,
+        n_bathroom: null,
+        n_bed: null,
+        square_meters: null,
+        floor: null,
+        
+
+        suggestions: [],
+        suggestionVisibility: false,
+        apartments: [],
+        pagLinks: [],
+        totalPage: 0,
+        paginationBaseURL: "",
+        services:[],
+        selectedServices:[],
     };
 
   },
@@ -100,18 +109,32 @@ export default {
     },
 
     setFilterServices(id){
-      if(!this.selectedServices.includes(id)){
-        this.selectedServices.push(id);
-       
-      }else{
-        this.selectedServices.splice(this.selectedServices.indexOf(id), 1);
-      } 
-      console.log(this.apartments);
-      console.log(this.filterApartments);
-      /* this.apartments.fi */
+        const index = this.selectedServices.indexOf(id);
+            if (index === -1) {
+                this.selectedServices.push(id); // Aggiungi l'ID se non è già presente
+            } else {
+                this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
+            }
 
-
+    
     },
+    
+    fetchFilteredApartments() {
+        
+        
+       
+       
+        
+
+        axios.get(`http://127.0.0.1:8000/api/research/${this.latitude}&${this.longitude}&${this.radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${this.selectedServices.join(',')}`,)
+            .then(response => {
+            this.apartments = response.data; // Salva gli appartamenti filtrati nel data del componente
+            console.log(this.apartments);
+            })
+            .catch(error => {
+            console.error('Error fetching filtered apartments:', error);
+            });
+        },
 
     paginationNav(url) {
       axios
@@ -193,7 +216,7 @@ export default {
   <hr />
   <!-- Button trigger modal -->
 <div class="d-flex justify-content-between align-items-center px-3">
-
+    
    <div class="d-flex">
         <!-- <button class="m-2 btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button> -->
         <div class="servis-container">
@@ -218,6 +241,7 @@ export default {
 
 </div>
 <hr />
+
   <!-- Apartment -->
   <div class="container pb-3">
     <div class="row g-3 mb-3">
@@ -239,7 +263,7 @@ export default {
         </div>
       </div>
     </div>
-    <!-- paginazione -->
+   <!--  paginazione -->
     <nav v-if="totalPage > 1" aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" v-for="link in pagLinks">
@@ -259,11 +283,8 @@ export default {
   </div>
 
 
-
-
-
 <!-- Modal -->
-<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
     <div class="modal-content">
@@ -281,7 +302,8 @@ export default {
                     <p class="m-0">Numero Stanze</p>
                     <input type="number" class="form-control" placeholder="N° Stanze"
                     v-model.number="n_room" aria-describedby="addon-wrapping" min="0">
-                </div>
+                </div> 
+                
                 <!-- numero bagno -->
                 <div>
                     <p class="m-0">Numero Bagni</p>
@@ -291,26 +313,26 @@ export default {
                 <!-- m2 -->
                 <div>
                     <p class="m-0">Metri Quadri</p>
-                    <input type="number" class="form-control" placeholder="Mq" v-model.number="squere_meters"
+                    <input type="number" class="form-control" placeholder="Metri Quadri" v-model.number="squere_meters"
                     aria-describedby="addon-wrapping" min="0" >
                 </div>
 
                 <!--n bed -->
                 <div>
                     <p class="m-0">Letti</p>
-                    <input type="number" class="form-control" placeholder="Mq" v-model.number="n_bed"
+                    <input type="number" class="form-control" placeholder="Letti" v-model.number="n_bed"
                     aria-describedby="addon-wrapping" min="0">
                 </div>
                 <!--n floor -->
                 <div>
                     <p class="m-0">Piano</p>
-                    <input type="number" class="form-control" placeholder="Mq" v-model.number="floor"
+                    <input type="number" class="form-control" placeholder="Piano" v-model.number="floor"
                     aria-describedby="addon-wrapping" min="0">
                 </div>
                 <!--radius -->
                 <div>
                     <p class="m-0">Raggio di Ricerca</p>
-                    <input type="number" class="form-control" placeholder="Mq" v-model.number="radius"
+                    <input type="number" class="form-control" placeholder="Raggio di Ricerca" v-model.number="radius"
                     aria-describedby="addon-wrapping" min="0" >
                 </div>
 
@@ -321,7 +343,11 @@ export default {
            <!-- filtri servizi -->
            <div class="d-flex flex-wrap my-3">
                 <div v-for=" service in services" class="d-flex justify-content-center align-content-center">
-                    <input class="form-check-input mt-auto mb-auto" type="checkbox" :value="service.id" >
+                    <input class="form-check-input mt-auto mb-auto" 
+                    type="checkbox" 
+                    :value="service.id" 
+                    :id="'service-' + service.id"
+                    v-model="selectedServices">
                     <img :src="service.icon" alt="" style="width:50px;">
                 </div>
            </div>
@@ -330,7 +356,7 @@ export default {
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-            <button type="button" class="btn btn-primary" @click="fecthAddresses()">Cerca</button>
+            <button class="btn btn-primary"@click="fetchFilteredApartments" data-bs-dismiss="modal">Cerca</button>
         </div>
     </div>
   </div>
