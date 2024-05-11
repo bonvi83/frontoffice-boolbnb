@@ -43,6 +43,12 @@ export default {
             });
         },
 
+        backToCover () {
+
+        },
+
+        
+
     },
 
     created() {
@@ -62,11 +68,16 @@ export default {
         <div class="carousel-container row my-5">
 
             <!-- COVER CONTAINER-->
-            <div class="col-6 bordered">
+            <div class="col-6 bordered d-flex justify-content-center align-items-center">
                 <!-- COVER IMG -->
-                <div class="h-100 d-flex justify-content-center align-items-center bordered">
-                    <img :src="coverImage" alt="" class="object-fit-cover card-img rounded bordered">
+                <div class="card bordered">
+                    <img :src="coverImage" alt="" class=" card-img rounded bordered">
+
+                    <div class="card-img-overlay d-flex justify-content-center align-items-end">
+                        <button class="">Cover</button>
+                    </div>
                 </div>
+
 
             </div>
 
@@ -75,9 +86,9 @@ export default {
 
                 <div class="row justify-content-center align-items-center g-1">
                     <!-- THUMBS IMGS -->
-                    <div class="col-4 bordered thumb-container" v-for="image in images" :key="index">
-                        <div class="h-100">
-                            <img class="h-100 card-img rounded bordered" :src="image.url" alt="">
+                    <div class="col-4 thumb-container " v-for="image in images">
+                        <div class="h-100 card">
+                            <img class="h-100 card-img active-thumb" :src="image.url" alt="">
                         </div>
                     </div>
 
@@ -102,6 +113,10 @@ section {
 
         .thumb-container {
             height: 120px;
+
+            .active-thumb {
+                border: 5px solid cornflowerblue;
+            }
         }
     }
 
