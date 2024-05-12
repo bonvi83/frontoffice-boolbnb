@@ -10,6 +10,7 @@ export default {
         };
     },
 
+
     props: {
       apartmentId: Number
     },
@@ -56,10 +57,47 @@ export default {
             </div>
             <button type="submit" @click.prevent="sendMessages()" class="btn btn-primary">Invia</button>
           </form>
+
+          <!-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#messageModal">
+            <i class="fa-solid fa-envelope"></i>
+          </button>
+
+          <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="messageModalLabel">Manda un messaggio al proprietario</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="recipient-mail" class="col-form-label">Inserisci la mail</label>
+                      <input v-model="email" type="email" class="form-control" id="recipient-mail">
+                    </div>
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label">Inserisci il tuo nome</label>
+                      <input v-model="name" type="name" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label">Scrivi il messaggio</label>
+                      <textarea v-model="content" class="form-control" id="message-text" style="height: 200px;"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                  <button type="button" @click="sendMessages()" class="btn btn-primary">Invia</button>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+
+          
         </div>
     </div>
-    
-</template>
+  </template>
 
 <style lang="scss">
 
