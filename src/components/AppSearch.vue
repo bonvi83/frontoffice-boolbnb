@@ -18,7 +18,7 @@ export default {
         n_room: null,
         n_bathroom: null,
         n_bed: null,
-        square_meters: null,
+        squere_meters: null,
         floor: null,
         
 
@@ -35,11 +35,11 @@ export default {
   },
   components: {VueHorizontal},
 
-  computed: {
+  /* computed: {
     filterApartments() {
       return filterApartments = [... this.apartments];
     },
-  },
+  }, */
 
   created () {
   this.fetchServices();
@@ -81,9 +81,7 @@ export default {
           `http://127.0.0.1:8000/api/research/${latitude}&${longitude}&${radiusMt}`
         )
         .then((response) => {
-          console.log(response.config.url);
           console.log(response.data);
-          console.log(response.data.links);
           this.apartments = response.data.data;
           this.pagLinks = response.data.links;
           this.totalPage = response.data.last_page;
@@ -93,15 +91,14 @@ export default {
           console.log(e.message);
         });
     },
+
     fetchServices() {
       axios
         .get(
           `http://127.0.0.1:8000/api/services`
         )
         .then((response) => {
-            this.services = response.data;
-            console.log(this.services);
-          
+            this.services = response.data; 
         })
         .catch((e) => {
           console.log(e.message);
@@ -116,20 +113,20 @@ export default {
                 this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
             }
 
-    
+        // Chiamo dopo update dei servizi
+        this.fetchFilteredApartments();
     },
     
     fetchFilteredApartments() {
-        
-        
-       
-       
-        
+           
+        const services = this.selectedServices.join(',');
+        console.log(`questo e : ${services}`);
 
-        axios.get(`http://127.0.0.1:8000/api/research/${this.latitude}&${this.longitude}&${this.radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${this.selectedServices.join(',')}`,)
+        axios.get(`http://127.0.0.1:8000/api/research/${this.latitude}&${this.longitude}&${this.radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${services}`,)
             .then(response => {
             this.apartments = response.data; // Salva gli appartamenti filtrati nel data del componente
             console.log(this.apartments);
+            console.log(this.selectedServices);
             })
             .catch(error => {
             console.error('Error fetching filtered apartments:', error);
@@ -155,7 +152,7 @@ export default {
 </script>
 
 <template>
-  <div class="container mt-3">
+  <div class="mt-3 container-fluid">
     <div class="row justify-content-center">
       <div class="col-6">
         <!-- search bar -->
@@ -214,25 +211,32 @@ export default {
   </div>
   <!-- hr -->
   <hr />
+
+
   <!-- Button trigger modal -->
 <div class="d-flex justify-content-between align-items-center px-3">
     
    <div class="d-flex">
-        <!-- <button class="m-2 btn btn-primary"><i class="fa-solid fa-arrow-left"></i></button> -->
+
         <div class="servis-container">
             <div class="p-3">
                 <vue-horizontal responsive :button="true" class="horizontal">
-                    <section v-for="servis in services" :key="servis.id" class="text-center mx-3" @click="setFilterServices(servis.id)">
-                      <div class="servis-icon"><img :src="servis.icon" alt="" style="width: 45px;"></div> 
-                      <div class="text-service-name">{{ servis.name  }}</div>
+                    <section v-for="service in services" :key="service.id" class="text-center mx-3">
+                        <div class="servis-icon" @click="setFilterServices(service.id)">
+                        <img :src="service.icon" alt="" style="width: 45px;"
+                            class="opacity-25"
+                            :class="{'opacity-100 w':selectedServices.includes(service.id) }">
+                        </div>
+                        <div class="text-service-name" :class="{'text-success fs-6':selectedServices.includes(service.id) }">{{ service.name.toUpperCase() }}</div>
                     </section>
                 </vue-horizontal>
             </div>
         </div>
-        <!-- <button class="m-2 btn btn-primary"><i class="fa-solid fa-arrow-right"></i></button> -->
+
    </div>
 
-<!-- button -->
+
+<!-- button dei filtri della modalle-->
     <div class="">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Filtri
@@ -243,18 +247,18 @@ export default {
 <hr />
 
   <!-- Apartment -->
-  <div class="container pb-3">
-    <div class="row g-3 mb-3">
-      <div v-for="apartment in apartments" class="col-3">
+  <div class="m-sm-2 m-md-3 m-lg-4 m-xl-5 pb-3">
+    <div class="row g-sm-2 g-md-3 g-lg-4 mb-5">
+      <div v-for="apartment in apartments" class="col-sm-12 col-md-6 col-lg-3 my-4">
         <div class="card">
-          <img :src="apartment.cover_img" class="card-img-top" alt="..." />
+          <img :src="apartment.cover_img || 'https://placehold.co/600x400'" class="card-img-top" alt="..." />
           <div class="card-body" >
             <h5 class="card-title">{{ apartment.name }}</h5>
             <p class="card-text">
               {{ apartment.address }}
             </p>
-            <div class="d-flex m-2">
-              <div v-for="service in apartment.services">
+            <div class="d-flex my-3">
+              <div v-for="service in apartment.services" class="me-1">
               <img :src=" service.icon" alt="" style="width: 30px;">
             </div>
             </div>
