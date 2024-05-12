@@ -7,7 +7,6 @@ export default {
           email: '',
           name: '',
           content: '',
-          messages: null,
         };
     },
 
@@ -24,6 +23,8 @@ export default {
         content: this.content,
       }).then((res) => {
           console.log(res.data);
+          //reset del form del messaggio
+          this.$refs.messageForm.reset();
       }).catch((error) => {
           console.log(error);
         });
@@ -40,7 +41,7 @@ export default {
     <div>
         <h1>MESSAGGI</h1>
         <div class="container">
-          <form>
+          <form ref="messageForm">
             <div class="mb-3">
               <label for="email" class="form-label">Inserisci la mail</label>
               <input v-model="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">

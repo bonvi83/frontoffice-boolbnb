@@ -1,7 +1,6 @@
 <script>
 
 import axios from "axios";
-// import { api, store } from "../store";
 
 import AppShowCarousel from "./show-components/AppShowCarousel.vue";
 import AppShowMessages from "./show-components/AppShowMessages.vue";
@@ -21,12 +20,6 @@ export default {
     },
 
     methods: {
-      // fetchApartment(apartmentId) {
-      // axios.get(`http://127.0.0.1:8000/api/apartments/${apartmentId}`).then((res) => {
-      //   this.apartment = res.data;
-      //   console.log(this.apartment);
-      //   });
-      // },
 
       fetchApartmentId() {
           axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
