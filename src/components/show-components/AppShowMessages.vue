@@ -4,9 +4,9 @@ import axios from "axios";
 export default {
     data() {
         return {
-          email: '',
-          name: '',
-          content: '',
+          userEmail: '',
+          userName: '',
+          userContent: '',
         };
     },
 
@@ -19,9 +19,9 @@ export default {
       sendMessages() {
       axios.post(`http://127.0.0.1:8000/api/messages`, {
         apartment_id: this.apartmentId,
-        customer_email: this.email,
-        name: this.name,
-        content: this.content,
+        customer_email: this.userEmail,
+        name: this.userName,
+        content: this.userContent,
       }).then((res) => {
           console.log(res.data);
           //reset del form del messaggio
@@ -45,15 +45,15 @@ export default {
           <form ref="messageForm">
             <div class="mb-3">
               <label for="email" class="form-label">Inserisci la mail</label>
-              <input v-model="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
+              <input v-model="userEmail" type="email" class="form-control" id="email" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
               <label for="name" class="form-label">Inserisci il tuo nome</label>
-              <input v-model="name" type="name" class="form-control" id="name" aria-describedby="emailHelp">
+              <input v-model="userName" type="name" class="form-control" id="name" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
               <label for="text" class="form-label">Scrivi il messaggio</label>
-              <textarea v-model="content" class="form-control" id="text" aria-describedby="emailHelp" style="height: 300px;"></textarea>
+              <textarea v-model="userContent" class="form-control" id="text" aria-describedby="emailHelp" style="height: 300px;"></textarea>
             </div>
             <button type="submit" @click.prevent="sendMessages()" class="btn btn-primary">Invia</button>
           </form>
@@ -73,15 +73,15 @@ export default {
                   <form>
                     <div class="mb-3">
                       <label for="recipient-mail" class="col-form-label">Inserisci la mail</label>
-                      <input v-model="email" type="email" class="form-control" id="recipient-mail">
+                      <input v-model="userEmail" type="email" class="form-control" id="recipient-mail">
                     </div>
                     <div class="mb-3">
                       <label for="message-text" class="col-form-label">Inserisci il tuo nome</label>
-                      <input v-model="name" type="name" class="form-control" id="recipient-name">
+                      <input v-model="userName" type="name" class="form-control" id="recipient-name">
                     </div>
                     <div class="mb-3">
                       <label for="message-text" class="col-form-label">Scrivi il messaggio</label>
-                      <textarea v-model="content" class="form-control" id="message-text" style="height: 200px;"></textarea>
+                      <textarea v-model="userContent" class="form-control" id="message-text" style="height: 200px;"></textarea>
                     </div>
                   </form>
                 </div>

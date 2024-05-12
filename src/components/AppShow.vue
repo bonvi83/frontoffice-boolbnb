@@ -14,16 +14,13 @@ export default {
       };
     },
 
-    
-    computed: {
 
-    },
 
     methods: {
 
       fetchApartmentId() {
           axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
-          this.apartmentId = res.data.id;
+            this.apartmentId = res.data.id;
         });
       }
      
