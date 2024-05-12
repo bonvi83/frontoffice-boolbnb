@@ -119,6 +119,12 @@ export default {
           ? null
           : this.selectedServices.join(",");
 
+      if (this.n_room == "") this.n_room = null;
+      if (this.n_bathroom == "") this.n_bathroom = null;
+      if (this.n_bed == "") this.n_bed = null;
+      if (this.squere_meters == "") this.squere_meters = null;
+      if (this.floor == "") this.floor = null;
+
       axios
         .get(
           `http://127.0.0.1:8000/api/research/${this.lat}&${this.lon}&${radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${servicesUrl}`
