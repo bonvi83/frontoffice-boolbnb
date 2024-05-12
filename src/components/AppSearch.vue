@@ -124,10 +124,11 @@ export default {
           `http://127.0.0.1:8000/api/research/${this.lat}&${this.lon}&${radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${servicesUrl}`
         )
         .then((response) => {
-          console.log(response);
-          this.apartments = response.data; // Salva gli appartamenti filtrati nel data del componente
-          console.log(this.apartments);
-          console.log(this.selectedServices);
+          console.log(response.data.data);
+          this.apartments = response.data.data; // Salva gli appartamenti filtrati nel data del componente
+          this.pagLinks = response.data.links;
+          this.totalPage = response.data.last_page;
+          this.paginationBaseURL = response.config.url;
         })
         .catch((error) => {
           console.error("Error fetching filtered apartments:", error);
