@@ -1,39 +1,36 @@
 <script>
 import axios from "axios";
 import { store } from "../store/index";
-import VueHorizontal from 'vue-horizontal';
-
+import VueHorizontal from "vue-horizontal";
 
 export default {
   data() {
     return {
-        store,
-        searchInput: "",
-        apiKey: "cXFRhnBAXKnWWIK6455uRtxFdwAGvyV2",
+      store,
+      searchInput: "",
+      apiKey: "cXFRhnBAXKnWWIK6455uRtxFdwAGvyV2",
 
-        lat: "",
-        lon: "",
-        radius: 5,
+      lat: "",
+      lon: "",
+      radius: 5,
 
-        n_room: null,
-        n_bathroom: null,
-        n_bed: null,
-        squere_meters: null,
-        floor: null,
-        
+      n_room: null,
+      n_bathroom: null,
+      n_bed: null,
+      squere_meters: null,
+      floor: null,
 
-        suggestions: [],
-        suggestionVisibility: false,
-        apartments: [],
-        pagLinks: [],
-        totalPage: 0,
-        paginationBaseURL: "",
-        services:[],
-        selectedServices:[],
+      suggestions: [],
+      suggestionVisibility: false,
+      apartments: [],
+      pagLinks: [],
+      totalPage: 0,
+      paginationBaseURL: "",
+      services: [],
+      selectedServices: [],
     };
-
   },
-  components: {VueHorizontal},
+  components: { VueHorizontal },
 
   /* computed: {
     filterApartments() {
@@ -41,10 +38,10 @@ export default {
     },
   }, */
 
-  created () {
-  this.fetchServices();
- },
- 
+  created() {
+    this.fetchServices();
+  },
+
   methods: {
     fecthAddresses(input) {
       this.suggestionVisibility = true;
@@ -94,44 +91,48 @@ export default {
 
     fetchServices() {
       axios
-        .get(
-          `http://127.0.0.1:8000/api/services`
-        )
+        .get(`http://127.0.0.1:8000/api/services`)
         .then((response) => {
-            this.services = response.data; 
+          this.services = response.data;
         })
         .catch((e) => {
           console.log(e.message);
         });
     },
 
-    setFilterServices(id){
-        const index = this.selectedServices.indexOf(id);
-            if (index === -1) {
-                this.selectedServices.push(id); // Aggiungi l'ID se non è già presente
-            } else {
-                this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
-            }
+    setFilterServices(id) {
+      const index = this.selectedServices.indexOf(id);
+      if (index === -1) {
+        this.selectedServices.push(id); // Aggiungi l'ID se non è già presente
+      } else {
+        this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
+      }
 
-        // Chiamo dopo update dei servizi
-        this.fetchFilteredApartments();
+      // Chiamo dopo update dei servizi
+      this.fetchFilteredApartments();
     },
-    
-    fetchFilteredApartments() {
-           
-        const services = this.selectedServices.join(',');
-        console.log(`questo e : ${services}`);
 
-        axios.get(`http://127.0.0.1:8000/api/research/${this.latitude}&${this.longitude}&${this.radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${services}`,)
-            .then(response => {
-            this.apartments = response.data; // Salva gli appartamenti filtrati nel data del componente
-            console.log(this.apartments);
-            console.log(this.selectedServices);
-            })
-            .catch(error => {
-            console.error('Error fetching filtered apartments:', error);
-            });
-        },
+    fetchFilteredApartments() {
+      const radiusMt = this.radius * 1000;
+      let servicesUrl =
+        this.selectedServices.length == 0
+          ? null
+          : this.selectedServices.join(",");
+
+      axios
+        .get(
+          `http://127.0.0.1:8000/api/research/${this.lat}&${this.lon}&${radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${servicesUrl}`
+        )
+        .then((response) => {
+          console.log(response);
+          this.apartments = response.data; // Salva gli appartamenti filtrati nel data del componente
+          console.log(this.apartments);
+          console.log(this.selectedServices);
+        })
+        .catch((error) => {
+          console.error("Error fetching filtered apartments:", error);
+        });
+    },
 
     paginationNav(url) {
       axios
@@ -212,62 +213,85 @@ export default {
   <!-- hr -->
   <hr />
 
-
   <!-- Button trigger modal -->
-<div class="d-flex justify-content-between align-items-center px-3">
-    
-   <div class="d-flex">
-
-        <div class="servis-container">
-            <div class="p-3">
-                <vue-horizontal responsive :button="true" class="horizontal">
-                    <section v-for="service in services" :key="service.id" class="text-center mx-3">
-                        <div class="servis-icon" @click="setFilterServices(service.id)">
-                        <img :src="service.icon" alt="" style="width: 45px;"
-                            class="opacity-25"
-                            :class="{'opacity-100 w':selectedServices.includes(service.id) }">
-                        </div>
-                        <div class="text-service-name" :class="{'text-success fs-6':selectedServices.includes(service.id) }">{{ service.name.toUpperCase() }}</div>
-                    </section>
-                </vue-horizontal>
-            </div>
+  <div class="d-flex justify-content-between align-items-center px-3">
+    <div class="d-flex">
+      <div class="servis-container">
+        <div class="p-3">
+          <vue-horizontal responsive :button="true" class="horizontal">
+            <section
+              v-for="service in services"
+              :key="service.id"
+              class="text-center mx-3"
+            >
+              <div class="servis-icon" @click="setFilterServices(service.id)">
+                <img
+                  :src="service.icon"
+                  alt=""
+                  style="width: 45px"
+                  class="opacity-25"
+                  :class="{
+                    'opacity-100 w': selectedServices.includes(service.id),
+                  }"
+                />
+              </div>
+              <div
+                class="text-service-name"
+                :class="{
+                  'text-success fs-6': selectedServices.includes(service.id),
+                }"
+              >
+                {{ service.name.toUpperCase() }}
+              </div>
+            </section>
+          </vue-horizontal>
         </div>
-
-   </div>
-
-
-<!-- button dei filtri della modalle-->
-    <div class="">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Filtri
-        </button>
+      </div>
     </div>
 
-</div>
-<hr />
+    <!-- button dei filtri della modalle-->
+    <div class="">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Filtri
+      </button>
+    </div>
+  </div>
+  <hr />
 
   <!-- Apartment -->
   <div class="m-sm-2 m-md-3 m-lg-4 m-xl-5 pb-3">
     <div class="row g-sm-2 g-md-3 g-lg-4 mb-5">
-      <div v-for="apartment in apartments" class="col-sm-12 col-md-6 col-lg-3 my-4">
+      <div
+        v-for="apartment in apartments"
+        class="col-sm-12 col-md-6 col-lg-3 my-4"
+      >
         <div class="card">
-          <img :src="apartment.cover_img || 'https://placehold.co/600x400'" class="card-img-top" alt="..." />
-          <div class="card-body" >
+          <img
+            :src="apartment.cover_img || 'https://placehold.co/600x400'"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
             <h5 class="card-title">{{ apartment.name }}</h5>
             <p class="card-text">
               {{ apartment.address }}
             </p>
             <div class="d-flex my-3">
               <div v-for="service in apartment.services" class="me-1">
-              <img :src=" service.icon" alt="" style="width: 30px;">
-            </div>
+                <img :src="service.icon" alt="" style="width: 30px" />
+              </div>
             </div>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
     </div>
-   <!--  paginazione -->
+    <!--  paginazione -->
     <nav v-if="totalPage > 1" aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" v-for="link in pagLinks">
@@ -286,88 +310,145 @@ export default {
     </nav>
   </div>
 
-
-<!-- Modal -->
-<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-
-    <div class="modal-content">
-
+  <!-- Modal -->
+  <div
+    class="modal fade modal-lg"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    ref="modal"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Ricerca Avanzata</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Ricerca Avanzata
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
+          <!-- filtri appartamenti -->
+          <div
+            class="input-group d-flex gap-3 align-items-center justify-content-around"
+          >
+            <!-- numero stanze -->
+            <div>
+              <p class="m-0">Numero Stanze</p>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="N° Stanze"
+                v-model.number="n_room"
+                aria-describedby="addon-wrapping"
+                min="0"
+              />
+            </div>
 
-            <!-- filtri appartamenti -->
-           <div class="input-group d-flex gap-3 align-items-center justify-content-around">
-                <!-- numero stanze -->
-                <div>
-                    <p class="m-0">Numero Stanze</p>
-                    <input type="number" class="form-control" placeholder="N° Stanze"
-                    v-model.number="n_room" aria-describedby="addon-wrapping" min="0">
-                </div> 
-                
-                <!-- numero bagno -->
-                <div>
-                    <p class="m-0">Numero Bagni</p>
-                    <input type="number" class="form-control" placeholder="N° Bagni"
-                    v-model.number="n_bathroom" aria-describedby="addon-wrapping" min="0">
-                </div>
-                <!-- m2 -->
-                <div>
-                    <p class="m-0">Metri Quadri</p>
-                    <input type="number" class="form-control" placeholder="Metri Quadri" v-model.number="squere_meters"
-                    aria-describedby="addon-wrapping" min="0" >
-                </div>
+            <!-- numero bagno -->
+            <div>
+              <p class="m-0">Numero Bagni</p>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="N° Bagni"
+                v-model.number="n_bathroom"
+                aria-describedby="addon-wrapping"
+                min="0"
+              />
+            </div>
+            <!-- m2 -->
+            <div>
+              <p class="m-0">Metri Quadri</p>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Metri Quadri"
+                v-model.number="squere_meters"
+                aria-describedby="addon-wrapping"
+                min="0"
+              />
+            </div>
 
-                <!--n bed -->
-                <div>
-                    <p class="m-0">Letti</p>
-                    <input type="number" class="form-control" placeholder="Letti" v-model.number="n_bed"
-                    aria-describedby="addon-wrapping" min="0">
-                </div>
-                <!--n floor -->
-                <div>
-                    <p class="m-0">Piano</p>
-                    <input type="number" class="form-control" placeholder="Piano" v-model.number="floor"
-                    aria-describedby="addon-wrapping" min="0">
-                </div>
-                <!--radius -->
-                <div>
-                    <p class="m-0">Raggio di Ricerca</p>
-                    <input type="number" class="form-control" placeholder="Raggio di Ricerca" v-model.number="radius"
-                    aria-describedby="addon-wrapping" min="0" >
-                </div>
+            <!--n bed -->
+            <div>
+              <p class="m-0">Letti</p>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Letti"
+                v-model.number="n_bed"
+                aria-describedby="addon-wrapping"
+                min="0"
+              />
+            </div>
+            <!--n floor -->
+            <div>
+              <p class="m-0">Piano</p>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Piano"
+                v-model.number="floor"
+                aria-describedby="addon-wrapping"
+                min="0"
+              />
+            </div>
+            <!--radius -->
+            <div>
+              <p class="m-0">Raggio di Ricerca</p>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Raggio di Ricerca"
+                v-model.number="radius"
+                aria-describedby="addon-wrapping"
+                min="0"
+              />
+            </div>
+          </div>
 
-
-
-           </div>
-
-           <!-- filtri servizi -->
-           <div class="d-flex flex-wrap my-3">
-                <div v-for=" service in services" class="d-flex justify-content-center align-content-center">
-                    <input class="form-check-input mt-auto mb-auto" 
-                    type="checkbox" 
-                    :value="service.id" 
-                    :id="'service-' + service.id"
-                    v-model="selectedServices">
-                    <img :src="service.icon" alt="" style="width:50px;">
-                </div>
-           </div>
-
-
+          <!-- filtri servizi -->
+          <div class="d-flex flex-wrap my-3">
+            <div
+              v-for="service in services"
+              class="d-flex justify-content-center align-content-center"
+            >
+              <input
+                class="form-check-input mt-auto mb-auto"
+                type="checkbox"
+                :value="service.id"
+                :id="'service-' + service.id"
+                v-model="selectedServices"
+              />
+              <img :src="service.icon" alt="" style="width: 50px" />
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-            <button class="btn btn-primary"@click="fetchFilteredApartments" data-bs-dismiss="modal">Cerca</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Chiudi
+          </button>
+          <button
+            class="btn btn-primary"
+            @click="fetchFilteredApartments()"
+            data-bs-dismiss="modal"
+          >
+            Cerca
+          </button>
         </div>
+      </div>
     </div>
   </div>
-</div>
-
-
-
 </template>
 
 <style lang="scss" scoped>
@@ -407,14 +488,12 @@ export default {
 
     cursor: pointer;
   }
-
 }
 
-.servis-container{
-    width: 90vw;
-    .text-service-name{
-      font-size: 12px
-    }
+.servis-container {
+  width: 90vw;
+  .text-service-name {
+    font-size: 12px;
+  }
 }
-
 </style>
