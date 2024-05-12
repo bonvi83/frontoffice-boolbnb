@@ -378,7 +378,8 @@ export default {
                 placeholder="Metri Quadri"
                 v-model.number="squere_meters"
                 aria-describedby="addon-wrapping"
-                min="0"
+                min="20"
+                step="5"
               />
             </div>
 
