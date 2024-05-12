@@ -7,6 +7,7 @@ export default {
     return {
       apartments: [],
       // apartment: null,
+      apartmentId: null,
     };
   },
 
@@ -57,7 +58,7 @@ export default {
 
             <div class="row g-4 mt-3">
 
-              <div v-for="apartment in apartments.slice(0,4)" class="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div v-for="apartment in apartments.slice(0,4)" :key="apartment.id" class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card">
                   <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }">
                     <img :src="apartment.cover_img" class="card-img-top w-100 h-100" alt="immagine-placeholder" />

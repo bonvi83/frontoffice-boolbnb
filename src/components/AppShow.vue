@@ -10,26 +10,34 @@ import AppShowServices from "./show-components/AppShowServices.vue";
 
 export default {
     data() {
-        return {
-          apartment: null,
-        };
+      return {
+        apartmentId: null,
+      };
     },
 
+    
     computed: {
 
     },
 
     methods: {
-      fetchApartment(apartmentId) {
-      axios.get(`http://127.0.0.1:8000/api/apartments/${apartmentId}`).then((res) => {
-        this.apartment = res.data;
-        console.log(this.apartment);
+      // fetchApartment(apartmentId) {
+      // axios.get(`http://127.0.0.1:8000/api/apartments/${apartmentId}`).then((res) => {
+      //   this.apartment = res.data;
+      //   console.log(this.apartment);
+      //   });
+      // },
+
+      fetchApartmentId() {
+          axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
+          this.apartmentId = res.data.id;
         });
-      },
+      }
+     
     },
 
     created() {
-      this.fetchApartment(10);
+      this.fetchApartmentId();
     },
 
     components: { AppShowCarousel, AppShowMessages, AppShowServices }
@@ -44,7 +52,7 @@ export default {
     </div>
 
     <div>
-        <AppShowMessages></AppShowMessages>
+        <AppShowMessages :apartmentId="apartmentId" ></AppShowMessages>
     </div>
 
     <div>
