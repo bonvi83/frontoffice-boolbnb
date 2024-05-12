@@ -20,21 +20,11 @@ export default {
       });
     },
 
-    // fetchApartment(apartmentId){
-    //   axios.get(`http://127.0.0.1:8000/api/apartments/${apartmentId}`)
-    //   .then((res) => {
-    //     this.apartment = res.data.data;
-    //   })
-    //   .catch((err) =>{
-    //     console.error(err)
-    //   });
-    // }
 
   },
 
   created(){
     this.fetchApartments();
-    // this.fetchApartment();
   },
   
 
