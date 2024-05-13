@@ -4,7 +4,6 @@ import { store } from "../store/index";
 import VueHorizontal from "vue-horizontal";
 import SearchBar from "./UI/SearchBar.vue";
 
-
 export default {
   data() {
     return {
@@ -24,7 +23,6 @@ export default {
   components: { VueHorizontal, SearchBar },
   created() {
     this.fetchServices();
-    
   },
 
   methods: {
@@ -38,7 +36,6 @@ export default {
           console.log(e.message);
         });
     },
-
 
     setFilterServices(id) {
       const index = this.selectedServices.indexOf(id);
@@ -107,9 +104,6 @@ export default {
 </script>
 
 <template>
-   <div>
-     <div class="map" id="map" ref="mapRef"></div>
-   </div>
   <div class="mt-3 container-fluid">
     <div class="row justify-content-center">
       <div class="col-6">
@@ -363,9 +357,9 @@ export default {
     font-size: 12px;
   }
 }
-.map{
+.map {
   width: 100%;
   height: 400px;
- overflow: hidden;
+  overflow: hidden;
 }
 </style>
