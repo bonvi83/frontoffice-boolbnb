@@ -2,6 +2,7 @@
 import axios from "axios";
 import { store } from "../store/index";
 import VueHorizontal from "vue-horizontal";
+import tt from '@tomtom-international/web-sdk-maps';
 
 export default {
   data() {
@@ -32,17 +33,32 @@ export default {
   },
   components: { VueHorizontal },
 
-  /* computed: {
-    filterApartments() {
-      return filterApartments = [... this.apartments];
-    },
-  }, */
-
+  mounted () {
+  
+      this.initializeMap(this.$refs.mapRef);
+     
+  },
   created() {
     this.fetchServices();
+    
   },
 
   methods: {
+ /*    ///iniz map
+    initializeMap() {
+      const map = tt.map({
+
+        key: 'cXFRhnBAXKnWWIK6455uRtxFdwAGvyV2',
+
+        container: this.$refs.mapRef,
+        center: [9.18758000, 45.46450000],
+        zoom: 15, 
+      })
+      const marker = new tt.Marker().setLngLat([9.18758000, 45.46450000]).addTo(map)
+    }, */
+ 
+
+
       fecthAddresses(input) {
         this.suggestionVisibility = true;
         this.suggestions = [];
@@ -168,6 +184,9 @@ export default {
 </script>
 
 <template>
+   <div>
+     <div class="map" id="map" ref="mapRef"></div>
+   </div>
   <div class="mt-3 container-fluid">
     <div class="row justify-content-center">
       <div class="col-6">
@@ -510,5 +529,10 @@ export default {
   .text-service-name {
     font-size: 12px;
   }
+}
+.map{
+  width: 100%;
+  height: 400px;
+ overflow: hidden;
 }
 </style>
