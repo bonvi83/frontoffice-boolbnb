@@ -1,5 +1,4 @@
 <script>
-
 import axios from "axios";
 
 // import { api, store } from "../store";
@@ -7,56 +6,50 @@ import axios from "axios";
 import AppShowCarousel from "./show-components/AppShowCarousel.vue";
 import AppShowMessages from "./show-components/AppShowMessages.vue";
 import AppShowServices from "./show-components/AppShowServices.vue";
-
+import AppShowMap from "./show-components/AppShowMap.vue";
 
 export default {
-    data() {
+  data() {
+    return {
+      apartmentId: null,
+    };
+  },
 
-      return {
-        apartmentId: null,
-      };
-    },
-
-
-
-    methods: {
-
-      fetchApartmentId() {
-          axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
-            this.apartmentId = res.data.id;
+  methods: {
+    fetchApartmentId() {
+      axios
+        .get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`)
+        .then((res) => {
+          this.apartmentId = res.data.id;
+          console.log(this.apartmentId);
         });
-      }
-     
     },
+  },
 
-    created() {
-      this.fetchApartmentId();
+  created() {
+    this.fetchApartmentId();
+  },
 
-    },
-
-    components: { AppShowCarousel, AppShowMessages, AppShowServices }
-
+  components: { AppShowCarousel, AppShowMessages, AppShowServices, AppShowMap },
 };
 </script>
 
-
 <template>
-    <div>
-        <AppShowCarousel></AppShowCarousel>
-    </div>
+  <div>
+    <AppShowCarousel></AppShowCarousel>
+  </div>
 
-    <div>
+  <div>
+    <AppShowMessages :apartmentId="apartmentId"></AppShowMessages>
+  </div>
 
-        <AppShowMessages :apartmentId="apartmentId" ></AppShowMessages>
+  <div>
+    <AppShowServices></AppShowServices>
+  </div>
 
-    </div>
-
-    <div>
-        <AppShowServices></AppShowServices>
-    </div>
+  <div>
+    <AppShowMap></AppShowMap>
+  </div>
 </template>
 
-<style lang="scss">
-
-
-</style>
+<style lang="scss"></style>
