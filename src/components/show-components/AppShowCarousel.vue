@@ -8,8 +8,10 @@ export default {
     data() {
         return {
             store,
+            cover: '',
             coverImage: '',
             images: '',
+            imgsUrls: '',
         };
     },
 
@@ -27,12 +29,18 @@ export default {
             axios.get(endpoint).then((res) => {
 
                 if (res.data.cover_img && res.data.apartment_images) {
-                    // COVER IMG
+                    // COVER IMG URL
+                    this.cover = res.data.cover_img;
                     this.coverImage = res.data.cover_img;
+                    console.log(this.cover);
                     console.log(this.coverImage)
                     // IMAGES
                     this.images = res.data.apartment_images;
                     console.log(this.images)
+                    // IMAGES URLS
+                    this.imgsUrls = Object.values(this.images).map(obj => obj.url);
+                    console.log(this.imgsUrls);
+
                 } else {
                     // redirect alla pagina 404
                     // this.$router.push({ name: 'not-found' })
@@ -43,8 +51,13 @@ export default {
             });
         },
 
-        backToCover () {
+        // CHANGE COVER IMG
+        changeImg (i) {
+            this.coverImage = this.imgsUrls[i];
+        },
 
+        backToCover () {
+            this.coverImage = this.cover;
         },
 
         
@@ -53,7 +66,7 @@ export default {
 
     created() {
         // GET IMAGES
-        this.fetchImages()
+        this.fetchImages();
 
     },
 };
@@ -65,16 +78,17 @@ export default {
 
         <h1>CAROSELLO</h1>
 
-        <div class="carousel-container row my-5">
+        <div class="carousel-container bordered row justify-content-between align-items-center my-5">
 
             <!-- COVER CONTAINER-->
-            <div class="col-6 bordered d-flex justify-content-center align-items-center">
+            <div class="col-6 h-100 cover-container bordered d-flex justify-content-center align-items-center">
                 <!-- COVER IMG -->
-                <div class="card bordered">
-                    <img :src="coverImage" alt="" class=" card-img rounded bordered">
+                <div class="card h-100 w-100">
+                    <img :src="coverImage" alt="" class=" img-fluid d-block rounded bordered h-100">
 
-                    <div class="card-img-overlay d-flex justify-content-center align-items-end">
-                        <button class="">Cover</button>
+                    <div v-if="this.coverImage != this.cover"
+                        class="card-img-overlay d-flex justify-content-center align-items-end">
+                        <button @click="backToCover()" class="cover-btn btn rounded">Back to cover</button>
                     </div>
                 </div>
 
@@ -82,13 +96,14 @@ export default {
             </div>
 
             <!-- THUMBS CONTAINER-->
-            <div class="col-6 d-flex justify-content-center align-items-center bordered">
+            <div class="col-6 h-100 d-flex justify-content-center align-items-center bordered">
 
-                <div class="row justify-content-center align-items-center g-1">
+                <div class="row h-100 justify-content-center align-items-center g-1">
                     <!-- THUMBS IMGS -->
-                    <div class="col-4 thumb-container " v-for="image in images">
-                        <div class="h-100 card">
-                            <img class="h-100 card-img active-thumb" :src="image.url" alt="">
+                    <div @click="changeImg(index)" class="col-4 thumb-container" v-for="(imgUrl, index) in imgsUrls">
+                        <div class="h-100 card" >
+                            <img class="h-100 card-img" 
+                                :src="imgUrl" alt="">
                         </div>
                     </div>
 
@@ -104,15 +119,24 @@ export default {
 <style lang="scss" scoped>
 section {
 
-    .bordered {
-        border: solid 5px black;
-    }
+    // .bordered {
+    //     border: solid 5px black;
+    // }
 
     .carousel-container {
-        height: 60vh;
+        height: 490px;
+
+        // .cover-container {
+            
+        // }
+
+        .cover-btn {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
 
         .thumb-container {
-            height: 120px;
+            height: 160px;
 
             .active-thumb {
                 border: 5px solid cornflowerblue;
