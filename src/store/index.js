@@ -24,3 +24,9 @@ export const store = reactive({
   totalPage: 0,
   paginationBaseURL: "",
 });
+
+
+export const api = {
+  baseUrl: "http://127.0.0.1:8000/api/",
+};
+
