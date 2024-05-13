@@ -40,7 +40,7 @@ export default {
 <template>
   <AppMainHero />
 
-  <section class="container">
+  <section class="container-fluid">
     <div class="mb-2">
       <div class="mt-5 border-bottom border-primary">
         <h2>Appartamenti in evidenza</h2>

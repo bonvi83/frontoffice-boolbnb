@@ -182,12 +182,9 @@ export default {
             <p class="card-text">
               {{ apartment.address }}
             </p>
-            <div class="d-flex my-3">
-              <div v-for="service in apartment.services" class="me-1">
-                <img :src="service.icon" alt="" style="width: 30px" />
-              </div>
-            </div>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }" class="btn btn-primary">
+               Vai a...
+            </router-link>
           </div>
         </div>
       </div>

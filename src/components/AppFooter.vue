@@ -3,7 +3,7 @@
 
 <template>
   <footer class="text-white">
-    <div class="container py-4 d-flex justify-content-between">
+    <div class="container-fluid py-4 d-flex justify-content-between">
       <div class="team">
         <p class="h6">&copy; CLASS 117, TEAM 1</p>
 

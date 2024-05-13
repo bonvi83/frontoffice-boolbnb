@@ -30,7 +30,7 @@ export default {
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <!-- logo -->
 
-    <div class="container">
+    <div class="container-fluid">
       <div>
         <a href="" @click="clearStore()"
           ><router-link
