@@ -7,7 +7,8 @@ export default {
           userEmail: '',
           userName: '',
           userContent: '',
-          validationErrors: {} // Oggetto per memorizzare gli errori di validazione
+          validationErrors: {}, // Oggetto per memorizzare gli errori di validazione
+          messageSent: false
         };
     },
 
@@ -31,7 +32,11 @@ export default {
             this.userName = '';
             this.userContent = '';
             //Reset degli errori di validazione
-            this.validationErrors = {}; 
+            this.validationErrors = {};
+            this.messageSent = true; // Imposto la variabile di controllo a true
+              setTimeout(() => {
+                  this.messageSent = false; // Resetto la variabile di controllo dopo 5s
+              }, 5000);
           } else {
             console.log(res.data.message); //Errore nella validazione dei dati
             this.validationErrors = res.data.data; // Memorizzo gli errori di validazione
@@ -54,24 +59,29 @@ export default {
     <div>
         <h1>MESSAGGI</h1>
         <div class="container">
-          <form>
-            <div class="mb-3">
-              <label for="email" class="form-label">Inserisci la mail</label>
-              <input v-model="userEmail" type="email" class="form-control" id="email" aria-describedby="emailHelp">
-              <span v-if="validationErrors.customer_email" class="text-danger">{{ validationErrors.customer_email.find(error => true) }}</span>
+          <div class="row">
+            <div class="col-12">
+              <form>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Inserisci la mail</label>
+                  <input v-model="userEmail" type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                  <span v-if="validationErrors.customer_email" class="text-danger">{{ validationErrors.customer_email.find(error => true) }}</span>
+                </div>
+                <div class="mb-3">
+                  <label for="name" class="form-label">Inserisci il tuo nome</label>
+                  <input v-model="userName" type="name" class="form-control" id="name" aria-describedby="emailHelp">
+                  <span v-if="validationErrors.name" class="text-danger">{{ validationErrors.name.find(error => true) }}</span>
+                </div>
+                <div class="mb-3">
+                  <label for="text" class="form-label">Scrivi il messaggio</label>
+                  <textarea v-model="userContent" class="form-control" id="text" aria-describedby="emailHelp" style="height: 300px;"></textarea>
+                  <span v-if="validationErrors.content" class="text-danger">{{ validationErrors.content.find(error => true) }}</span>
+                </div>
+                <button type="submit" @click.prevent="sendMessages()" class="btn btn-success">Invia</button>
+                <span v-if="messageSent" class="ms-4 text-success">Messaggio inviato!</span>
+              </form>
             </div>
-            <div class="mb-3">
-              <label for="name" class="form-label">Inserisci il tuo nome</label>
-              <input v-model="userName" type="name" class="form-control" id="name" aria-describedby="emailHelp">
-              <span v-if="validationErrors.name" class="text-danger">{{ validationErrors.name.find(error => true) }}</span>
-            </div>
-            <div class="mb-3">
-              <label for="text" class="form-label">Scrivi il messaggio</label>
-              <textarea v-model="userContent" class="form-control" id="text" aria-describedby="emailHelp" style="height: 300px;"></textarea>
-              <span v-if="validationErrors.content" class="text-danger">{{ validationErrors.content.find(error => true) }}</span>
-            </div>
-            <button type="submit" @click.prevent="sendMessages()" class="btn btn-primary">Invia</button>
-          </form>
+          </div>
 
           <!-- ======== -->
 
