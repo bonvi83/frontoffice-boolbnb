@@ -86,47 +86,28 @@ export default {
   <div class="search-bar">
     <label for="" class="flex-grow-1">
       <div>Dove</div>
-      <input
-        type="text"
-        class="border-0 w-100 search-app-input pe-2"
-        v-model="searchInput"
-        @input="fecthAddresses(searchInput)"
-        @keyup.enter="fetchApartments(lat, lon, radius)"
-        placeholder="Cerca destinazione"
-      />
+      <input type="text" class="border-0 w-100 search-app-input pe-2" v-model="searchInput"
+        @input="fecthAddresses(searchInput)" @keyup.enter="fetchApartments(lat, lon, radius)"
+        placeholder="Cerca destinazione" />
     </label>
 
     <!-- suggerimenti -->
-    <div id="suggestion" v-if="suggestionVisibility">
-      <div
-        class="suggested-address"
-        v-for="suggestion in suggestions"
-        @click="
-          saveCoordinates(suggestion.lat, suggestion.lon, suggestion.address)
-        "
-      >
+    <div id="suggestion" class="rounded-4" v-if="suggestionVisibility">
+      <div class="suggested-address py-1 px-3" v-for="suggestion in suggestions" @click="
+        saveCoordinates(suggestion.lat, suggestion.lon, suggestion.address)
+        ">
         {{ suggestion.address }}
       </div>
     </div>
 
     <label for="">
       <div>Raggio di ricerca (km)</div>
-      <input
-        type="number"
-        min="5"
-        step="5"
-        class="border-0 w-75 search-app-input"
-        v-model="radius"
-        placeholder="Cerca destinazione"
-      />
+      <input type="number" min="5" step="5" class="border-0 w-75 search-app-input" v-model="radius"
+        placeholder="Cerca destinazione" />
     </label>
 
     <router-link :to="{ name: 'apartments.search' }">
-      <button
-        class="search-address-btn"
-        @click="fetchApartments(lat, lon, radius)"
-        :disabled="!searchInput"
-      >
+      <button class="search-address-btn" @click="fetchApartments(lat, lon, radius)" :disabled="!searchInput">
         <font-awesome-icon icon="magnifying-glass" />
       </button>
     </router-link>
@@ -142,6 +123,7 @@ export default {
   border-radius: 20px;
   padding: 0.8rem;
 }
+
 .search-address-btn {
   width: 50px;
   aspect-ratio: 1;
@@ -164,11 +146,13 @@ export default {
   z-index: 1;
 
   .suggested-address {
-    padding-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
     cursor: pointer;
+  }
+
+  .suggested-address:hover{
+    background-color: cornflowerblue;
+    color: white;
+    
   }
 }
 </style>
