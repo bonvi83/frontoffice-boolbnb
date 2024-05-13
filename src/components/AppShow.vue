@@ -7,6 +7,7 @@ import axios from "axios";
 import AppShowCarousel from "./show-components/AppShowCarousel.vue";
 import AppShowMessages from "./show-components/AppShowMessages.vue";
 import AppShowServices from "./show-components/AppShowServices.vue";
+import AppShowMap from "./show-components/AppShowMap.vue";
 
 
 export default {
@@ -34,7 +35,7 @@ export default {
 
     },
 
-    components: { AppShowCarousel, AppShowMessages, AppShowServices }
+    components: { AppShowCarousel, AppShowMessages, AppShowServices, AppShowMap  }
 
 };
 </script>
@@ -45,6 +46,7 @@ export default {
         <AppShowCarousel></AppShowCarousel>
     </div>
 
+   
     <div>
 
         <AppShowMessages :apartmentId="apartmentId" ></AppShowMessages>
@@ -53,6 +55,10 @@ export default {
 
     <div>
         <AppShowServices></AppShowServices>
+    </div>
+
+     <div>
+      <AppShowMap></AppShowMap>
     </div>
 </template>
 

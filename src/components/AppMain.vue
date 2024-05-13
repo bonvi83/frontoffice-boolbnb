@@ -63,7 +63,7 @@ export default {
             </router-link>
             <div class="card-body">
               <router-link
-                :to="{ name: 'apartment.show', params: { id: apartment.id } }"
+                :to="{ name: 'apartment.show', params: { id: apartment.id  } }"
               >
                 <h5 class="card-title">
                   {{ apartment.name }}
