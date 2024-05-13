@@ -14,7 +14,7 @@ export default {
       n_bed: null,
       squere_meters: null,
       floor: null,
-      radius: "",
+      radius: store.radius ? store.radius : 5,
 
       services: [],
       selectedServices: [],
@@ -311,7 +311,8 @@ export default {
                 placeholder="Raggio di Ricerca"
                 v-model.number="radius"
                 aria-describedby="addon-wrapping"
-                min="0"
+                min="5"
+                step="5"
               />
             </div>
           </div>

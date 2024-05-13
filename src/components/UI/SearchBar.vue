@@ -13,11 +13,11 @@ export default {
       totalPage: 0,
       paginationBaseURL: "",
 
-      searchInput: "",
+      searchInput: store.searchInput ? store.searchInput : "",
 
       lat: "",
       lon: "",
-      radius: 5,
+      radius: store.radius ? store.radius : 5,
     };
   },
   components: {},
@@ -50,12 +50,14 @@ export default {
       this.lon = lon;
       store.lon = lon;
       this.searchInput = address;
+      store.searchInput = address;
       this.suggestionVisibility = false;
     },
 
     fetchApartments(latitude, longitude, radius) {
       const radiusMt = radius * 1000;
       store.radiusMt = radiusMt;
+      store.radius = radius;
       axios
         .get(
           `http://127.0.0.1:8000/api/research/${latitude}&${longitude}&${radiusMt}`
@@ -119,13 +121,15 @@ export default {
       />
     </label>
 
-    <button
-      class="search-address-btn"
-      :disabled="!searchInput"
-      @click="fetchApartments(lat, lon, radius)"
-    >
-      <font-awesome-icon icon="magnifying-glass" />
-    </button>
+    <router-link :to="{ name: 'apartments.search' }">
+      <button
+        class="search-address-btn"
+        @click="fetchApartments(lat, lon, radius)"
+        :disabled="!searchInput"
+      >
+        <font-awesome-icon icon="magnifying-glass" />
+      </button>
+    </router-link>
   </div>
 </template>
 

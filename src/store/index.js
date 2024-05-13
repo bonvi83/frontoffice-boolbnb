@@ -8,6 +8,7 @@ export const store = reactive({
   lat: "",
   lon: "",
   radiusMt: "",
+  radius: 5,
 
   test: "prova",
   n_room: null,
