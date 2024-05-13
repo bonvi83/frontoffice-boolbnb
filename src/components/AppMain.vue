@@ -57,13 +57,13 @@ export default {
             >
               <img
                 :src="apartment.cover_img"
-                class="card-img-top w-100 h-100"
+                class="card-img-top image-card"
                 alt="immagine-placeholder"
               />
             </router-link>
             <div class="card-body">
               <router-link
-                :to="{ name: 'apartment.show', params: { id: apartment.id  } }"
+                :to="{ name: 'apartment.show', params: { id: apartment.id } }"
               >
                 <h5 class="card-title">
                   {{ apartment.name }}
@@ -125,7 +125,7 @@ export default {
             <!-- <router-link :to="{ name: 'apartment.show' }"> -->
             <img
               :src="apartment.cover_img"
-              class="card-img-top w-100 h-100"
+              class="card-img-top image-card"
               alt="immagine mancante"
             />
             <!-- </router-link> -->
@@ -203,5 +203,9 @@ export default {
   .card-title {
     font-weight: bold;
   }
+}
+.image-card {
+  height: 280px;
+  object-fit: cover;
 }
 </style>

@@ -171,10 +171,10 @@ export default {
         v-for="apartment in store.apartments"
         class="col-sm-12 col-md-6 col-lg-3 my-4"
       >
-        <div class="card">
+        <div class="card h-100">
           <img
             :src="apartment.cover_img || 'https://placehold.co/600x400'"
-            class="card-img-top"
+            class="card-img-top image-card"
             alt="..."
           />
           <div class="card-body">
@@ -182,8 +182,11 @@ export default {
             <p class="card-text">
               {{ apartment.address }}
             </p>
-            <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }" class="btn btn-primary">
-               Vai a...
+            <router-link
+              :to="{ name: 'apartment.show', params: { id: apartment.id } }"
+              class="btn btn-primary"
+            >
+              Vai a...
             </router-link>
           </div>
         </div>
@@ -358,5 +361,10 @@ export default {
   width: 100%;
   height: 400px;
   overflow: hidden;
+}
+
+.image-card {
+  height: 280px;
+  object-fit: cover;
 }
 </style>
