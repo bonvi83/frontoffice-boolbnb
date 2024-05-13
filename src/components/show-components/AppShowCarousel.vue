@@ -8,6 +8,7 @@ export default {
     data() {
         return {
             store,
+            data:'',
             cover: '',
             coverImage: '',
             images: '',
@@ -25,15 +26,19 @@ export default {
     methods: {
 
         // API CALL FOR IMAGES
-        fetchImages(endpoint = this.apiEndpoint) {
+        fetchParams(endpoint = this.apiEndpoint) {
             axios.get(endpoint).then((res) => {
 
                 if (res.data.cover_img && res.data.apartment_images) {
+                    this.data = res.data;
+                    console.log(this.data)
+
                     // COVER IMG URL
                     this.cover = res.data.cover_img;
                     this.coverImage = res.data.cover_img;
                     console.log(this.cover);
                     console.log(this.coverImage)
+
                     // IMAGES
                     this.images = res.data.apartment_images;
                     console.log(this.images)
@@ -66,7 +71,7 @@ export default {
 
     created() {
         // GET IMAGES
-        this.fetchImages();
+        this.fetchParams();
 
     },
 };
