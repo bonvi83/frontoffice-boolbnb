@@ -1,5 +1,6 @@
 <script>
 
+
 // AXIOS
 import axios from "axios";
 // STORE
@@ -10,14 +11,17 @@ export default {
   data() {
     return {
 
+
       store,
 
       services: '',
+
 
     };
   },
 
   computed: {
+
     apiEndpoint() {
       return api.baseUrl + `apartments/${this.$route.params.id}`;
     },
@@ -38,13 +42,16 @@ export default {
           console.log('not found')
         }
         
+
       });
     },
 
   },
 
   created() {
+
     this.fetchServices()
+
   }
 };
 
@@ -66,5 +73,6 @@ export default {
   </div>
 
 </template>
+
 
 <style lang="scss"></style>

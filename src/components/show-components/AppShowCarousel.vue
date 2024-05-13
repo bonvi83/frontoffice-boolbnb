@@ -1,4 +1,5 @@
 <script>
+
 // AXIOS
 import axios from "axios";
 // STORE
@@ -79,6 +80,7 @@ export default {
 
 
 <template>
+
     <section class="container">
 
         <div class=" my-3">
@@ -152,4 +154,5 @@ section {
     }
 
 }
+
 </style>

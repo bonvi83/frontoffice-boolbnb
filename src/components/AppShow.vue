@@ -1,6 +1,7 @@
 <script>
 
 import axios from "axios";
+
 // import { api, store } from "../store";
 
 import AppShowCarousel from "./show-components/AppShowCarousel.vue";
@@ -10,22 +11,27 @@ import AppShowServices from "./show-components/AppShowServices.vue";
 
 export default {
     data() {
-        return {
 
-        };
+      return {
+        apartmentId: null,
+      };
     },
 
-    computed: {
 
-    },
 
     methods: {
 
-
+      fetchApartmentId() {
+          axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
+            this.apartmentId = res.data.id;
+        });
+      }
+     
     },
 
     created() {
-        
+      this.fetchApartmentId();
+
     },
 
     components: { AppShowCarousel, AppShowMessages, AppShowServices }
@@ -40,7 +46,9 @@ export default {
     </div>
 
     <div>
-        <AppShowMessages></AppShowMessages>
+
+        <AppShowMessages :apartmentId="apartmentId" ></AppShowMessages>
+
     </div>
 
     <div>
@@ -49,5 +57,6 @@ export default {
 </template>
 
 <style lang="scss">
+
 
 </style>

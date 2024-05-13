@@ -5,7 +5,11 @@ import AppMainHero from "./AppMainHero.vue";
 export default {
   data() {
     return {
-      apartments: []
+
+      apartments: [],
+      // apartment: null,
+      apartmentId: null,
+
     };
   },
 
@@ -17,6 +21,7 @@ export default {
         this.apartments = res.data;
       });
     },
+
 
   },
 
@@ -45,22 +50,22 @@ export default {
 
       <div class="row g-4 mt-3">
 
-        <div v-for="apartment in apartments.slice(0, 4)" class="col-12 col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100">
-            <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }">
-              <img :src="apartment.cover_img" alt="immagine-placeholder" class="card-img-top w-100 h-100" />
-            </router-link>
-            <div class="card-body">
-              <!-- <h5 class="card-title">Titolo casa</h5> -->
-              <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }">
-                <h5 class="card-title">
-                  {{ apartment.name }}
-                </h5>
-              </router-link>
-              <p>{{ apartment.address }}</p>
-            </div>
-          </div>
-        </div>
+
+              <div v-for="apartment in apartments.slice(0,4)" class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100">
+                  <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }">
+                    <img :src="apartment.cover_img" class="card-img-top w-100 h-100" alt="immagine-placeholder" />
+                  </router-link>
+                  <div class="card-body">
+                    <router-link :to="{ name: 'apartment.show', params: { id: apartment.id } }">
+                      <h5 class="card-title">
+                        {{ apartment.name }}
+                      </h5>
+                    </router-link>
+                      <p>{{ apartment.address }}</p>
+                  </div>
+                </div>
+              </div>
 
         <!-- <div class="card">
           <img
@@ -109,13 +114,15 @@ export default {
           <div class="card h-100">
 
             <!-- <router-link :to="{ name: 'apartment.show' }"> -->
-            <img :src="apartment.cover_img" class="card-img-top w-100 h-100" alt="immagine mancante" />
+              <img :src="apartment.cover_img" class="card-img-top w-100 h-100" alt="immagine mancante"/>
             <!-- </router-link> -->
 
             <div class="card-body">
               <h5 class="card-title">
                 <a href="#">
+                <!-- <router-link :to="{ name: 'apartment.show' }"> -->
                   {{ apartment.name }}
+                <!-- </router-link> -->
                 </a>
               </h5>
               <p>{{ apartment.address }}</p>
