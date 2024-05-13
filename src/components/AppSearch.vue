@@ -2,184 +2,107 @@
 import axios from "axios";
 import { store } from "../store/index";
 import VueHorizontal from "vue-horizontal";
-import tt from '@tomtom-international/web-sdk-maps';
+import SearchBar from "./UI/SearchBar.vue";
+
 
 export default {
   data() {
     return {
       store,
-      searchInput: "",
-      apiKey: "cXFRhnBAXKnWWIK6455uRtxFdwAGvyV2",
-
-      lat: "",
-      lon: "",
-      radius: 5,
 
       n_room: null,
       n_bathroom: null,
       n_bed: null,
       squere_meters: null,
       floor: null,
+      radius: store.radius ? store.radius : 5,
 
-      suggestions: [],
-      suggestionVisibility: false,
-      apartments: [],
-      pagLinks: [],
-      totalPage: 0,
-      paginationBaseURL: "",
       services: [],
       selectedServices: [],
     };
   },
-  components: { VueHorizontal },
-
-  mounted () {
-  
-      this.initializeMap(this.$refs.mapRef);
-     
-  },
+  components: { VueHorizontal, SearchBar },
   created() {
     this.fetchServices();
     
   },
 
   methods: {
- /*    ///iniz map
-    initializeMap() {
-      const map = tt.map({
-
-        key: 'cXFRhnBAXKnWWIK6455uRtxFdwAGvyV2',
-
-        container: this.$refs.mapRef,
-        center: [9.18758000, 45.46450000],
-        zoom: 15, 
-      })
-      const marker = new tt.Marker().setLngLat([9.18758000, 45.46450000]).addTo(map)
-    }, */
- 
+    fetchServices() {
+      axios
+        .get(`http://127.0.0.1:8000/api/services`)
+        .then((response) => {
+          this.services = response.data;
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
 
 
-      fecthAddresses(input) {
-        this.suggestionVisibility = true;
-        this.suggestions = [];
-        axios
-          .get(
-            `https://api.tomtom.com/search/2/geocode/${input}.json?typeahead=true&limit=3&countrySet=IT&lat=37.337&lon=-121.89&view=Unified&key=${this.apiKey}`
-          )
-          .then((response) => {
-            const results = response.data.results;
+    setFilterServices(id) {
+      const index = this.selectedServices.indexOf(id);
+      if (index === -1) {
+        this.selectedServices.push(id); // Aggiungi l'ID se non è già presente
+      } else {
+        this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
+      }
 
-            results.forEach((result) => {
-              const suggestion = {
-                address: result.address.freeformAddress,
-                lat: result.position.lat,
-                lon: result.position.lon,
-              };
-              this.suggestions.push(suggestion);
-            });
-          });
-      },
+      // Chiamo dopo update dei servizi
+      this.fetchFilteredApartments();
+    },
 
-      saveCoordinates(lat, lon, address) {
-        this.lat = lat;
-        this.lon = lon;
-        this.searchInput = address;
-        this.suggestionVisibility = false;
-      },
+    fetchFilteredApartments() {
+      store.radiusMt = this.radius * 1000;
+      let servicesUrl =
+        this.selectedServices.length == 0
+          ? null
+          : this.selectedServices.join(",");
 
-      fetchApartments(latitude, longitude, radius) {
-        const radiusMt = radius * 1000;
-        axios
-          .get(
-            `http://127.0.0.1:8000/api/research/${latitude}&${longitude}&${radiusMt}`
-          )
-          .then((response) => {
-            console.log(response.data);
-            this.apartments = response.data.data;
-            this.pagLinks = response.data.links;
-            this.totalPage = response.data.last_page;
-            this.paginationBaseURL = response.config.url;
-          })
-          .catch((e) => {
-            console.log(e.message);
-          });
-      },
+      if (this.n_room == "") this.n_room = null;
+      if (this.n_bathroom == "") this.n_bathroom = null;
+      if (this.n_bed == "") this.n_bed = null;
+      if (this.squere_meters == "") this.squere_meters = null;
+      if (this.floor == "") this.floor = null;
 
-      fetchServices() {
-        axios
-          .get(`http://127.0.0.1:8000/api/services`)
-          .then((response) => {
-            this.services = response.data;
-          })
-          .catch((e) => {
-            console.log(e.message);
-          });
-      },
+      axios
+        .get(
+          `http://127.0.0.1:8000/api/research/${store.lat}&${store.lon}&${store.radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${servicesUrl}`
+        )
+        .then((response) => {
+          console.log(response.data.data);
+          store.apartments = response.data.data; // Salva gli appartamenti filtrati nel data del componente
+          store.pagLinks = response.data.links;
+          store.totalPage = response.data.last_page;
+          store.paginationBaseURL = response.config.url;
+        })
+        .catch((error) => {
+          console.error("Error fetching filtered apartments:", error);
+        });
+    },
 
-      setFilterServices(id) {
-        const index = this.selectedServices.indexOf(id);
-        if (index === -1) {
-          this.selectedServices.push(id); // Aggiungi l'ID se non è già presente
-        } else {
-          this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
-        }
-
-        // Chiamo dopo update dei servizi
-        this.fetchFilteredApartments();
-      },
-
-      fetchFilteredApartments() {
-        const radiusMt = this.radius * 1000;
-        let servicesUrl =
-          this.selectedServices.length == 0
-            ? null
-            : this.selectedServices.join(",");
-
-        if (this.n_room == "") this.n_room = null;
-        if (this.n_bathroom == "") this.n_bathroom = null;
-        if (this.n_bed == "") this.n_bed = null;
-        if (this.squere_meters == "") this.squere_meters = null;
-        if (this.floor == "") this.floor = null;
-
-        axios
-          .get(
-            `http://127.0.0.1:8000/api/research/${this.lat}&${this.lon}&${radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${servicesUrl}`
-          )
-          .then((response) => {
-            console.log(response.data.data);
-            this.apartments = response.data.data; // Salva gli appartamenti filtrati nel data del componente
-            this.pagLinks = response.data.links;
-            this.totalPage = response.data.last_page;
-            this.paginationBaseURL = response.config.url;
-          })
-          .catch((error) => {
-            console.error("Error fetching filtered apartments:", error);
-          });
-      },
-
-      paginationNav(url) {
-        axios
-          .get(url)
-          .then((response) => {
-            console.log(response.config.url);
-            console.log(response.data);
-            console.log(response.data.links);
-            this.apartments = response.data.data;
-            this.pagLinks = response.data.links;
-          })
-          .catch((e) => {
-            console.log(e.message);
-          });
-      },
-      resetFilters(){
+    paginationNav(url) {
+      axios
+        .get(url)
+        .then((response) => {
+          console.log(response.config.url);
+          console.log(response.data);
+          console.log(response.data.links);
+          store.apartments = response.data.data;
+          store.pagLinks = response.data.links;
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+    resetFilters() {
       this.n_room = null;
       this.n_bathroom = null;
       this.n_ded = null;
       this.n_square_meters = null;
       this.floor = null;
-      },
+    },
   },
- 
 };
 </script>
 
@@ -190,57 +113,7 @@ export default {
   <div class="mt-3 container-fluid">
     <div class="row justify-content-center">
       <div class="col-6">
-        <!-- search bar -->
-        <div class="search-bar">
-          <label for="" class="flex-grow-1">
-            <div>Dove</div>
-            <input
-              type="text"
-              class="border-0 w-100 search-app-input pe-2"
-              v-model="searchInput"
-              @input="fecthAddresses(searchInput)"
-              @keyup.enter="fetchApartments(lat, lon, radius)"
-              placeholder="Cerca destinazione"
-            />
-          </label>
-
-          <!-- suggerimenti -->
-          <div id="suggestion" v-if="suggestionVisibility">
-            <div
-              class="suggested-address"
-              v-for="suggestion in suggestions"
-              @click="
-                saveCoordinates(
-                  suggestion.lat,
-                  suggestion.lon,
-                  suggestion.address
-                )
-              "
-            >
-              {{ suggestion.address }}
-            </div>
-          </div>
-
-          <label for="">
-            <div>Raggio di ricerca (km)</div>
-            <input
-              type="number"
-              min="5"
-              step="5"
-              class="border-0 w-75 search-app-input"
-              v-model="radius"
-              placeholder="Cerca destinazione"
-            />
-          </label>
-
-          <button
-            class="search-address-btn"
-            :disabled="!searchInput"
-            @click="fetchApartments(lat, lon, radius)"
-          >
-            <font-awesome-icon icon="magnifying-glass" />
-          </button>
-        </div>
+        <search-bar></search-bar>
       </div>
     </div>
   </div>
@@ -301,7 +174,7 @@ export default {
   <div class="m-sm-2 m-md-3 m-lg-4 m-xl-5 pb-3">
     <div class="row g-sm-2 g-md-3 g-lg-4 mb-5">
       <div
-        v-for="apartment in apartments"
+        v-for="apartment in store.apartments"
         class="col-sm-12 col-md-6 col-lg-3 my-4"
       >
         <div class="card">
@@ -326,9 +199,9 @@ export default {
       </div>
     </div>
     <!--  paginazione -->
-    <nav v-if="totalPage > 1" aria-label="Page navigation example">
+    <nav v-if="store.totalPage > 1" aria-label="Page navigation example">
       <ul class="pagination">
-        <li class="page-item" v-for="link in pagLinks">
+        <li class="page-item" v-for="link in store.pagLinks">
           <a
             class="page-link"
             :class="{
@@ -337,7 +210,7 @@ export default {
             }"
             v-html="link.label"
             href="javascript:void(0)"
-            @click="paginationNav(paginationBaseURL + link.url)"
+            @click="paginationNav(store.paginationBaseURL + link.url)"
           ></a>
         </li>
       </ul>
@@ -443,7 +316,8 @@ export default {
                 placeholder="Raggio di Ricerca"
                 v-model.number="radius"
                 aria-describedby="addon-wrapping"
-                min="0"
+                min="5"
+                step="5"
               />
             </div>
           </div>
@@ -466,10 +340,7 @@ export default {
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-warning"
-            @click="resetFilters">
+          <button type="button" class="btn btn-warning" @click="resetFilters">
             Reset
           </button>
           <button
@@ -486,44 +357,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.search-bar {
-  display: flex;
-  align-items: center;
-  position: relative;
-  border: 1px solid black;
-  border-radius: 20px;
-  padding: 0.8rem;
-}
-.search-address-btn {
-  width: 50px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-
-  border: none;
-}
-
-.search-app-input {
-  outline: none;
-}
-
-#suggestion {
-  background-color: white;
-  width: 100%;
-  box-shadow: 0 15px 15px 0 grey;
-  position: absolute;
-  top: 110%;
-  left: 0;
-  z-index: 1;
-
-  .suggested-address {
-    padding-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-    cursor: pointer;
-  }
-}
-
 .servis-container {
   width: 90vw;
   .text-service-name {
