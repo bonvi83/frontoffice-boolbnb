@@ -81,9 +81,10 @@ export default {
 <template>
     <section class="container">
 
-        <h1>CAROSELLO</h1>
+        <h1>{{data.name}}</h1>
+        <h2>{{ data.address }}</h2>
 
-        <div class="carousel-container bordered row justify-content-between align-items-center my-5">
+        <div class="carousel-container bordered row justify-content-between align-items-center mt-3">
 
             <!-- COVER CONTAINER-->
             <div class="col-6 h-100 cover-container bordered d-flex justify-content-center align-items-center">
