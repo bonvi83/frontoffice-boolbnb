@@ -1,7 +1,28 @@
 <script>
+import { store } from "../store";
 export default {
   data() {
-    return {};
+    return {
+      store,
+    };
+  },
+
+  methods: {
+    clearStore() {
+      store.lat = "";
+      store.lon = "";
+      store.radiusMt = "";
+      store.radius = "";
+
+      store.searchInput = "";
+
+      store.suggestions = [];
+      store.suggestionVisibility = false;
+      store.apartments = [];
+      store.pagLinks = [];
+      store.totalPage = 0;
+      store.paginationBaseURL = "";
+    },
   },
 };
 </script>
@@ -11,10 +32,11 @@ export default {
 
     <div class="container">
       <div>
-        <a href=""
+        <a href="" @click="clearStore()"
           ><router-link
             :to="{ name: 'home' }"
             class="nav-link active"
+            @click="clearStore()"
             aria-current="page"
             ><img src="../assets/logbnb.png" alt="Logo" height="50"
           /></router-link>
@@ -38,10 +60,11 @@ export default {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav align-items-center">
-            <li class="nav-item">
+            <li class="nav-item" @click="clearStore()">
               <router-link
                 :to="{ name: 'home' }"
                 class="nav-link active"
+                @click="clearStore()"
                 aria-current="page"
                 ><img src="../assets/house.svg" alt="Logo" /><span
                   class="d-none d-lg-inline-block"
@@ -50,7 +73,7 @@ export default {
                 </span></router-link
               >
             </li>
-            <li class="nav-item align-self-center">
+            <!-- <li class="nav-item align-self-center">
               <router-link
                 :to="{ name: 'apartments.search' }"
                 class="nav-link active"
@@ -58,9 +81,9 @@ export default {
                 ><img src="../assets/search.svg" alt="Logo" class="me-2" />
                 <span class="d-none d-lg-inline-block"> Cerca </span>
               </router-link>
-            </li>
+            </li> -->
 
-            <li class="nav-item">
+            <li class="nav-item" @click="clearStore()">
               <a class="nav-link active" href="http://127.0.0.1:8000/">
                 <img src="../assets/person.svg" alt="Logo" />
                 <span class="d-none d-lg-inline-block">Accedi</span>

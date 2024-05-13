@@ -2,10 +2,11 @@
 import AppMain from "./components/AppMain.vue";
 import AppHeader from "./components/AppHeader.vue";
 import AppFooter from "./components/AppFooter.vue";
+import { store } from "./store"
 
 export default {
   data() {
-    return {    };
+    return {  store  };
   },
 
   methods: { },
