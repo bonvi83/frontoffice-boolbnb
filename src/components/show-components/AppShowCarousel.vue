@@ -81,10 +81,12 @@ export default {
 <template>
     <section class="container">
 
-        <h1>{{data.name}}</h1>
-        <h2>{{ data.address }}</h2>
+        <div class=" my-3">
+            <h1>{{ data.name }}</h1>
+            <h2>{{ data.address }}</h2>
+        </div>
 
-        <div class="carousel-container bordered row justify-content-between align-items-center mt-3">
+        <div class="carousel-container bordered row justify-content-between align-items-center">
 
             <!-- COVER CONTAINER-->
             <div class="col-6 h-100 cover-container bordered d-flex justify-content-center align-items-center">
@@ -107,9 +109,8 @@ export default {
                 <div class="row h-100 justify-content-center align-items-center g-1">
                     <!-- THUMBS IMGS -->
                     <div @click="changeImg(index)" class="col-4 thumb-container" v-for="(imgUrl, index) in imgsUrls">
-                        <div class="h-100 card" >
-                            <img class="h-100 card-img" 
-                                :src="imgUrl" alt="">
+                        <div class="h-100 card">
+                            <img class="h-100 card-img" :src="imgUrl" alt="">
                         </div>
                     </div>
 
