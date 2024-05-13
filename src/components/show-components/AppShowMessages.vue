@@ -1,4 +1,5 @@
 <script>
+
 import axios from "axios";
 
 export default {
@@ -51,6 +52,7 @@ export default {
 
     created(){
     }
+
 };
 </script>
 
@@ -58,6 +60,7 @@ export default {
 <template>
     <div>
         <h1>MESSAGGI</h1>
+
         <div class="container">
           <div class="row">
             <div class="col-12">
@@ -125,6 +128,7 @@ export default {
         </div>
     </div>
   </template>
+
 
 <style lang="scss">
 
