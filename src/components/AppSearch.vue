@@ -43,119 +43,127 @@ export default {
   },
 
   methods: {
-    fecthAddresses(input) {
-      this.suggestionVisibility = true;
-      this.suggestions = [];
-      axios
-        .get(
-          `https://api.tomtom.com/search/2/geocode/${input}.json?typeahead=true&limit=3&countrySet=IT&lat=37.337&lon=-121.89&view=Unified&key=${this.apiKey}`
-        )
-        .then((response) => {
-          const results = response.data.results;
+      fecthAddresses(input) {
+        this.suggestionVisibility = true;
+        this.suggestions = [];
+        axios
+          .get(
+            `https://api.tomtom.com/search/2/geocode/${input}.json?typeahead=true&limit=3&countrySet=IT&lat=37.337&lon=-121.89&view=Unified&key=${this.apiKey}`
+          )
+          .then((response) => {
+            const results = response.data.results;
 
-          results.forEach((result) => {
-            const suggestion = {
-              address: result.address.freeformAddress,
-              lat: result.position.lat,
-              lon: result.position.lon,
-            };
-            this.suggestions.push(suggestion);
+            results.forEach((result) => {
+              const suggestion = {
+                address: result.address.freeformAddress,
+                lat: result.position.lat,
+                lon: result.position.lon,
+              };
+              this.suggestions.push(suggestion);
+            });
           });
-        });
-    },
+      },
 
-    saveCoordinates(lat, lon, address) {
-      this.lat = lat;
-      this.lon = lon;
-      this.searchInput = address;
-      this.suggestionVisibility = false;
-    },
+      saveCoordinates(lat, lon, address) {
+        this.lat = lat;
+        this.lon = lon;
+        this.searchInput = address;
+        this.suggestionVisibility = false;
+      },
 
-    fetchApartments(latitude, longitude, radius) {
-      const radiusMt = radius * 1000;
-      axios
-        .get(
-          `http://127.0.0.1:8000/api/research/${latitude}&${longitude}&${radiusMt}`
-        )
-        .then((response) => {
-          console.log(response.data);
-          this.apartments = response.data.data;
-          this.pagLinks = response.data.links;
-          this.totalPage = response.data.last_page;
-          this.paginationBaseURL = response.config.url;
-        })
-        .catch((e) => {
-          console.log(e.message);
-        });
-    },
+      fetchApartments(latitude, longitude, radius) {
+        const radiusMt = radius * 1000;
+        axios
+          .get(
+            `http://127.0.0.1:8000/api/research/${latitude}&${longitude}&${radiusMt}`
+          )
+          .then((response) => {
+            console.log(response.data);
+            this.apartments = response.data.data;
+            this.pagLinks = response.data.links;
+            this.totalPage = response.data.last_page;
+            this.paginationBaseURL = response.config.url;
+          })
+          .catch((e) => {
+            console.log(e.message);
+          });
+      },
 
-    fetchServices() {
-      axios
-        .get(`http://127.0.0.1:8000/api/services`)
-        .then((response) => {
-          this.services = response.data;
-        })
-        .catch((e) => {
-          console.log(e.message);
-        });
-    },
+      fetchServices() {
+        axios
+          .get(`http://127.0.0.1:8000/api/services`)
+          .then((response) => {
+            this.services = response.data;
+          })
+          .catch((e) => {
+            console.log(e.message);
+          });
+      },
 
-    setFilterServices(id) {
-      const index = this.selectedServices.indexOf(id);
-      if (index === -1) {
-        this.selectedServices.push(id); // Aggiungi l'ID se non è già presente
-      } else {
-        this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
-      }
+      setFilterServices(id) {
+        const index = this.selectedServices.indexOf(id);
+        if (index === -1) {
+          this.selectedServices.push(id); // Aggiungi l'ID se non è già presente
+        } else {
+          this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
+        }
 
-      // Chiamo dopo update dei servizi
-      this.fetchFilteredApartments();
-    },
+        // Chiamo dopo update dei servizi
+        this.fetchFilteredApartments();
+      },
 
-    fetchFilteredApartments() {
-      const radiusMt = this.radius * 1000;
-      let servicesUrl =
-        this.selectedServices.length == 0
-          ? null
-          : this.selectedServices.join(",");
+      fetchFilteredApartments() {
+        const radiusMt = this.radius * 1000;
+        let servicesUrl =
+          this.selectedServices.length == 0
+            ? null
+            : this.selectedServices.join(",");
 
-      if (this.n_room == "") this.n_room = null;
-      if (this.n_bathroom == "") this.n_bathroom = null;
-      if (this.n_bed == "") this.n_bed = null;
-      if (this.squere_meters == "") this.squere_meters = null;
-      if (this.floor == "") this.floor = null;
+        if (this.n_room == "") this.n_room = null;
+        if (this.n_bathroom == "") this.n_bathroom = null;
+        if (this.n_bed == "") this.n_bed = null;
+        if (this.squere_meters == "") this.squere_meters = null;
+        if (this.floor == "") this.floor = null;
 
-      axios
-        .get(
-          `http://127.0.0.1:8000/api/research/${this.lat}&${this.lon}&${radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${servicesUrl}`
-        )
-        .then((response) => {
-          console.log(response.data.data);
-          this.apartments = response.data.data; // Salva gli appartamenti filtrati nel data del componente
-          this.pagLinks = response.data.links;
-          this.totalPage = response.data.last_page;
-          this.paginationBaseURL = response.config.url;
-        })
-        .catch((error) => {
-          console.error("Error fetching filtered apartments:", error);
-        });
-    },
+        axios
+          .get(
+            `http://127.0.0.1:8000/api/research/${this.lat}&${this.lon}&${radiusMt}/${this.n_room}/${this.n_bathroom}/${this.n_bed}/${this.squere_meters}/${this.floor}/${servicesUrl}`
+          )
+          .then((response) => {
+            console.log(response.data.data);
+            this.apartments = response.data.data; // Salva gli appartamenti filtrati nel data del componente
+            this.pagLinks = response.data.links;
+            this.totalPage = response.data.last_page;
+            this.paginationBaseURL = response.config.url;
+          })
+          .catch((error) => {
+            console.error("Error fetching filtered apartments:", error);
+          });
+      },
 
-    paginationNav(url) {
-      axios
-        .get(url)
-        .then((response) => {
-          console.log(response.config.url);
-          console.log(response.data);
-          console.log(response.data.links);
-          this.apartments = response.data.data;
-          this.pagLinks = response.data.links;
-        })
-        .catch((e) => {
-          console.log(e.message);
-        });
-    },
+      paginationNav(url) {
+        axios
+          .get(url)
+          .then((response) => {
+            console.log(response.config.url);
+            console.log(response.data);
+            console.log(response.data.links);
+            this.apartments = response.data.data;
+            this.pagLinks = response.data.links;
+          })
+          .catch((e) => {
+            console.log(e.message);
+          });
+      },
+      resetFilters(){
+      this.n_room = null;
+      this.n_bathroom = null;
+      this.n_ded = null;
+      this.n_square_meters = null;
+      this.floor = null;
+      },
   },
+ 
 };
 </script>
 
@@ -441,10 +449,9 @@ export default {
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Chiudi
+            class="btn btn-warning"
+            @click="resetFilters">
+            Reset
           </button>
           <button
             class="btn btn-primary"
