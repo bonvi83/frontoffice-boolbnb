@@ -33,13 +33,13 @@
         </ul>
       </div>
 
-      <div class="pe-4">
+      <div class="pe-2">
         <a href=""
           ><router-link
             :to="{ name: 'home' }"
             class="nav-link active"
             aria-current="page"
-            ><img src="../assets/logbnb.png" alt="Logo" height="50"
+            ><img src="../assets/logbnb.png" alt="Logo" height="55"
           /></router-link>
         </a>
       </div>
