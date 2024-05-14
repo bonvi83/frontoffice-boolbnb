@@ -26,6 +26,14 @@ export default {
   },
 
   methods: {
+	toggleCheckbox(id) {
+		const index = this.selectedServices.indexOf(id);
+		if (index === -1) {
+		this.selectedServices.push(id); // Aggiungi l'ID se non è già presente
+		} else {
+		this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
+		}
+	},
     fetchServices() {
       axios
         .get(`http://127.0.0.1:8000/api/services`)
@@ -95,9 +103,11 @@ export default {
     resetFilters() {
       this.n_room = null;
       this.n_bathroom = null;
-      this.n_ded = null;
+      this.n_bed = null;
       this.n_square_meters = null;
       this.floor = null;
+	  this.radius = store.radius ? store.radius : 5; 
+	  this.selectedServices = [];
     },
   },
 };
@@ -219,134 +229,153 @@ export default {
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
     ref="modal"
-  >
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">
-            Ricerca Avanzata
-          </h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <!-- filtri appartamenti -->
-          <div
-            class="input-group d-flex gap-3 align-items-center justify-content-around"
-          >
-            <!-- numero stanze -->
-            <div>
-              <p class="m-0">Numero Stanze</p>
-              <input
-                type="number"
-                class="form-control"
-                placeholder="N° Stanze"
-                v-model.number="n_room"
-                aria-describedby="addon-wrapping"
-                min="0"
-              />
-            </div>
+  	>
 
-            <!-- numero bagno -->
-            <div>
-              <p class="m-0">Numero Bagni</p>
-              <input
-                type="number"
-                class="form-control"
-                placeholder="N° Bagni"
-                v-model.number="n_bathroom"
-                aria-describedby="addon-wrapping"
-                min="0"
-              />
-            </div>
-            <!-- m2 -->
-            <div>
-              <p class="m-0">Metri Quadri</p>
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Metri Quadri"
-                v-model.number="squere_meters"
-                aria-describedby="addon-wrapping"
-                min="20"
-                step="5"
-              />
-            </div>
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">
+						Ricerca Avanzata
+					</h1>
+					<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="Close"
+					></button>
+				</div>
+				<div class="modal-body">
+				<!-- filtri appartamenti -->
+					<div class="input-group d-flex gap-3 align-items-center justify-content-around">
+						<!-- numero stanze -->
+						<div>
+							<p class="m-0">Numero Stanze</p>
+							<input
+							type="number"
+							class="form-control"
+							placeholder="N° Stanze"
+							v-model.number="n_room"
+							aria-describedby="addon-wrapping"
+							min="0"
+							/>
+						</div>
 
-            <!--n bed -->
-            <div>
-              <p class="m-0">Letti</p>
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Letti"
-                v-model.number="n_bed"
-                aria-describedby="addon-wrapping"
-                min="0"
-              />
-            </div>
-            <!--n floor -->
-            <div>
-              <p class="m-0">Piano</p>
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Piano"
-                v-model.number="floor"
-                aria-describedby="addon-wrapping"
-                min="0"
-              />
-            </div>
-            <!--radius -->
-            <div>
-              <p class="m-0">Raggio di Ricerca</p>
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Raggio di Ricerca"
-                v-model.number="radius"
-                aria-describedby="addon-wrapping"
-                min="5"
-                step="5"
-              />
-            </div>
-          </div>
+						<!-- numero bagno -->
+						<div>
+							<p class="m-0">Numero Bagni</p>
+							<input
+							type="number"
+							class="form-control"
+							placeholder="N° Bagni"
+							v-model.number="n_bathroom"
+							aria-describedby="addon-wrapping"
+							min="0"
+							/>
+						</div>
+						<!-- m2 -->
+						<div>
+							<p class="m-0">Metri Quadri</p>
+							<input
+							type="number"
+							class="form-control"
+							placeholder="Metri Quadri"
+							v-model.number="squere_meters"
+							aria-describedby="addon-wrapping"
+							min="20"
+							step="5"
+							/>
+						</div>
 
-          <!-- filtri servizi -->
-          <div class="d-flex flex-wrap my-3">
-            <div
-              v-for="service in services"
-              class="d-flex justify-content-center align-content-center"
-            >
-              <input
-                class="form-check-input mt-auto mb-auto"
-                type="checkbox"
-                :value="service.id"
-                :id="'service-' + service.id"
-                v-model="selectedServices"
-              />
-              <img :src="service.icon" alt="" style="width: 50px" />
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" @click="resetFilters">
-            Reset
-          </button>
-          <button
-            class="btn btn-primary"
-            @click="fetchFilteredApartments()"
-            data-bs-dismiss="modal"
-          >
-            Cerca
-          </button>
-        </div>
-      </div>
-    </div>
+						<!--n bed -->
+						<div>
+							<p class="m-0">Letti</p>
+							<input
+							type="number"
+							class="form-control"
+							placeholder="Letti"
+							v-model.number="n_bed"
+							aria-describedby="addon-wrapping"
+							min="0"
+							/>
+						</div>
+						<!--n floor -->
+						<div>
+							<p class="m-0">Piano</p>
+							<input
+							type="number"
+							class="form-control"
+							placeholder="Piano"
+							v-model.number="floor"
+							aria-describedby="addon-wrapping"
+							min="0"
+							/>
+						</div>
+						<!--radius -->
+						<div>
+							<p class="m-0">Raggio di Ricerca</p>
+							<input
+							type="number"
+							class="form-control"
+							placeholder="Raggio di Ricerca"
+							v-model.number="radius"
+							aria-describedby="addon-wrapping"
+							min="5"
+							step="5"
+							/>
+						</div>
+					</div>
+
+				<!-- filtri servizi -->
+					<div class="d-flex flex-wrap my-3 justify-content-center">
+						<section
+							v-for="service in services"
+							:key="service.id"
+							class="model-services-box  text-center mx-3"
+						>
+							<div class="servis-icon" @click="toggleCheckbox(service.id)">
+							<input
+								class="form-check-input mt-auto mb-auto d-none"
+								type="checkbox"
+								:value="service.id"
+								:id="'service-' + service.id"
+								v-model="selectedServices"
+							/>
+							<img
+								:src="service.icon"
+								alt=""
+								style="width: 50px"
+								:class="{
+								'opacity-100': selectedServices.includes(service.id),
+								'opacity-25': !selectedServices.includes(service.id),
+								}"
+							/>
+							</div>
+							<div
+							class="text-service-name"
+							:class="{
+								'text-success': selectedServices.includes(service.id),
+							}"
+							>
+							{{ service.name.toUpperCase() }}
+							</div>
+						</section>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+				<button type="button" class="btn btn-warning" @click="resetFilters">
+					Reset
+				</button>
+				<button
+					class="btn btn-primary"
+					@click="fetchFilteredApartments()"
+					data-bs-dismiss="modal"
+				>
+					Cerca
+				</button>
+				</div>
+			</div>
+		</div>
   </div>
 </template>
 
@@ -366,5 +395,20 @@ export default {
 .image-card {
   height: 280px;
   object-fit: cover;
+}
+.servis-icon img.opacity-25 {
+  opacity: 0.25;
+  transition: opacity 0.3s;
+}
+
+.servis-icon img.opacity-100 {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.text-service-name{
+	font-size: 8px;
+}
+.model-services-box{
+	width: 80px;
 }
 </style>
