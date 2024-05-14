@@ -37,24 +37,26 @@ export default {
 
 <template>
   <section class="hero">
-    <div
-      class="shadow h-100 w-100 d-flex justify-content-center align-items-center"
-    >
-      <div class="container h-100 text-center">
-        <div class="rounded-5">
-          <h1 class="main-title text-white">BoolBnB</h1>
-        </div>
-
-        <div class="my-3 rounded-5">
-          <p class="fs-2 text-center text-white sub-title">
-            Prenota ora la tua vacanza da sogno in uno dei nostri alloggi
-            selezionati
-          </p>
-        </div>
-
+    <div class="shadow h-100 w-100">
+      <div
+        class="container h-100 d-flex justify-content-center align-items-center text-center"
+      >
         <div>
+          <div class="rounded-5">
+            <h1 class="main-title text-white">BoolBnB</h1>
+          </div>
+
+          <div class="my-3 rounded-5">
+            <p class="fs-2 text-center text-white sub-title">
+              Prenota ora la tua vacanza da sogno in uno dei nostri alloggi
+              selezionati
+            </p>
+          </div>
+
           <div>
-            <search-bar></search-bar>
+            <div>
+              <search-bar></search-bar>
+            </div>
           </div>
         </div>
       </div>
