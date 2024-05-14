@@ -98,6 +98,9 @@ export default {
 // media query
 
 @media screen and (max-width: 575px) {
+  .hero {
+    height: 60vh;
+  }
   .main-title {
     font-size: 5rem;
   }
