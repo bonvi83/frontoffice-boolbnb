@@ -34,6 +34,13 @@ export default {
 		this.selectedServices.splice(index, 1); // Rimuovi l'ID se è già presente
 		}
 	},
+    removeFilter(filter) {
+      this[filter] = null;
+	  // Chiamo dopo update dei servizi
+      this.fetchFilteredApartments();
+    },
+	
+
     fetchServices() {
       axios
         .get(`http://127.0.0.1:8000/api/services`)
@@ -80,6 +87,8 @@ export default {
           store.pagLinks = response.data.links;
           store.totalPage = response.data.last_page;
           store.paginationBaseURL = response.config.url;
+		  //salvo i filtri 
+
         })
         .catch((error) => {
           console.error("Error fetching filtered apartments:", error);
@@ -173,6 +182,19 @@ export default {
     </div>
   </div>
   <hr />
+  <!-- Selected Filter -->
+  <div class="container justify-content-center align-items-center">
+	<h5>Filtri Selezionati</h5>
+	<!-- <span class="badge rounded-pill text-bg-light">Light</span> -->
+	<div class="badge rounded-pill text-bg-info mx-1" v-if="n_room">
+		Camere: {{ n_room }}
+		<span @click="removeFilter('n_room')" class="ms-2" style="cursor: pointer;">&times;</span>
+	</div>
+	<div class="badge rounded-pill text-bg-info mx-1" v-if="n_bathroom">Bagni: {{ n_bathroom }}</div>
+	<div class="badge rounded-pill text-bg-info mx-1" v-if="n_bed">Posti Letto: {{ n_bed }}</div>
+	<div class="badge rounded-pill text-bg-info mx-1" v-if="squere_meters">Superficie: {{ squere_meters }}</div>
+	<div class="badge rounded-pill text-bg-info mx-1" v-if="floor">Piano: {{ floor }}</div>
+</div>
 
   <!-- Apartment -->
   <div class="m-sm-2 m-md-3 m-lg-4 m-xl-5 pb-3">
