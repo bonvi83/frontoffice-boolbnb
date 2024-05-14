@@ -112,7 +112,7 @@ export default {
         <div class="card h-100">
           <div class="card-header">Servizi</div>
           <div class="card-body">
-            <div class="row row-cols-4 g-3">
+            <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1  g-3">
               <AppShowServices></AppShowServices>
             </div>
           </div>
