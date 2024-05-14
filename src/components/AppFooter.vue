@@ -1,5 +1,4 @@
-<script>
-</script>
+<script></script>
 
 <template>
   <footer class="text-white">
@@ -8,6 +7,14 @@
         <p class="h6">&copy; CLASS 117, TEAM 1</p>
 
         <p style="font-size: 10px" class="fw-lighter"></p>
+      </div>
+
+      <div>
+        <ul class="d-flex">
+          <li>uno</li>
+          <li>due</li>
+          <li>tre</li>
+        </ul>
       </div>
 
       <div>
@@ -25,13 +32,20 @@
 </template>
 
 <style lang="scss" scoped>
-  footer {
-    background-color: rgb(0, 27, 54);
-  }
+footer {
+  background-color: rgb(0, 27, 54);
+}
 
-  .container {
-    align-items: baseline;
-  }
+.container {
+  align-items: baseline;
+  display: flex;
+}
 
+ul {
+  list-style-type: none;
+}
+
+li {
+  list-style: none;
+}
 </style>
-
