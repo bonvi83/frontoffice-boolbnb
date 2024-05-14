@@ -183,17 +183,34 @@ export default {
   </div>
   <hr />
   <!-- Selected Filter -->
-  <div class="container justify-content-center align-items-center">
-	<h5>Filtri Selezionati</h5>
-	<!-- <span class="badge rounded-pill text-bg-light">Light</span> -->
-	<div class="badge rounded-pill text-bg-info mx-1" v-if="n_room">
-		Camere: {{ n_room }}
-		<span @click="removeFilter('n_room')" class="ms-2" style="cursor: pointer;">&times;</span>
+  <div class="container d-flex justify-content-center align-items-center">
+	<h5 class="mb-0 me-2 selected-filter-title" 
+		v-if="n_room || n_bathroom || n_bed || squere_meters || floor"
+		>Filtri Selezionati:
+	</h5>
+	<div>
+		<div class="badge rounded-pill text-badg-1 emx-1" v-if="n_room">
+			Camere: {{ n_room }}
+			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+		</div>
+		<div class="badge rounded-pill text-badg-1 mx-1" v-if="n_bathroom">
+			Bagni: {{ n_bathroom }}
+			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+		</div>
+		<div class="badge rounded-pill text-badg-1 mx-1" v-if="n_bed">
+			Posti Letto: {{ n_bed }}
+			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+		</div>
+		<div class="badge rounded-pill text-badg-1 mx-1" v-if="squere_meters">
+			Superficie: {{ squere_meters }}
+			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+		</div>
+		<div class="badge rounded-pill text-badg-1 mx-1" v-if="floor">
+			Piano: {{ floor }}
+			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+		</div>
 	</div>
-	<div class="badge rounded-pill text-bg-info mx-1" v-if="n_bathroom">Bagni: {{ n_bathroom }}</div>
-	<div class="badge rounded-pill text-bg-info mx-1" v-if="n_bed">Posti Letto: {{ n_bed }}</div>
-	<div class="badge rounded-pill text-bg-info mx-1" v-if="squere_meters">Superficie: {{ squere_meters }}</div>
-	<div class="badge rounded-pill text-bg-info mx-1" v-if="floor">Piano: {{ floor }}</div>
+		
 </div>
 
   <!-- Apartment -->
@@ -433,4 +450,25 @@ export default {
 .model-services-box{
 	width: 80px;
 }
+.text-badg-1{
+	color: rgb(228, 211, 211);
+	background-color: rgb(0, 42, 56);
+	opacity: 0.7;
+	cursor: pointer;
+	&:hover{
+		opacity: 1;
+	}
+}
+.selected-filter-title{
+	color: rgb(0, 42, 56);
+}
+/* .text-badg-2{
+	color: rgb(74, 72, 72);
+	background-color: rgb(15, 202, 240);
+	opacity: 0.7;
+	cursor: pointer;
+	&:hover{
+		opacity: 1;
+	}
+} */
 </style>
