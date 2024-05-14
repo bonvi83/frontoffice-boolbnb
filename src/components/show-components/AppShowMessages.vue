@@ -24,9 +24,9 @@ export default {
 
   watch: {
     //fa riferimento a messageSent in data
-    messageSent(newValue) {
+    messageSent(isTrue) {
       // Chiudo la modale quando messageSent diventa true
-      if (newValue) {
+      if (isTrue) {
         const modal = document.getElementById("messageModal");
         // Rimuovo la classe 'show' dalla modale per nasconderla
         modal.classList.remove("show");
@@ -37,6 +37,8 @@ export default {
         // Rimuovo il backdrop della modale
         const backdrop = document.querySelector(".modal-backdrop");
         backdrop.remove();
+        // Chiusa la modale, lo scroll in pagina viene ripristinato
+        document.body.style.overflow = 'auto'; 
       }
     },
   },
@@ -61,7 +63,7 @@ export default {
             this.messageSent = true; // Imposto la variabile di controllo a true
             setTimeout(() => {
               this.messageSent = false; // Resetto la variabile di controllo dopo 5s
-            }, 35000);
+            }, 5000);
           } else {
             this.validationErrors = res.data.data; // Memorizzo gli errori di validazione
             // console.log(this.validationErrors);
