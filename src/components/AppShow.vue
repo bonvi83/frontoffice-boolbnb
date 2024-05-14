@@ -50,15 +50,20 @@ export default {
 </script>
 
 <template>
-  <div class="container d-flex justify-content-between align-items-center">
-    <div class="my-3">
-      <h1>{{ name }}</h1>
-      <h2>{{ address }}</h2>
+  <div class="container">
+
+    <div class="row text-center  justify-content-between align-items-center my-3">
+      <div class="col-12 col-md-6 text-md-start">
+        <h1>{{ name }}</h1>
+
+        <h4 class="">{{ address }}</h4>
+      </div>
+
+      <div class="col-12 col-md-6 text-md-end">
+        <AppShowMessages :apartmentId="apartmentId"></AppShowMessages>
+      </div>
     </div>
 
-    <div>
-      <AppShowMessages :apartmentId="apartmentId"></AppShowMessages>
-    </div>
   </div>
 
   <div>
@@ -68,7 +73,7 @@ export default {
   <div class="container my-4">
     <div class="row g-4">
       <div class="col-8">
-        <div class="card h-100">
+        <div class="card h-100" style="max-height: 450px;">
           <div class="card-header">Descrizione</div>
           <div class="card-body">
             <!-- nr stanze -->
@@ -109,10 +114,10 @@ export default {
         </div>
       </div>
       <div class="col-4">
-        <div class="card h-100">
+        <div class="card h-100" style="max-height: 450px;">
           <div class="card-header">Servizi</div>
-          <div class="card-body">
-            <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1  g-3">
+          <div class="card-body overflow-auto">
+            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-3">
               <AppShowServices></AppShowServices>
             </div>
           </div>
@@ -121,7 +126,9 @@ export default {
       <div class="col-12">
         <div class="card">
           <div class="card-header">Dove alloggerai</div>
-          <div class="card-body p-0"><AppShowMap></AppShowMap></div>
+          <div class="card-body p-0">
+            <AppShowMap></AppShowMap>
+          </div>
         </div>
       </div>
     </div>
@@ -129,6 +136,13 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+// @media screen and (min-width: 576px) {
+//   .address {
+//     font-size: larger;
+//   }
+// }
+
+
 .apartment-desc {
   height: 150px;
   overflow: auto;

@@ -107,7 +107,7 @@ section {
 
   @media screen and (min-width: 1199px) {
     .cover_img {
-      height: 320px;
+      height: 400px;
       object-fit: cover;
     }
 
@@ -147,15 +147,6 @@ section {
 
   }
 
-
-
-
-
-
-
-
-
-
   .cover-btn {
     color: white;
     background-color: rgba(0, 0, 0, 0.4);
@@ -169,8 +160,8 @@ section {
     }
   }
 
-  .bordered {
-    border: 5px solid black;
-  }
+  // .bordered {
+  //   border: 5px solid black;
+  // }
 }
 </style>
