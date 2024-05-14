@@ -14,6 +14,12 @@ export default {
       apartmentId: null,
       name: "",
       address: "",
+
+      floor: "",
+      n_bathroom: "",
+      n_bed: "",
+      n_room: "",
+      square_meters: "",
     };
   },
 
@@ -26,6 +32,11 @@ export default {
           this.apartmentId = res.data.id;
           this.name = res.data.name;
           this.address = res.data.address;
+          this.floor = res.data.floor;
+          this.n_bathroom = res.data.n_bathroom;
+          this.n_bed = res.data.n_bed;
+          this.n_room = res.data.n_room;
+          this.square_meters = res.data.square_meters;
         });
     },
   },
@@ -59,7 +70,42 @@ export default {
       <div class="col-8">
         <div class="card h-100">
           <div class="card-header">Descrizione</div>
-          <div class="card-body"></div>
+          <div class="card-body">
+            <!-- nr stanze -->
+            <div class="fs-5"><strong>N° Stanze:</strong> {{ n_room }}</div>
+            <!-- nr letti -->
+            <div class="fs-5"><strong>N° Letti:</strong> {{ n_bed }}</div>
+            <!-- nr bagni -->
+            <div class="fs-5"><strong>N° Bagni:</strong> {{ n_bathroom }}</div>
+            <!-- mt quadrati -->
+            <div class="fs-5">
+              <strong>Superficie:</strong> {{ square_meters }}mq
+            </div>
+            <!-- piano -->
+            <div class="fs-5"><strong>N° Piano:</strong> {{ floor }}</div>
+            <!-- descrizione -->
+            <div class="fs-5"><strong>Descrizione:</strong></div>
+            <div class="apartment-desc">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Asperiores ullam aspernatur maiores natus corporis doloremque
+              laborum provident fugiat labore, aut totam ex cum in accusantium
+              sint saepe laboriosam quis earum. Officiis amet deserunt dolores
+              hic rerum itaque, sit repellat commodi laborum est nihil quis
+              sequi vero temporibus. Nemo veritatis sed similique facere esse
+              quod aliquam, quibusdam fugit aliquid omnis animi! Delectus
+              tenetur id obcaecati earum fugit voluptas magni adipisci ea
+              quibusdam dolore sequi dolor porro aliquid numquam consectetur
+              quasi saepe eveniet iste at, natus cupiditate iusto. Totam
+              doloremque sit veniam! Culpa maxime fugit illum laboriosam optio
+              laborum officiis? Rem dolor nesciunt, ipsa id rerum aliquam quae
+              blanditiis facilis doloremque error officiis nemo necessitatibus!
+              At ipsa sit recusandae minima blanditiis doloremque? Vel, ullam?
+              Porro, repudiandae. Iure velit qui rem nobis iste minima
+              repudiandae ipsam facere at, doloremque et, excepturi optio libero
+              temporibus nihil enim asperiores veritatis nemo. Expedita animi
+              eius et!
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-4">
@@ -82,4 +128,9 @@ export default {
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.apartment-desc {
+  height: 150px;
+  overflow: auto;
+}
+</style>
