@@ -37,39 +37,28 @@ export default {
 
 <template>
   <section class="hero">
-
-    <div class="shadow h-100 w-100">
-      <div class="container h-100">
-
-        <div class="row justify-content-center align-items-center flex-column h-100">
-
-          <div class="col-12 text-center rounded-5">
-            <h1 class="main-title text-white">
-              BoolBnB
-            </h1>
-          </div>
-
-          <div class="col-10 my-3 rounded-5">
-            <p class="fs-2 text-center text-white">
-              Prenota ora
-              la tua vacanza da
-              sogno
-              in uno dei nostri
-              alloggi
-              selezionati
-            </p>
-          </div>
-
-          <div class="col-8">
-            <div>
-              <search-bar></search-bar>
-            </div>
-          </div>
+    <div
+      class="shadow h-100 w-100 d-flex justify-content-center align-items-center"
+    >
+      <div class="container h-100 text-center">
+        <div class="rounded-5">
+          <h1 class="main-title text-white">BoolBnB</h1>
         </div>
 
+        <div class="my-3 rounded-5">
+          <p class="fs-2 text-center text-white sub-title">
+            Prenota ora la tua vacanza da sogno in uno dei nostri alloggi
+            selezionati
+          </p>
+        </div>
+
+        <div>
+          <div>
+            <search-bar></search-bar>
+          </div>
+        </div>
       </div>
     </div>
-
   </section>
 </template>
 
@@ -80,7 +69,6 @@ export default {
 
 .hero {
   height: 50vh;
-
   background-image: url("../assets/Houses_Villa_Design_Pools_537090_1920x1080.jpg");
   background-size: cover;
   background-position: center;
@@ -90,10 +78,6 @@ export default {
 
   .shadow {
     background-color: rgba(0, 0, 0, 0.6);
-
-    .main-title{
-      font-size: 8rem;
-    }
   }
 
   .wrapper {
@@ -103,10 +87,38 @@ export default {
   }
 
   .hero-card {
-    
     .big-text {
       font-size: calc(2vw + 2vh);
     }
+  }
+}
+
+// media query
+
+@media screen and (max-width: 575px) {
+  .main-title {
+    font-size: 5rem;
+  }
+  .sub-title {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .main-title {
+    font-size: 6rem;
+  }
+  .sub-title {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .main-title {
+    font-size: 8rem;
+  }
+  .sub-title {
+    font-size: 4rem;
   }
 }
 </style>
