@@ -42,13 +42,13 @@
             </a>
           </div>
 
-          <div>
+          <div class=" pe-3">
             <a href="https://www.youtube.com">
               <i class="fa-brands fa-youtube fa-xl" style="color: #ffffff"></i>
             </a>
           </div>
 
-          <div class="px-3">
+          <div>
             <a href="https://www.github.com">
               <i class="fa-brands fa-github fa-xl" style="color: #ffffff"></i>
             </a>
