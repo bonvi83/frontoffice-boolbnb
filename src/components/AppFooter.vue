@@ -47,6 +47,12 @@
               <i class="fa-brands fa-youtube fa-xl" style="color: #ffffff"></i>
             </a>
           </div>
+
+          <div>
+            <a href="https://www.github.com">
+              <i class="fa-brands fa-github fa-xl" style="color: #ffffff"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
