@@ -105,6 +105,21 @@ section {
     height: 490px;
   }
 
+
+
+  .cover-btn {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .thumb-container {
+    height: 150px;
+
+    .active-thumb {
+      border: 5px solid cornflowerblue;
+    }
+  }
+
   @media screen and (min-width: 1199px) {
     .cover_img {
       height: 400px;
@@ -145,19 +160,6 @@ section {
       height: 300px;
     }
 
-  }
-
-  .cover-btn {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  .thumb-container {
-    height: 150px;
-
-    .active-thumb {
-      border: 5px solid cornflowerblue;
-    }
   }
 
   // .bordered {

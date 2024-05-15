@@ -70,7 +70,7 @@ export default {
 }
 
 .hero {
-  height: 50vh;
+  height: 55vh;
   background-image: url("../assets/Houses_Villa_Design_Pools_537090_1920x1080.jpg");
   background-size: cover;
   background-position: center;
