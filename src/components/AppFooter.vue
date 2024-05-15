@@ -24,7 +24,7 @@
       </div>
 
       <div>
-        <div class="d-none d-sm-block">Seguici sui nostri social:</div>
+        <div class="d-none d-sm-block">Seguici sui nostri social</div>
 
         <div class="d-flex justify-content-center align-items-center">
           <div>
@@ -42,7 +42,7 @@
             </a>
           </div>
 
-          <div class=" pe-3">
+          <div class="pe-3">
             <a href="https://www.youtube.com">
               <i class="fa-brands fa-youtube fa-xl" style="color: #ffffff"></i>
             </a>
