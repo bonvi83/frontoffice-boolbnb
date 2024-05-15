@@ -38,7 +38,7 @@ export default {
         const backdrop = document.querySelector(".modal-backdrop");
         backdrop.remove();
         // Chiusa la modale, lo scroll in pagina viene ripristinato
-        document.body.style.overflow = 'auto'; 
+        document.body.style.overflow = 'auto';
       }
     },
   },
@@ -76,7 +76,7 @@ export default {
     },
   },
 
-  created() {},
+  created() { },
 };
 </script>
 
@@ -86,107 +86,64 @@ export default {
       <div class="col-12">
         <div>
           <!-- Bottone Modale -->
-          <button
-            type="button"
-            class="mt-1 btn btn-success"
-            data-bs-toggle="modal"
-            data-bs-target="#messageModal"
-          >
+          <button type="button" class="mt-1 btn btn-success w-100 d-md-none" data-bs-toggle="modal"
+            data-bs-target="#messageModal">
+            <span class="d-inline-block me-3">Maggiori informazioni</span>
+            <i class="fa-solid fa-envelope"></i>
+          </button>
+
+          <button type="button" class="mt-1 btn btn-success d-none d-md-inline-block" data-bs-toggle="modal"
+            data-bs-target="#messageModal">
             <span class="d-inline-block me-3">Maggiori informazioni</span>
             <i class="fa-solid fa-envelope"></i>
           </button>
           <!-- Messaggio inviato -->
-          <span v-if="messageSent" class="ms-4 text-success"
-            >Messaggio inviato!</span
-          >
+          <span v-if="messageSent" class="ms-4 text-success">Messaggio inviato!</span>
         </div>
 
         <!-- Modale -->
-        <div
-          class="modal fade"
-          id="messageModal"
-          tabindex="-1"
-          aria-labelledby="messageModalLabel"
-          aria-hidden="true"
-        >
+        <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h2 class="modal-title fs-5" id="messageModalLabel">
                   Manda un messaggio al proprietario
                 </h2>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form>
                   <div class="mb-3">
-                    <label for="email" class="col-form-label"
-                      >Inserisci la mail</label
-                    >
-                    <input
-                      v-model="userEmail"
-                      type="email"
-                      class="form-control"
-                      id="email"
-                    />
-                    <span
-                      v-if="validationErrors.customer_email"
-                      class="text-danger"
-                      >{{
-                        validationErrors.customer_email.find((error) => true)
-                      }}</span
-                    >
+                    <label for="email" class="col-form-label">Inserisci la mail</label>
+                    <input v-model="userEmail" type="email" class="form-control" id="email" />
+                    <span v-if="validationErrors.customer_email" class="text-danger">{{
+                      validationErrors.customer_email.find((error) => true)
+                      }}</span>
                   </div>
                   <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label"
-                      >Inserisci il tuo nome</label
-                    >
-                    <input
-                      v-model="userName"
-                      type="name"
-                      class="form-control"
-                      id="recipient-name"
-                    />
+                    <label for="recipient-name" class="col-form-label">Inserisci il tuo nome</label>
+                    <input v-model="userName" type="name" class="form-control" id="recipient-name" />
                     <span v-if="validationErrors.name" class="text-danger">{{
                       validationErrors.name.find((error) => true)
-                    }}</span>
+                      }}</span>
                   </div>
                   <div class="mb-3">
-                    <label for="message-text" class="col-form-label"
-                      >Scrivi il messaggio</label
-                    >
-                    <textarea
-                      v-model="userContent"
-                      class="form-control"
-                      id="message-text"
-                      style="height: 200px"
-                    ></textarea>
+                    <label for="message-text" class="col-form-label">Scrivi il messaggio</label>
+                    <textarea v-model="userContent" class="form-control" id="message-text"
+                      style="height: 200px"></textarea>
                     <span v-if="validationErrors.content" class="text-danger">{{
                       validationErrors.content.find((error) => true)
-                    }}</span>
+                      }}</span>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   Chiudi
                 </button>
                 <!-- <button type="button" @click="sendMessages()"  :data-bs-dismiss="messageSent ? 'modal' : ''" class="btn btn-primary">Invia</button> -->
-                <button
-                  type="button"
-                  @click="sendMessages()"
-                  :data-bs-dismiss="shouldCloseModal ? 'modal' : ''"
-                  class="btn btn-primary"
-                >
+                <button type="button" @click="sendMessages()" :data-bs-dismiss="shouldCloseModal ? 'modal' : ''"
+                  class="btn btn-primary">
                   Invia
                 </button>
               </div>
