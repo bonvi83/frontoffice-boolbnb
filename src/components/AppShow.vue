@@ -52,6 +52,13 @@ export default {
 <template>
   <div class="container">
 
+    <div class="mt-3" >
+      <button @click="$router.back()" class="btn btn-primary ">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span class=" d-none d-sm-inline"> Torna Indietro</span>
+      </button>
+    </div>
+
     <div class="row text-center  justify-content-between align-items-center my-3">
       <div class="col-12 col-md-6 text-md-start">
         <h1>{{ name }}</h1>
