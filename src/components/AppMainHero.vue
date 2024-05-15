@@ -38,9 +38,7 @@ export default {
 <template>
   <section class="hero">
     <div class="shadow h-100 w-100">
-      <div
-        class="container h-100 d-flex justify-content-center align-items-center text-center"
-      >
+      <div class="container h-100 d-flex justify-content-center align-items-center text-center">
         <div>
           <div class="rounded-5">
             <h1 class="main-title text-white">BoolBnB</h1>
@@ -53,8 +51,8 @@ export default {
             </p>
           </div>
 
-          <div>
-            <div>
+          <div class=" d-flex justify-content-center align-items-center">
+            <div class="w-75">
               <search-bar></search-bar>
             </div>
           </div>
@@ -101,9 +99,11 @@ export default {
   .hero {
     height: 60vh;
   }
+
   .main-title {
     font-size: 5rem;
   }
+
   .sub-title {
     font-size: 2rem;
   }
@@ -113,6 +113,7 @@ export default {
   .main-title {
     font-size: 6rem;
   }
+
   .sub-title {
     font-size: 3rem;
   }
@@ -122,6 +123,7 @@ export default {
   .main-title {
     font-size: 8rem;
   }
+
   .sub-title {
     font-size: 4rem;
   }

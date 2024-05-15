@@ -84,15 +84,19 @@ export default {
 <template>
   <!-- search bar -->
   <div class="search-bar">
-    <label for="" class="flex-grow-1">
-      <div>Dove</div>
-      <input type="text" class="border-0 w-100 search-app-input pe-2" v-model="searchInput"
+    <label for="" class="text-start flex-grow-1">
+      <div class="research-text">Dove</div>
+      <input type="text" class="border-0 w-100 search-app-input pe-2 d-none d-sm-block" v-model="searchInput"
         @input="fecthAddresses(searchInput)" @keyup.enter="fetchApartments(lat, lon, radius)"
         placeholder="Cerca destinazione" />
+
+      <input type="text" class="border-0 w-100 search-app-input pe-2 d-sm-none" v-model="searchInput"
+        @input="fecthAddresses(searchInput)" @keyup.enter="fetchApartments(lat, lon, radius)"
+        placeholder="Cerca desti.." />
     </label>
 
     <!-- suggerimenti -->
-    <div id="suggestion" class="rounded-4" v-if="suggestionVisibility">
+    <div id="suggestion" class="rounded-4 text-start" v-if="suggestionVisibility">
       <div class="suggested-address py-1 px-3" v-for="suggestion in suggestions" @click="
         saveCoordinates(suggestion.lat, suggestion.lon, suggestion.address)
         ">
@@ -101,8 +105,8 @@ export default {
     </div>
 
     <label for="">
-      <div>Raggio di ricerca (km)</div>
-      <input type="number" min="5" step="5" class="border-0 w-75 search-app-input" v-model="radius"
+      <div class=" research-text">Raggio di ricerca (km)</div>
+      <input type="number" min="5" step="5" class="border-0 w-75 search-app-input text-center" v-model="radius"
         placeholder="Cerca destinazione" />
     </label>
 
@@ -149,10 +153,16 @@ export default {
     cursor: pointer;
   }
 
-  .suggested-address:hover{
+  .suggested-address:hover {
     background-color: cornflowerblue;
     color: white;
-    
+
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .research-text {
+    font-size: 14px;
   }
 }
 </style>
