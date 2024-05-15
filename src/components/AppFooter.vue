@@ -48,7 +48,7 @@
             </a>
           </div>
 
-          <div>
+          <div class="px-3">
             <a href="https://www.github.com">
               <i class="fa-brands fa-github fa-xl" style="color: #ffffff"></i>
             </a>
