@@ -126,23 +126,20 @@ export default {
   <div class="mt-3 container-fluid">
     <div class="row justify-content-center">
       <div class="col-6">
-        <search-bar></search-bar>
+        <search-bar class="search-cotumized"></search-bar>
       </div>
     </div>
   </div>
-  <!-- hr -->
-  <hr />
-
   <!-- Button trigger modal -->
-  <div class="d-flex justify-content-between align-items-center px-3">
+  <div class="d-flex justify-content-between align-items-center px-3 trigger-modal ">
     <div class="d-flex">
-      <div class="servis-container">
+      <div class="servis-container me-3 d-none d-sm-block">
         <div class="p-3">
           <vue-horizontal responsive :button="true" class="horizontal">
             <section
               v-for="service in services"
               :key="service.id"
-              class="text-center mx-3"
+              class="text-center mx-2"
             >
               <div class="servis-icon" @click="setFilterServices(service.id)">
                 <img
@@ -170,10 +167,10 @@ export default {
     </div>
 
     <!-- button dei filtri della modalle-->
-    <div class="">
+    <div class="m-3">
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn text-badg-1"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
@@ -181,7 +178,6 @@ export default {
       </button>
     </div>
   </div>
-  <hr />
   <!-- Selected Filter -->
   <div class="container d-flex justify-content-center align-items-center">
 	<h5 class="mb-0 me-2 selected-filter-title" 
@@ -238,11 +234,12 @@ export default {
               {{ apartment.address }}
             </p>
             <router-link
-              :to="{ name: 'apartment.show', params: { id: apartment.id } }"
-              class="btn btn-primary"
-            >
-              Vai a...
-            </router-link>
+                :to="{ name: 'apartment.show', params: { id: apartment.id } }">
+                <button class="btn text-badg-1">
+                  Vai all'appartamento
+                  <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+              </router-link>
           </div>
         </div>
       </div>
@@ -463,6 +460,7 @@ export default {
 	cursor: pointer;
 	&:hover{
 		opacity: 1;
+
 	}
 }
 .selected-filter-title{
@@ -470,5 +468,16 @@ export default {
 }
 .apartment-card{
     box-shadow: 1px 1px 15px -5px #000000;
+    color: rgb(0, 42, 56);;
+}
+.trigger-modal{
+    margin-top: 30px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+    border-top: 1px solid rgb(237, 237, 237);
+    box-shadow: 1px 1px 9px -6px #000000;
+}
+.search-cotumized{
+    border: 1px solid rgb(36, 36, 36,0.3);
+    box-shadow: 0px 7px 9px -7px rgba(0,0,0,0.3);
 }
 </style>

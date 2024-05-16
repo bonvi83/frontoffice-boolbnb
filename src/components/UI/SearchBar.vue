@@ -154,8 +154,9 @@ export default {
   }
 
   .suggested-address:hover {
-    background-color: cornflowerblue;
-    color: white;
+    background-color: rgb(208, 208, 208, 0.5);
+    border-radius: 12px;
+    color: rgb(19, 18, 18);
 
   }
 }
