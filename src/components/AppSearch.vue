@@ -195,19 +195,19 @@ export default {
 		</div>
 		<div class="badge rounded-pill text-badg-1 mx-1" v-if="n_bathroom">
 			Bagni: {{ n_bathroom }}
-			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+			<span @click="removeFilter('n_bathroom')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
 		</div>
 		<div class="badge rounded-pill text-badg-1 mx-1" v-if="n_bed">
 			Posti Letto: {{ n_bed }}
-			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+			<span @click="removeFilter('n_bed')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
 		</div>
 		<div class="badge rounded-pill text-badg-1 mx-1" v-if="squere_meters">
 			Superficie: {{ squere_meters }}
-			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+			<span @click="removeFilter('squere_meters')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
 		</div>
 		<div class="badge rounded-pill text-badg-1 mx-1" v-if="floor">
 			Piano: {{ floor }}
-			<span @click="removeFilter('n_room')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
+			<span @click="removeFilter('floor')" class="ms-2 text-danger" style="cursor: pointer;">&times;</span>
 		</div>
 	</div>
 		
@@ -220,12 +220,18 @@ export default {
         v-for="apartment in store.apartments"
         class="col-sm-12 col-md-6 col-lg-3 my-4"
       >
-        <div class="card h-100">
-          <img
+        <div class="card h-100 apartment-card">
+            <router-link
+              :to="{ name: 'apartment.show', params: { id: apartment.id } }"
+            >
+            <img
             :src="apartment.cover_img || 'https://placehold.co/600x400'"
             class="card-img-top image-card"
             alt="..."
           />
+            </router-link>
+          
+         
           <div class="card-body">
             <h5 class="card-title">{{ apartment.name }}</h5>
             <p class="card-text">
@@ -462,13 +468,7 @@ export default {
 .selected-filter-title{
 	color: rgb(0, 42, 56);
 }
-/* .text-badg-2{
-	color: rgb(74, 72, 72);
-	background-color: rgb(15, 202, 240);
-	opacity: 0.7;
-	cursor: pointer;
-	&:hover{
-		opacity: 1;
-	}
-} */
+.apartment-card{
+    box-shadow: 1px 1px 15px -5px #000000;
+}
 </style>
