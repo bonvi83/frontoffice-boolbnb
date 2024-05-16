@@ -20,11 +20,16 @@ export default {
   methods: {
     fetchApartments() {
       axios.get(`http://127.0.0.1:8000/api/apartments`).then((res) => {
+<<<<<<< HEAD
         console.log(res);
         this.apartments = res.data.data;
         this.pagLinks = res.data.links;
         this.totalPage = res.data.last_page;
         this.paginationBaseURL = res.config.url;
+=======
+        this.apartments = res.data.data;
+        console.log(this.apartments);
+>>>>>>> 5f6736c5a6803db042522f0ea9118b94fe99fd33
       });
     },
 
@@ -74,7 +79,8 @@ export default {
           v-for="apartment in apartments"
           class="col-12 col-sm-6 col-md-4 col-lg-3"
         >
-          <div class="card h-100">
+          <div class="card h-100"
+          :class="apartment.sponsorships ? 'sponsorshpis' : ''">
             <router-link
               :to="{ name: 'apartment.show', params: { id: apartment.id } }"
             >
@@ -94,9 +100,8 @@ export default {
               </router-link>
               <p>{{ apartment.address }}</p>
               <router-link
-                :to="{ name: 'apartment.show', params: { id: apartment.id } }"
-              >
-                <button class="btn btn-primary">
+                :to="{ name: 'apartment.show', params: { id: apartment.id } }">
+                <button class="btn text-badg-1">
                   Vai all'appartamento
                   <i class="fa-solid fa-circle-arrow-right"></i>
                 </button>
@@ -160,11 +165,56 @@ export default {
         </div> -->
       </div>
     </div>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <div class="mt-5 border-bottom border-primary">
+        <h2>Appartamenti senza sponsorizzazione</h2>
+      </div>
+      <div class="row g-4 my-3">
+        <div
+          v-for="apartment in apartments"
+          class="col-12 col-sm-6 col-md-4 col-lg-3"
+        >
+          <div class="card h-100">
+            <!-- <router-link :to="{ name: 'apartment.show' }"> -->
+            <img
+              :src="apartment.cover_img"
+              class="card-img-top image-card"
+              alt="immagine mancante"
+            />
+            <!-- </router-link> -->
+
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="#">
+                  <!-- <router-link :to="{ name: 'apartment.show' }"> -->
+                  {{ apartment.name }}
+                  <!-- </router-link> -->
+                </a>
+              </h5>
+              <p>{{ apartment.address }}</p>
+
+              <router-link
+                :to="{ name: 'apartment.show', params: { id: apartment.id } }">
+                <button class="btn text-badg-1">
+                  Vai all'appartamento
+                  <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
 .card {
+  box-shadow: 1px 1px 10px -5px #000000;
+  color: rgb(0, 42, 56);
   img:hover {
     opacity: 0.7;
   }
@@ -172,20 +222,34 @@ export default {
   .card-body {
     a {
       text-decoration: none;
-      color: inherit;
-    }
-
-    a:hover {
-      opacity: 0.6;
+      color: rgb(0, 42, 56) ;
+      cursor: pointer;
     }
   }
 
   .card-title {
     font-weight: bold;
   }
+  .text-badg-1{
+	color: rgb(228, 211, 211);
+	background-color: rgb(0, 42, 56);
+	opacity: 0.7;
+	cursor: pointer;
+	&:hover{
+		opacity: 1;
+
+	}
+
+}
 }
 .image-card {
   height: 280px;
   object-fit: cover;
 }
+.sponsorshpis{
+    border: #f5c909;
+    box-shadow: 1px 1px 10px -5px #000000, 1px 1px 10px 1px #f5c909;
+  }
+
+
 </style>
