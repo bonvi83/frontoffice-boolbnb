@@ -19,7 +19,7 @@ export default {
   computed: {
     // COMPUTED ROUTE
     apiEndpoint() {
-      return api.baseUrl + `apartments/${this.$route.params.id}`;
+      return api.baseUrl + `apartments/${this.$route.params.slug}`;
     },
   },
 
@@ -67,15 +67,25 @@ export default {
 
 <template>
   <section class="container">
-    <div class="carousel-container bordered row justify-content-between align-items-center flex-lg-wrap flex-xl-nowrap">
+    <div
+      class="carousel-container bordered row justify-content-between align-items-center flex-lg-wrap flex-xl-nowrap"
+    >
       <!-- COVER CONTAINER-->
-      <div class="col-xl-6 col-lg-12 cover_img bordered d-flex justify-content-center align-items-center">
+      <div
+        class="col-xl-6 col-lg-12 cover_img bordered d-flex justify-content-center align-items-center"
+      >
         <!-- COVER IMG -->
         <div class="card h-100 w-100">
-          <img :src="coverImage" alt="" class="cover_img img-fluid d-block rounded h-100" />
+          <img
+            :src="coverImage"
+            alt=""
+            class="cover_img img-fluid d-block rounded h-100"
+          />
 
-          <div v-if="this.coverImage != this.cover"
-            class="card-img-overlay d-flex justify-content-center align-items-end">
+          <div
+            v-if="this.coverImage != this.cover"
+            class="card-img-overlay d-flex justify-content-center align-items-end"
+          >
             <button @click="backToCover()" class="cover-btn btn rounded">
               Back to cover
             </button>
@@ -84,10 +94,16 @@ export default {
       </div>
 
       <!-- THUMBS CONTAINER-->
-      <div class="col-lg-12 col-xl-6 h-100 d-flex justify-content-center align-items-center mt-1 mt-xl-0 bordered">
+      <div
+        class="col-lg-12 col-xl-6 h-100 d-flex justify-content-center align-items-center mt-1 mt-xl-0 bordered"
+      >
         <div class="row h-100 justify-content-center align-items-center g-1">
           <!-- THUMBS IMGS -->
-          <div @click="changeImg(index)" class="col-6 col-md-4  thumb-container" v-for="(imgUrl, index) in imgsUrls">
+          <div
+            @click="changeImg(index)"
+            class="col-6 col-md-4 thumb-container"
+            v-for="(imgUrl, index) in imgsUrls"
+          >
             <div class="h-100 card">
               <img class="h-100 card-img" :src="imgUrl" alt="" />
             </div>
@@ -100,12 +116,9 @@ export default {
 
 <style lang="scss" scoped>
 section {
-
   .carousel-container {
     height: 490px;
   }
-
-
 
   .cover-btn {
     color: white;
@@ -125,7 +138,6 @@ section {
       height: 400px;
       object-fit: cover;
     }
-
   }
 
   @media screen and (max-width: 1199px) {
@@ -135,9 +147,7 @@ section {
 
     .cover_img {
       height: 500px;
-
     }
-
   }
 
   @media screen and (max-width: 992px) {
@@ -147,7 +157,6 @@ section {
 
     .cover_img {
       height: 400px;
-
     }
   }
 
@@ -159,7 +168,6 @@ section {
     .cover_img {
       height: 300px;
     }
-
   }
 
   // .bordered {

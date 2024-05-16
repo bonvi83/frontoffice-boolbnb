@@ -26,7 +26,7 @@ export default {
   methods: {
     fetchApartmentId() {
       axios
-        .get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`)
+        .get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.slug}`)
         .then((res) => {
           console.log(res);
           this.apartmentId = res.data.id;

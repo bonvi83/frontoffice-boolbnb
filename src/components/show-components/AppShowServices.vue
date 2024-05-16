@@ -15,7 +15,7 @@ export default {
 
   computed: {
     apiEndpoint() {
-      return api.baseUrl + `apartments/${this.$route.params.id}`;
+      return api.baseUrl + `apartments/${this.$route.params.slug}`;
     },
   },
 

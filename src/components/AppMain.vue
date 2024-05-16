@@ -67,7 +67,7 @@ export default {
             :class="apartment.sponsorships ? 'sponsorshpis' : ''"
           >
             <router-link
-              :to="{ name: 'apartment.show', params: { id: apartment.id } }"
+              :to="{ name: 'apartment.show', params: { slug: apartment.slug } }"
             >
               <img
                 :src="apartment.cover_img"
@@ -77,7 +77,10 @@ export default {
             </router-link>
             <div class="card-body">
               <router-link
-                :to="{ name: 'apartment.show', params: { id: apartment.id } }"
+                :to="{
+                  name: 'apartment.show',
+                  params: { slug: apartment.slug },
+                }"
               >
                 <div class="d-flex">
                   <h5 class="card-title">
@@ -97,7 +100,10 @@ export default {
                 >{{ apartment.address }}
               </p>
               <router-link
-                :to="{ name: 'apartment.show', params: { id: apartment.id } }"
+                :to="{
+                  name: 'apartment.show',
+                  params: { slug: apartment.slug },
+                }"
               >
                 <button class="btn text-badg-1">
                   Vai all'appartamento
