@@ -43,6 +43,8 @@ export default {
 
   created() {
     this.fetchApartmentId();
+
+    window.scrollTo(0, -7);
   },
 
   components: { AppShowCarousel, AppShowMessages, AppShowServices, AppShowMap },
