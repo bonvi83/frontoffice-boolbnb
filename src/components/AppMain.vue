@@ -79,11 +79,23 @@ export default {
               <router-link
                 :to="{ name: 'apartment.show', params: { id: apartment.id } }"
               >
-                <h5 class="card-title">
-                  {{ apartment.name }}
-                </h5>
+                <div class="d-flex">
+                  <h5 class="card-title">
+                    {{ apartment.name }}
+                  </h5>
+                  <span
+                    ><font-awesome-icon
+                      v-if="apartment.sponsorships"
+                      icon="star"
+                      style="color: #ffd43b"
+                  /></span>
+                </div>
               </router-link>
-              <p>{{ apartment.address }}</p>
+              <p>
+                <span class="me-1"
+                  ><font-awesome-icon icon="location-dot" /></span
+                >{{ apartment.address }}
+              </p>
               <router-link
                 :to="{ name: 'apartment.show', params: { id: apartment.id } }"
               >
