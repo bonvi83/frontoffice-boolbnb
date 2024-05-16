@@ -98,7 +98,8 @@ export default {
             <i class="fa-solid fa-envelope"></i>
           </button>
           <!-- Messaggio inviato -->
-          <span v-if="messageSent" class="ms-4 text-success">Messaggio inviato!</span>
+          <!-- <p v-if="messageSent" class="ms-4 text-success">Messaggio inviato!</p> -->
+          <p :class="messageSent ? 'opacity-100': ''" class="opacity-0 mt-2 text-success">Messaggio inviato!</p>
         </div>
 
         <!-- Modale -->
