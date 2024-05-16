@@ -51,7 +51,7 @@ export default {
 <template>
   <AppMainHero />
 
-  <section class="container-fluid mb-3">
+  <section class="container-fluid">
     <div class="mb-2">
       <div class="mt-5 border-bottom border-primary">
         <h2>Appartamenti in evidenza</h2>
@@ -97,7 +97,11 @@ export default {
         </div>
 
         <!--  paginazione -->
-        <nav v-if="totalPage > 1" aria-label="Page navigation example">
+        <nav
+          v-if="totalPage > 1"
+          aria-label="Page navigation example"
+          class="mb-4"
+        >
           <ul class="pagination">
             <li class="page-item" v-for="link in pagLinks">
               <a

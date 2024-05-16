@@ -2,15 +2,15 @@
 import AppMain from "./components/AppMain.vue";
 import AppHeader from "./components/AppHeader.vue";
 import AppFooter from "./components/AppFooter.vue";
-import { store } from "./store"
+import { store } from "./store";
 
 export default {
   data() {
-    return {  store  };
+    return { store };
   },
 
-  methods: { },
-  
+  methods: {},
+
   props: {},
 
   components: { AppHeader, AppMain, AppFooter },
@@ -19,23 +19,15 @@ export default {
 
 <template>
   <div id="app">
+    <div class="page-container">
+      <AppHeader />
 
-        <div class="page-container">
-          <AppHeader/>
-          
-          
-          <div class="main-container">
+      <div class="main-container">
+        <router-view />
 
-          <router-view />
-  
-          
-          </div>
-
-          <AppFooter/>
-
-        </div>
-
-    
+        <AppFooter />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -47,8 +39,14 @@ export default {
   flex-direction: column;
   height: 100vh;
 
+  .AppHeader {
+    position: sticky;
+  }
+
   .main-container {
+    height: calc(100vh - 90px);
     flex-grow: 1;
+    overflow: auto;
   }
 }
 </style>
