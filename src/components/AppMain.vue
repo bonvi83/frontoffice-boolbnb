@@ -16,7 +16,8 @@ export default {
   methods: {
     fetchApartments() {
       axios.get(`http://127.0.0.1:8000/api/apartments`).then((res) => {
-        this.apartments = res.data;
+        this.apartments = res.data.data;
+        console.log(this.apartments);
       });
     },
 
@@ -51,7 +52,8 @@ export default {
           v-for="apartment in apartments.slice(0, 4)"
           class="col-12 col-sm-6 col-md-4 col-lg-3"
         >
-          <div class="card h-100">
+          <div class="card h-100"
+          :class="apartment.sponsorships ? 'sponsorshpis' : ''">
             <router-link
               :to="{ name: 'apartment.show', params: { id: apartment.id } }"
             >
@@ -72,7 +74,7 @@ export default {
               <p>{{ apartment.address }}</p>
               <router-link
                 :to="{ name: 'apartment.show', params: { id: apartment.id } }">
-                <button class="btn btn-primary">
+                <button class="btn text-badg-1">
                   Vai all'appartamento
                   <i class="fa-solid fa-circle-arrow-right"></i>
                 </button>
@@ -80,42 +82,6 @@ export default {
             </div>
           </div>
         </div>
-
-        <!-- <div class="card">
-          <img
-            src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
-            class="card-img-top"
-            alt="immagine mancante"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Titolo casa</h5>
-            <a href="#" class="btn btn-primary">Vedi info</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <img
-            src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
-            class="card-img-top"
-            alt="immagine mancante"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Titolo casa</h5>
-            <a href="#" class="btn btn-primary">Vedi info</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <img
-            src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
-            class="card-img-top"
-            alt="immagine mancante"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Titolo casa</h5>
-            <a href="#" class="btn btn-primary">Vedi info</a>
-          </div>
-        </div> -->
       </div>
     </div>
 
@@ -146,51 +112,16 @@ export default {
                 </a>
               </h5>
               <p>{{ apartment.address }}</p>
-              <!-- <a href="#">Vedi i dettagli
-                <i class="fa-solid fa-eye"></i>
-              </a> -->
+
               <router-link
                 :to="{ name: 'apartment.show', params: { id: apartment.id } }">
-                <button class="btn btn-primary">
+                <button class="btn text-badg-1">
                   Vai all'appartamento
                   <i class="fa-solid fa-circle-arrow-right"></i>
                 </button>
               </router-link>
             </div>
           </div>
-
-          <!-- <div class="card">
-          <img
-            src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
-            class="card-img-top"
-            alt="immagine mancante"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Titolo casa</h5>
-            <a href="#" class="btn btn-primary">Vedi info</a>
-          </div>
-        </div>
-
-                <div class="card">
-                    <img src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
-                        class="card-img-top" alt="immagine mancante" />
-                    <div class="card-body">
-                        <h5 class="card-title">Titolo casa</h5>
-                        <a href="#" class="btn btn-primary">Vedi info</a>
-                    </div>
-                </div>
-
-        <div class="card">
-          <img
-            src="../assets/01_Loggia_degli_Osii_in_Piazza_Mercanti,_Milano_-_Foto_Giovanni_Dall'Orto,_3-gen-2007.jpeg"
-            class="card-img-top"
-            alt="immagine mancante"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Titolo casa</h5>
-            <a href="#" class="btn btn-primary">Vedi info</a>
-          </div>
-        </div> -->
         </div>
       </div>
     </div>
@@ -199,6 +130,8 @@ export default {
 
 <style lang="scss" scoped>
 .card {
+  box-shadow: 1px 1px 10px -5px #000000;
+  color: rgb(0, 42, 56);
   img:hover {
     opacity: 0.7;
   }
@@ -206,20 +139,34 @@ export default {
   .card-body {
     a {
       text-decoration: none;
-      color: inherit;
-    }
-
-    a:hover {
-      opacity: 0.6;
+      color: rgb(0, 42, 56) ;
+      cursor: pointer;
     }
   }
 
   .card-title {
     font-weight: bold;
   }
+  .text-badg-1{
+	color: rgb(228, 211, 211);
+	background-color: rgb(0, 42, 56);
+	opacity: 0.7;
+	cursor: pointer;
+	&:hover{
+		opacity: 1;
+
+	}
+
+}
 }
 .image-card {
   height: 280px;
   object-fit: cover;
 }
+.sponsorshpis{
+    border: #f5c909;
+    box-shadow: 1px 1px 10px -5px #000000, 1px 1px 10px 1px #f5c909;
+  }
+
+
 </style>

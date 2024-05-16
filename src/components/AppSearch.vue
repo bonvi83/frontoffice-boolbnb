@@ -216,7 +216,8 @@ export default {
         v-for="apartment in store.apartments"
         class="col-sm-12 col-md-6 col-lg-3 my-4"
       >
-        <div class="card h-100 apartment-card">
+        <div class="card h-100 apartment-card"
+        :class="apartment.sponsorships ? 'sponsorshpis' : ''">
             <router-link
               :to="{ name: 'apartment.show', params: { id: apartment.id } }"
             >
@@ -480,4 +481,8 @@ export default {
     border: 1px solid rgb(36, 36, 36,0.3);
     box-shadow: 0px 7px 9px -7px rgba(0,0,0,0.3);
 }
+.sponsorshpis{
+    border: #f5c909;
+    box-shadow: 1px 1px 10px -5px #000000, 1px 1px 10px 1px #f5c909;
+  }
 </style>
