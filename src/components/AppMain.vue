@@ -70,6 +70,13 @@ export default {
                 </h5>
               </router-link>
               <p>{{ apartment.address }}</p>
+              <router-link
+                :to="{ name: 'apartment.show', params: { id: apartment.id } }">
+                <button class="btn btn-primary">
+                  Vai all'appartamento
+                  <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -142,6 +149,13 @@ export default {
               <!-- <a href="#">Vedi i dettagli
                 <i class="fa-solid fa-eye"></i>
               </a> -->
+              <router-link
+                :to="{ name: 'apartment.show', params: { id: apartment.id } }">
+                <button class="btn btn-primary">
+                  Vai all'appartamento
+                  <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+              </router-link>
             </div>
           </div>
 
