@@ -84,7 +84,10 @@ export default {
             </li> -->
 
             <li class="nav-item" @click="clearStore()">
-              <a class="nav-link active" href="http://127.0.0.1:8000/">
+              <a
+                class="nav-link active"
+                href="http://127.0.0.1:8000/admin/dashboard"
+              >
                 <img src="../assets/person.svg" alt="Logo" />
                 <span class="d-none d-lg-inline-block">Accedi</span>
               </a>
