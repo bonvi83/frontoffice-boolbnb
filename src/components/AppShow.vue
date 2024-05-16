@@ -51,15 +51,16 @@ export default {
 
 <template>
   <div class="container">
-
-    <div class="mt-3" >
-      <button @click="$router.back()" class="btn btn-primary ">
+    <div class="mt-3">
+      <button @click="$router.back()" class="btn btn-primary">
         <i class="fa-solid fa-arrow-left"></i>
-        <span class=" d-none d-sm-inline"> Torna Indietro</span>
+        <span class="d-none d-sm-inline"> Torna Indietro</span>
       </button>
     </div>
 
-    <div class="row text-center  justify-content-between align-items-center my-3">
+    <div
+      class="row text-center justify-content-between align-items-center my-3"
+    >
       <div class="col-12 col-md-6 text-md-start">
         <h1>{{ name }}</h1>
 
@@ -70,7 +71,6 @@ export default {
         <AppShowMessages :apartmentId="apartmentId"></AppShowMessages>
       </div>
     </div>
-
   </div>
 
   <div>
@@ -80,7 +80,7 @@ export default {
   <div class="container my-4">
     <div class="row g-4">
       <div class="col-8">
-        <div class="card h-100" style="max-height: 450px;">
+        <div class="card h-100" style="max-height: 450px">
           <div class="card-header">Descrizione</div>
           <div class="card-body">
             <!-- nr stanze -->
@@ -98,30 +98,23 @@ export default {
             <!-- descrizione -->
             <div class="fs-5"><strong>Descrizione:</strong></div>
             <div class="apartment-desc">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Asperiores ullam aspernatur maiores natus corporis doloremque
-              laborum provident fugiat labore, aut totam ex cum in accusantium
-              sint saepe laboriosam quis earum. Officiis amet deserunt dolores
-              hic rerum itaque, sit repellat commodi laborum est nihil quis
-              sequi vero temporibus. Nemo veritatis sed similique facere esse
-              quod aliquam, quibusdam fugit aliquid omnis animi! Delectus
-              tenetur id obcaecati earum fugit voluptas magni adipisci ea
-              quibusdam dolore sequi dolor porro aliquid numquam consectetur
-              quasi saepe eveniet iste at, natus cupiditate iusto. Totam
-              doloremque sit veniam! Culpa maxime fugit illum laboriosam optio
-              laborum officiis? Rem dolor nesciunt, ipsa id rerum aliquam quae
-              blanditiis facilis doloremque error officiis nemo necessitatibus!
-              At ipsa sit recusandae minima blanditiis doloremque? Vel, ullam?
-              Porro, repudiandae. Iure velit qui rem nobis iste minima
-              repudiandae ipsam facere at, doloremque et, excepturi optio libero
-              temporibus nihil enim asperiores veritatis nemo. Expedita animi
-              eius et!
+              Benvenuti in questo elegante appartamento situato nel cuore
+              pulsante di Milano. Situato in una posizione privilegiata, a pochi
+              passi dai principali punti di interesse culturale e commerciale
+              della città, questo appartamento rappresenta la perfetta fusione
+              di comfort moderno e fascino storico. Questo appartamento
+              rappresenta una rara opportunità di vivere nel cuore di Milano,
+              con tutti i comfort moderni e il fascino della storicità. Perfetto
+              per chi cerca un'abitazione di prestigio in una delle città più
+              dinamiche e affascinanti d'Italia. Non perdete l'occasione di
+              visitare questa splendida proprietà. Per maggiori informazioni o
+              per prenotare una visita, non esitate a contattarci.
             </div>
           </div>
         </div>
       </div>
       <div class="col-4">
-        <div class="card h-100" style="max-height: 450px;">
+        <div class="card h-100" style="max-height: 450px">
           <div class="card-header">Servizi</div>
           <div class="card-body overflow-auto">
             <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-3">
@@ -148,7 +141,6 @@ export default {
 //     font-size: larger;
 //   }
 // }
-
 
 .apartment-desc {
   height: 150px;
