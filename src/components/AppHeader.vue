@@ -27,7 +27,7 @@ export default {
 };
 </script>
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light">
     <!-- logo -->
 
     <div class="container-fluid">
@@ -96,6 +96,11 @@ export default {
   </nav>
 </template>
 <style lang="scss" scoped>
+.navbar.fixed-top.navbar-expand-lg.navbar-light {
+  height: 100px;
+  background-color: rgba($color: white, $alpha: 0.85);
+}
+
 img {
   height: 90px;
 }
