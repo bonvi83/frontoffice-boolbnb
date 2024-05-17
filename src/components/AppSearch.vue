@@ -236,7 +236,7 @@ export default {
   </div>
 
   <!-- Apartment -->
-  <div class="m-sm-2 m-md-3 m-lg-4 m-xl-5 pb-3">
+  <div class="m-sm-2 m-md-3 m-lg-4 m-xl-5 pb-3" :class="store.apartments.length ? '' : 'special'">
     <div class="row g-sm-2 g-md-3 g-lg-4 mb-5">
       <div
         v-for="apartment in store.apartments"
@@ -461,6 +461,24 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* .special{
+  height: calc(52vh);
+} */
+@media screen and (max-width: 570px) {
+  .special {
+    height: 59vh;
+  }
+}
+@media screen and (min-width: 571px) {
+  .special {
+    height: 57vh;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .special {
+    height: 52vh;
+  }
+}
 .servis-container {
   width: 90vw;
   .text-service-name {
