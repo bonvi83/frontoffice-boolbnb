@@ -476,7 +476,7 @@ export default {
 }
 @media screen and (min-width: 1200px) {
   .special {
-    height: 52vh;
+    height: 50.4vh;
   }
 }
 .servis-container {
