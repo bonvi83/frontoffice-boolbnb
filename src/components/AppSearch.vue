@@ -179,7 +179,7 @@ export default {
     </div>
   </div>
   <!-- Selected Filter -->
-  <div class="container d-flex justify-content-center align-items-center">
+  <div class="container d-flex justify-content-center align-items-center mt-2">
     <h5
       class="mb-0 me-2 selected-filter-title"
       v-if="n_room || n_bathroom || n_bed || squere_meters || floor"
