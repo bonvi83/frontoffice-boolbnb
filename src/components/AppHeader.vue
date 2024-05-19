@@ -123,7 +123,18 @@ li.nav-item {
       height: 33px;
     }
   }
+
+  img {
+    padding: 10px 0;
+  }
+
+  .navbar .container-fluid {
+    align-items: baseline;
+  }
+
 }
+
+
 
 .navbar-wrapper {
   /* 

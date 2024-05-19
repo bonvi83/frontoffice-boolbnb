@@ -52,7 +52,7 @@ export default {
           </div>
 
           <div class=" d-flex justify-content-center align-items-center">
-            <div class="w-75">
+            <div class="search-bar-container">
               <search-bar></search-bar>
             </div>
           </div>
@@ -63,6 +63,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+.search-bar-container {
+  max-width: 700px;
+  width: 100%;
+}
+
 .search-bar {
   background-color: white;
 }
