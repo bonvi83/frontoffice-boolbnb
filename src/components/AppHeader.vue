@@ -27,7 +27,7 @@ export default {
 };
 </script>
 <template>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <!-- logo -->
 
     <div class="container-fluid">
@@ -73,15 +73,6 @@ export default {
                 </span></router-link
               >
             </li>
-            <!-- <li class="nav-item align-self-center">
-              <router-link
-                :to="{ name: 'apartments.search' }"
-                class="nav-link active"
-                aria-current="page"
-                ><img src="../assets/search.svg" alt="Logo" class="me-2" />
-                <span class="d-none d-lg-inline-block"> Cerca </span>
-              </router-link>
-            </li> -->
 
             <li class="nav-item" @click="clearStore()">
               <a
@@ -99,11 +90,6 @@ export default {
   </nav>
 </template>
 <style lang="scss" scoped>
-.navbar.fixed-top.navbar-expand-lg.navbar-light {
-  height: 100px;
-  background-color: rgba($color: white, $alpha: 0.85);
-}
-
 img {
   height: 90px;
 }
@@ -131,16 +117,9 @@ li.nav-item {
   .navbar .container-fluid {
     align-items: baseline;
   }
-
 }
 
-
-
 .navbar-wrapper {
-  /* 
-        width: 632px;
-        display: flex;
-        flex-grow: 1;*/
   ul {
     width: 100%;
     display: flex;

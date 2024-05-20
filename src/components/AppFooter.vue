@@ -20,7 +20,6 @@
           BoolBnB &copy;, Group 1 S.r.l <br />
           Made with &hearts; by Group 1
         </div>
-        <!-- <p style="font-size: 10px" class="fw-lighter"></p> -->
       </div>
 
       <div>
@@ -64,11 +63,6 @@ footer {
   min-height: 100px;
   background-color: rgb(0, 42, 56);
 }
-
-// .container {
-//   align-items: baseline;
-//   display: flex;
-// }
 
 .logo {
   height: 70px;

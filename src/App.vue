@@ -39,12 +39,12 @@ export default {
   flex-direction: column;
   height: 100vh;
 
-  // .AppHeader {
-  //   position: fixed;
-  // }
+  .AppHeader {
+    position: sticky;
+    top: 0;
+  }
 
   .main-container {
-    padding-top: 100px;
     height: 100vh;
     flex-grow: 1;
     overflow: auto;
