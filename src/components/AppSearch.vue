@@ -123,184 +123,198 @@ export default {
 <template>
   <div class="mt-3 container-fluid">
     <div class="row justify-content-center">
-      <div class="col-6">
+      <div class="col-lg-6">
         <search-bar class="search-cotumized"></search-bar>
       </div>
     </div>
   </div>
-  <!-- Button trigger modal -->
-  <div
-    class="d-flex justify-content-between align-items-center px-3 trigger-modal"
-  >
-    <div class="d-flex">
-      <div class="servis-container me-3 d-none d-sm-block">
-        <div class="p-3">
-          <vue-horizontal responsive :button="true" class="horizontal">
-            <section
-              v-for="service in services"
-              :key="service.id"
-              class="text-center mx-2"
-            >
-              <div class="servis-icon" @click="setFilterServices(service.id)">
-                <img
-                  :src="service.icon"
-                  alt=""
-                  style="width: 45px"
-                  class="opacity-25"
-                  :class="{
-                    'opacity-100 w': selectedServices.includes(service.id),
-                  }"
-                />
-              </div>
-              <div
-                class="text-service-name"
-                :class="{
-                  'text-success fs-6': selectedServices.includes(service.id),
-                }"
+
+  <div class="container-fluid">
+    <!-- Button trigger modal -->
+    <div class="row justify-content-between align-items-center trigger-modal">
+      <div class="col-10">
+        <div class="servis-container me-3 d-none d-sm-block">
+          <div class="p-3">
+            <vue-horizontal responsive :button="true" class="horizontal">
+              <section
+                v-for="service in services"
+                :key="service.id"
+                class="text-center mx-2"
               >
-                {{ service.name.toUpperCase() }}
-              </div>
-            </section>
-          </vue-horizontal>
-        </div>
-      </div>
-    </div>
-
-    <!-- button dei filtri della modalle-->
-    <div class="m-3">
-      <button
-        type="button"
-        class="btn text-badg-1"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        Filtri
-      </button>
-    </div>
-  </div>
-  <!-- Selected Filter -->
-  <div class="container d-flex justify-content-center align-items-center mt-2">
-    <h5
-      class="mb-0 me-2 selected-filter-title"
-      v-if="n_room || n_bathroom || n_bed || squere_meters || floor"
-    >
-      Filtri Selezionati:
-    </h5>
-    <div>
-      <div class="badge rounded-pill text-badg-1 emx-1" v-if="n_room">
-        Camere: {{ n_room }}
-        <span
-          @click="removeFilter('n_room')"
-          class="ms-2 text-danger"
-          style="cursor: pointer"
-          >&times;</span
-        >
-      </div>
-      <div class="badge rounded-pill text-badg-1 mx-1" v-if="n_bathroom">
-        Bagni: {{ n_bathroom }}
-        <span
-          @click="removeFilter('n_bathroom')"
-          class="ms-2 text-danger"
-          style="cursor: pointer"
-          >&times;</span
-        >
-      </div>
-      <div class="badge rounded-pill text-badg-1 mx-1" v-if="n_bed">
-        Posti Letto: {{ n_bed }}
-        <span
-          @click="removeFilter('n_bed')"
-          class="ms-2 text-danger"
-          style="cursor: pointer"
-          >&times;</span
-        >
-      </div>
-      <div class="badge rounded-pill text-badg-1 mx-1" v-if="squere_meters">
-        Superficie: {{ squere_meters }}
-        <span
-          @click="removeFilter('squere_meters')"
-          class="ms-2 text-danger"
-          style="cursor: pointer"
-          >&times;</span
-        >
-      </div>
-      <div class="badge rounded-pill text-badg-1 mx-1" v-if="floor">
-        Piano: {{ floor }}
-        <span
-          @click="removeFilter('floor')"
-          class="ms-2 text-danger"
-          style="cursor: pointer"
-          >&times;</span
-        >
-      </div>
-    </div>
-  </div>
-
-  <!-- Apartment -->
-  <div class="m-sm-2 m-md-3 m-lg-4 m-xl-5 pb-3" :class="store.apartments.length ? '' : 'special'">
-    <div class="row g-sm-2 g-md-3 g-lg-4 mb-5">
-      <div
-        v-for="apartment in store.apartments"
-        class="col-sm-12 col-md-6 col-lg-3 my-4"
-      >
-        <div
-          class="card h-100 apartment-card"
-          :class="apartment.sponsorships ? 'sponsorshpis' : ''"
-        >
-          <router-link
-            :to="{ name: 'apartment.show', params: { slug: apartment.slug } }"
-          >
-            <img
-              :src="apartment.cover_img || 'https://placehold.co/600x400'"
-              class="card-img-top image-card"
-              alt="..."
-            />
-          </router-link>
-
-          <div class="card-body">
-            <div class="d-flex">
-              <h5 class="card-title me-1">{{ apartment.name }}</h5>
-              <span
-                ><font-awesome-icon
-                  v-if="apartment.sponsorships"
-                  icon="star"
-                  style="color: #ffd43b"
-              /></span>
-            </div>
-            <p class="card-text">
-              <span class="me-1"><font-awesome-icon icon="location-dot" /></span
-              >{{ apartment.address }}
-              <div> <font-awesome-icon icon="fa-solid fa-map-pin" class="me-1"/>Distanza: {{ apartment.distance}} Km</div>
-            </p>
-            <router-link
-              :to="{ name: 'apartment.show', params: { slug: apartment.slug } }"
-            >
-           
-              <button class="btn text-badg-1">
-                Vai all'appartamento
-                <i class="fa-solid fa-circle-arrow-right"></i>
-              </button>
-            </router-link>
+                <div class="servis-icon" @click="setFilterServices(service.id)">
+                  <img
+                    :src="service.icon"
+                    alt=""
+                    style="width: 45px"
+                    class="opacity-25"
+                    :class="{
+                      'opacity-100 w': selectedServices.includes(service.id),
+                    }"
+                  />
+                </div>
+                <div
+                  class="text-service-name"
+                  :class="{
+                    'text-success fs-6': selectedServices.includes(service.id),
+                  }"
+                >
+                  {{ service.name.toUpperCase() }}
+                </div>
+              </section>
+            </vue-horizontal>
           </div>
         </div>
       </div>
+
+      <!-- button dei filtri della modalle-->
+      <div class="col-2 d-flex justify-content-end my-2">
+        <button
+          type="button"
+          class="btn text-badg-1"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Filtri
+        </button>
+      </div>
     </div>
-    <!--  paginazione -->
-    <nav v-if="store.totalPage > 1" aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item" v-for="link in store.pagLinks">
-          <a
-            class="page-link"
-            :class="{
-              active: link.active,
-              disabled: !link.url,
-            }"
-            v-html="link.label"
-            href="javascript:void(0)"
-            @click="paginationNav(store.paginationBaseURL + link.url)"
-          ></a>
-        </li>
-      </ul>
-    </nav>
+    <!-- Selected Filter -->
+    <div
+      class="container d-flex justify-content-center align-items-center mt-2"
+    >
+      <h5
+        class="mb-0 me-2 selected-filter-title"
+        v-if="n_room || n_bathroom || n_bed || squere_meters || floor"
+      >
+        Filtri Selezionati:
+      </h5>
+      <div>
+        <div class="badge rounded-pill text-badg-1 emx-1" v-if="n_room">
+          Camere: {{ n_room }}
+          <span
+            @click="removeFilter('n_room')"
+            class="ms-2 text-danger"
+            style="cursor: pointer"
+            >&times;</span
+          >
+        </div>
+        <div class="badge rounded-pill text-badg-1 mx-1" v-if="n_bathroom">
+          Bagni: {{ n_bathroom }}
+          <span
+            @click="removeFilter('n_bathroom')"
+            class="ms-2 text-danger"
+            style="cursor: pointer"
+            >&times;</span
+          >
+        </div>
+        <div class="badge rounded-pill text-badg-1 mx-1" v-if="n_bed">
+          Posti Letto: {{ n_bed }}
+          <span
+            @click="removeFilter('n_bed')"
+            class="ms-2 text-danger"
+            style="cursor: pointer"
+            >&times;</span
+          >
+        </div>
+        <div class="badge rounded-pill text-badg-1 mx-1" v-if="squere_meters">
+          Superficie: {{ squere_meters }}
+          <span
+            @click="removeFilter('squere_meters')"
+            class="ms-2 text-danger"
+            style="cursor: pointer"
+            >&times;</span
+          >
+        </div>
+        <div class="badge rounded-pill text-badg-1 mx-1" v-if="floor">
+          Piano: {{ floor }}
+          <span
+            @click="removeFilter('floor')"
+            class="ms-2 text-danger"
+            style="cursor: pointer"
+            >&times;</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Apartment -->
+    <div
+      class="m-sm-2 m-md-3 m-lg-4 m-xl-5 pb-3"
+      :class="store.apartments.length ? '' : 'special'"
+    >
+      <div class="row g-sm-2 g-md-3 g-lg-4 mb-5">
+        <div
+          v-for="apartment in store.apartments"
+          class="col-sm-12 col-md-6 col-lg-3 my-4"
+        >
+          <div
+            class="card h-100 apartment-card"
+            :class="apartment.sponsorships ? 'sponsorshpis' : ''"
+          >
+            <router-link
+              :to="{ name: 'apartment.show', params: { slug: apartment.slug } }"
+            >
+              <img
+                :src="apartment.cover_img || 'https://placehold.co/600x400'"
+                class="card-img-top image-card"
+                alt="..."
+              />
+            </router-link>
+
+            <div class="card-body">
+              <div class="d-flex">
+                <h5 class="card-title me-1">{{ apartment.name }}</h5>
+                <span
+                  ><font-awesome-icon
+                    v-if="apartment.sponsorships"
+                    icon="star"
+                    style="color: #ffd43b"
+                /></span>
+              </div>
+              <p class="card-text">
+                <span class="me-1"
+                  ><font-awesome-icon icon="location-dot" /></span
+                >{{ apartment.address }}
+                <span>
+                  <font-awesome-icon
+                    icon="fa-solid fa-map-pin"
+                    class="me-1"
+                  />Distanza: {{ apartment.distance }} Km</span
+                >
+              </p>
+              <router-link
+                :to="{
+                  name: 'apartment.show',
+                  params: { slug: apartment.slug },
+                }"
+              >
+                <button class="btn text-badg-1">
+                  Vai all'appartamento
+                  <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  paginazione -->
+      <nav v-if="store.totalPage > 1" aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" v-for="link in store.pagLinks">
+            <a
+              class="page-link"
+              :class="{
+                active: link.active,
+                disabled: !link.url,
+              }"
+              v-html="link.label"
+              href="javascript:void(0)"
+              @click="paginationNav(store.paginationBaseURL + link.url)"
+            ></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
   <!-- Modal -->
