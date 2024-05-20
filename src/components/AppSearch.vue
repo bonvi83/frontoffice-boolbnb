@@ -275,7 +275,7 @@ export default {
                 <span class="me-1"
                   ><font-awesome-icon icon="location-dot" /></span
                 >{{ apartment.address }}
-                <span>
+                <span class="d-block">
                   <font-awesome-icon
                     icon="fa-solid fa-map-pin"
                     class="me-1"
