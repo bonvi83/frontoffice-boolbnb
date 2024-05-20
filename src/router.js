@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import AppMain from "./components/AppMain.vue";
-import AppApartments from "./components/AppApartments.vue";
+import AppSearch from "./components/AppSearch.vue";
+import AppShow from "./components/AppShow.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,11 +14,16 @@ const router = createRouter({
     },
 
     {
-      path: "/apartments-view",
-      name: "apartments.view",
-      component: AppApartments,
+      path: "/apartments-search",
+      name: "apartments.search",
+      component: AppSearch,
     },
-    
+
+    {
+      path: "/apartment/:slug",
+      name: "apartment.show",
+      component: AppShow,
+    },
   ],
 });
 
