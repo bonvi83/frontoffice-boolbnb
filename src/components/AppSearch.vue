@@ -269,10 +269,12 @@ export default {
             <p class="card-text">
               <span class="me-1"><font-awesome-icon icon="location-dot" /></span
               >{{ apartment.address }}
+              <div> <font-awesome-icon icon="fa-solid fa-map-pin" class="me-1"/>Distanza: {{ apartment.distance}} Km</div>
             </p>
             <router-link
               :to="{ name: 'apartment.show', params: { slug: apartment.slug } }"
             >
+           
               <button class="btn text-badg-1">
                 Vai all'appartamento
                 <i class="fa-solid fa-circle-arrow-right"></i>
